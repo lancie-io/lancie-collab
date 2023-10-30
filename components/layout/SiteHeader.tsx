@@ -8,7 +8,7 @@ const SiteHeader = () => {
     <div className="border-b ">
       <Container className="flex items-center justify-between h-14 md:h-16">
         <Link href="/">
-          <Icons.logoText className="h-4 md:h-5" />
+          <Icons.logoFull className="h-5 md:h-6" />
         </Link>
         <GoToAppButton>Sign Up</GoToAppButton>
       </Container>
