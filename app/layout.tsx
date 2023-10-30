@@ -1,4 +1,5 @@
 import AuthProvider from '@/components/providers/AuthProvider';
+import ToasterProvider from '@/components/providers/ToasterProvider';
 import { ModalProvider } from '@/components/shared/modal';
 import { inter } from '@/lib/fonts';
 import type { Metadata } from 'next';
@@ -21,10 +22,12 @@ export default function RootLayout({
       <body className={`${inter.className}`}>
         <main className="flex min-h-screen flex-col">
           <AuthProvider>
-            <ModalProvider>
-              {children}
-              {modal}
-            </ModalProvider>
+            <ToasterProvider>
+              <ModalProvider>
+                {children}
+                {modal}
+              </ModalProvider>
+            </ToasterProvider>
           </AuthProvider>
         </main>
       </body>

@@ -22,7 +22,7 @@ export const authOptions: NextAuthOptions = {
     async signIn() {
       return true;
     },
-    async session({ token, session }: any) {
+    async session({ token, session }) {
       if (token) {
         session.user.id = token.id;
         session.user.name = token.name;
@@ -35,7 +35,7 @@ export const authOptions: NextAuthOptions = {
     async jwt({ token, user }: any) {
       const dbUser = await prisma.user.findFirst({
         where: {
-          email: token.email,
+          email: token.email!,
         },
       });
 
