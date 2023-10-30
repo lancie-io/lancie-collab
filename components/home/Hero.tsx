@@ -8,7 +8,10 @@ const Hero = () => {
   return (
     <section>
       <Container className="flex flex-col items-center gap-4">
-        <Title as="h1" className="text-4xl lg:text-7xl text-center">
+        <Title
+          as="h1"
+          className="text-4xl lg:text-7xl text-center tracking-[-0.04em] font-extrabold"
+        >
           The fastest path to production
         </Title>
         <p className="text-lg text-center max-w-[800px]">

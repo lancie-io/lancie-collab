@@ -1,5 +1,6 @@
 import ModuleButton from '@/components/project/ModuleButton';
 import Avatar from '@/components/shared/Avatar';
+import Title from '@/components/shared/Title';
 import { Button } from '@/components/ui/button';
 import { getAuthUser } from '@/lib/auth';
 import prisma from '@/lib/prisma';
@@ -35,7 +36,9 @@ const ProjectPage = async ({ params }: { params: { id: string } }) => {
           <Home className="group-hover:text-secondary" />
         </Link>
 
-        <div className="mr-auto pl-4 text-lg font-medium">{project.name}</div>
+        <div className="mr-auto pl-4">
+          <Title className="text-lg">{project.name}</Title>
+        </div>
         <div className="flex items-center gap-6">
           <Avatar className="h-8 w-8" data={user} />
           <Button size="sm">Share</Button>
