@@ -13,8 +13,9 @@ const FormSubmitButton = ({
 }: FormSubmitButtonProps) => {
   const { className } = props;
   const statusStrings = generateStatusStrings(label);
+
   return (
-    <Button className={cn('', className)} type="submit">
+    <Button className={cn('', className)} type="submit" disabled={isSubmitting}>
       {isSubmitting ? statusStrings.submitting : statusStrings.default}
     </Button>
   );

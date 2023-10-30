@@ -10,7 +10,7 @@ const ToasterProvider = ({ children }: { children: React.ReactNode }) => {
       <Toaster
         toastOptions={{
           // Define default options
-          position: 'top-left',
+          position: 'top-center',
           duration: 3000,
           style: {
             padding: '12px 12px 12px 12px',

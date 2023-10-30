@@ -11,8 +11,8 @@ export function generateStatusStrings(word: string) {
   const endsWithVowel = vowels.includes(word[word.length - 1]);
 
   const submitting = endsWithVowel
-    ? `${word}ing...`
-    : `${word.slice(0, -1)}ing...`;
+    ? `${word.slice(0, -1)}ing...`
+    : `${word}ing...`;
 
   return {
     default: word,
