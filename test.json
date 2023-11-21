@@ -1,0 +1,12 @@
+[
+  {
+    "id": "66215",
+    "type": "text",
+    "extraAttributes": {
+      "label": "Text",
+      "helperText": "This is a text element",
+      "required": false,
+      "placeholder": "Enter text here"
+    }
+  }
+]

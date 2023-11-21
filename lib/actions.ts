@@ -37,3 +37,32 @@ export async function createProject(
     };
   }
 }
+
+export async function saveProject(id: string, content: string) {
+  const user = await getAuthUser();
+  if (!user) {
+    return {
+      success: false,
+      message: 'User not authenticated.',
+    };
+  }
+  try {
+    await prisma.project.update({
+      where: {
+        id: id,
+      },
+      data: {
+        content,
+      },
+    });
+    return {
+      success: true,
+      message: 'Project saved.',
+    };
+  } catch (error) {
+    return {
+      success: false,
+      message: 'Project creation failed.',
+    };
+  }
+}
