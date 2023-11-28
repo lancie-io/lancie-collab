@@ -11,8 +11,8 @@ import {
   BuilderElement,
   BuilderElementInstance,
   ElementType,
-} from '../BuilderElements';
-import useBuilder from '../hooks/useBuilder';
+} from '../../BuilderElements';
+import useBuilder from '../../hooks/useBuilder';
 
 const type: ElementType = 'summary';
 

@@ -21,7 +21,10 @@ model User {
   sessions      Session[]
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt @default(now())
-  projects      Project[]
+  projects      Project[] @relation("Owner")
+  comments      Comment[]
+  memberProjects Project[] @relation("ProjectMembers")
+
 }
 
 model Project {
@@ -30,9 +33,24 @@ model Project {
   description   String?
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt @default(now())
-  user          User      @relation(fields: [userId], references: [id])
+  user          User      @relation("Owner", fields: [userId], references: [id])
   userId        String
   content       Json?
+  comments      Comment[]
+  published     Boolean   @default(false)
+  members       User[]    @relation("ProjectMembers")
+}
+
+model Comment {
+  project      Project   @relation(fields: [projectId], references: [id])
+  projectId    String
+  id           String    @id @default(cuid())
+  content      String?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt @default(now())
+  user         User      @relation(fields: [userId], references: [id])
+  userId       String
+ 
 }
 
 model Account {

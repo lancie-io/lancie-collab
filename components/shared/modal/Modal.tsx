@@ -5,6 +5,7 @@ import { cn } from '@/lib/utils';
 interface ModalProps
   extends React.HTMLAttributes<HTMLDivElement | HTMLFormElement> {
   children: React.ReactNode;
+  maxW?: number;
   as?: 'div' | 'form';
   id?: string;
 }

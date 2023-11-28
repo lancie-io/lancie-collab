@@ -4,8 +4,10 @@ import { Home } from 'lucide-react';
 import Link from 'next/link';
 import Avatar from '../shared/Avatar';
 import Title from '../shared/Title';
-import { Button } from '../ui/button';
+import AvatarStack from './AvatarStack';
+import PublishButton from './PublishButton';
 import SaveButton from './SaveButton';
+import ShareButton from './ShareButton';
 
 interface BuilderHeaderProps {
   project: Prisma.ProjectGetPayload<{}>;
@@ -24,10 +26,12 @@ const BuilderHeader = async ({ project }: BuilderHeaderProps) => {
       <div className="mr-auto pl-4">
         <Title className="text-lg">{project.name}</Title>
       </div>
-      <div className="flex items-center gap-6">
+      <div className="flex items-center gap-3">
+        <AvatarStack />
         <Avatar className="h-8 w-8" data={user} />
         <SaveButton id={project.id} />
-        <Button size="sm">Share</Button>
+        <ShareButton />
+        <PublishButton />
       </div>
     </div>
   );

@@ -4,7 +4,7 @@ import { FinancialsBuilderElement } from './elements/FinancialsBuilderElement';
 import { MapBuilderElement } from './elements/MapBuilderElement';
 import { MoodboardBuilderElement } from './elements/MoodboardBuilderElement';
 import { ResponsibilitiesBuilderElement } from './elements/ResponsibilitiesElement';
-import { SummaryBuilderElement } from './elements/SummaryBuilderElement';
+import { SummaryBuilderElement } from './elements/summary/SummaryBuilderElement';
 import { VideosBuilderElement } from './elements/VideosBuilderElement';
 
 export type ElementType =
