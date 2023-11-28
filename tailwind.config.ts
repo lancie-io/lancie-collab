@@ -18,6 +18,27 @@ const config: Config = {
       },
     },
     extend: {
+      typography: {
+        sm: {
+          css: {
+            color: '#333',
+            a: {
+              color: '#3182ce',
+              '&:hover': {
+                color: '#2c5282',
+              },
+            },
+            '> ul > li p ': {
+              marginTop: 0,
+              marginBottom: 0,
+            },
+            '> ol > li p': {
+              marginTop: 0,
+              marginBottom: 0,
+            },
+          },
+        },
+      },
       colors: {
         brand: {
           400: '#FF8500',
@@ -84,7 +105,7 @@ const config: Config = {
       },
     },
   },
-  plugins: [require('tailwindcss-animate')],
+  plugins: [require('tailwindcss-animate'), require('@tailwindcss/typography')],
 };
 
 export default config;

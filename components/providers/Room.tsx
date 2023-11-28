@@ -4,16 +4,10 @@ import { RoomProvider } from '@/liveblocks.config';
 import { ClientSideSuspense } from '@liveblocks/react';
 import { ReactNode } from 'react';
 
-export function Room({
-  children,
-  roomId,
-}: {
-  children: ReactNode;
-  roomId: string;
-}) {
+export function Room({ children }: { children: ReactNode }) {
   return (
-    <RoomProvider id={roomId} initialPresence={{}}>
-      <ClientSideSuspense fallback={<div>Loading…</div>}>
+    <RoomProvider id="my-room" initialPresence={{}}>
+      <ClientSideSuspense fallback={<div>Loading room…</div>}>
         {() => children}
       </ClientSideSuspense>
     </RoomProvider>

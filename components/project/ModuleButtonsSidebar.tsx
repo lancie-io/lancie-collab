@@ -3,7 +3,7 @@ import ModuleButton from './ModuleButton';
 
 const ModuleButtonsSidebar = () => {
   return (
-    <div className="grid grid-cols-2 gap-3">
+    <div className="grid grid-cols-2 gap-4">
       <ModuleButton builderElement={BuilderElements.summary} />
       <ModuleButton builderElement={BuilderElements.moodboard} />
       <ModuleButton builderElement={BuilderElements.map} />

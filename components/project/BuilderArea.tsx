@@ -119,11 +119,12 @@ const BuilderArea = ({ project, children }: BuilderAreaProps) => {
 
   return (
     <div
-      className="grow p-6 bg-background overflow-scroll flex flex-col"
-      onClick={(e) => {
-        e.stopPropagation();
-        if (selectedElement) setSelectedElement(null);
-      }}
+      className="grow py-12 px-24 bg-muted/50 overflow-scroll flex flex-col"
+      // onClick={(e) => {
+      //   console.log('area clicked');
+      //   e.stopPropagation();
+      //   if (selectedElement) setSelectedElement(null);
+      // }}
     >
       <div
         ref={droppable.setNodeRef}
@@ -141,7 +142,6 @@ const BuilderArea = ({ project, children }: BuilderAreaProps) => {
         {droppable.isOver && elements.length === 0 && (
           <div className="h-[100px] bg-primary/20 rounded-md p-4 w-full" />
         )}
-        {/* <pre>{JSON.stringify(elements, null, 2)}</pre> */}
         {elements.length > 0 && (
           <div className="flex flex-col gap-4 w-full">
             {elements.map((element) => (
@@ -192,17 +192,16 @@ function BuilderElementWrapper({
   const BuilderElement = BuilderElements[element.type].builderComponent;
 
   if (draggable.isDragging) return null;
-  console.log('SELECTED EL: ', selectedElement);
   return (
     <div
       ref={draggable.setNodeRef}
       {...draggable.attributes}
       {...draggable.listeners}
       className="relative"
-      onClick={(e) => {
-        e.stopPropagation();
-        setSelectedElement(element);
-      }}
+      // onClick={(e) => {
+      //   e.stopPropagation();
+      //   setSelectedElement(element);
+      // }}
     >
       <div
         ref={topHalf.setNodeRef}
@@ -218,7 +217,7 @@ function BuilderElementWrapper({
       {bottomHalf.isOver && (
         <div className="absolute -bottom-3 w-full h-2 bg-foreground rounded-lg" />
       )}
-      <div className="border-2 border-ring/20 bg-background rounded-md overflow-hidden">
+      <div className="border-2 border-ring/20 bg-background rounded-md overflow-hidden relative z-10">
         <BuilderElement elementInstance={element} />
       </div>
     </div>

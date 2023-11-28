@@ -1,9 +1,13 @@
 import { createClient } from '@liveblocks/client';
 import { createRoomContext } from '@liveblocks/react';
+import {
+  getLiveBlockUsersByProjectID,
+  getLiveBlockUsersByUserIDs,
+} from './lib/actions';
 
 const client = createClient({
-  publicApiKey: process.env.NEXT_PUBLIC_LIVEBLOCKS_PUBLIC_KEY!,
-  // authEndpoint: "/api/auth",
+  // publicApiKey: process.env.NEXT_PUBLIC_LIVEBLOCKS_PUBLIC_KEY!,
+  authEndpoint: '/api/liveblocks-auth',
   // throttle: 100,
 });
 
@@ -28,6 +32,11 @@ type Storage = {
 // provided by your own custom auth back end (if used). Useful for data that
 // will not change during a session, like a user's name or avatar.
 type UserMeta = {
+  id: string;
+  info: {
+    name: string;
+    avatar: string;
+  };
   // id?: string,  // Accessible through `user.id`
   // info?: Json,  // Accessible through `user.info`
 };
@@ -98,9 +107,20 @@ export const {
       //   avatar: userData.avatar.src,
       // }));
 
-      return [];
+      const usersData = await getLiveBlockUsersByUserIDs(userIds);
+      return [
+        ...usersData.map((userData) => ({
+          name: userData.name as string,
+          avatar: userData.image as string,
+        })),
+      ];
     },
     async resolveMentionSuggestions({ text, roomId }) {
+      let users = await getLiveBlockUsersByProjectID(roomId);
+      if (text) {
+        // Filter any way you'd like, e.g. checking if the name matches
+        users = users.filter((user) => user?.name?.includes(text));
+      }
       // Used only for Comments. Return a list of userIds that match `text`.
       // These userIds are used to create a mention list when typing in the
       // composer.
@@ -121,7 +141,7 @@ export const {
       //   userId.toLowerCase().includes(text.toLowerCase())
       // );
 
-      return [];
+      return users.map((user) => user.id);
     },
   }
 );

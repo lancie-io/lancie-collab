@@ -13,6 +13,7 @@ import {
   ElementType,
 } from '../../BuilderElements';
 import useBuilder from '../../hooks/useBuilder';
+import Editor from './Editor';
 
 const type: ElementType = 'summary';
 
@@ -21,6 +22,7 @@ const extraAttributes = {
   helperText: 'This is a text element',
   required: false,
   placeholder: 'Enter text here',
+  content: '',
 };
 
 const propertiesSchema = z.object({
@@ -44,7 +46,7 @@ export const SummaryBuilderElement: BuilderElement = {
   propertiesComponent: PropertiesComponent,
 };
 
-type CustomInstance = BuilderElementInstance & {
+export type CustomInstance = BuilderElementInstance & {
   extraAttributes: typeof extraAttributes;
 };
 
@@ -117,8 +119,7 @@ function BuilderComponent({
   const element = elementInstance as CustomInstance;
   return (
     <div className="w-full bg-background min-h-[120px]">
-      {element.extraAttributes.label}
-      {Math.random()}
+      <Editor elementInstance={element} />
     </div>
   );
 }

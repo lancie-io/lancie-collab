@@ -73,6 +73,37 @@ export async function saveProject(id: string, content: string) {
   }
 }
 
+export async function getLiveBlockUsersByUserIDs(userIds: string[]) {
+  const users = await prisma.user.findMany({
+    where: {
+      id: {
+        in: userIds,
+      },
+    },
+    select: {
+      id: true,
+      name: true,
+      image: true,
+    },
+  });
+  return [...users];
+}
+
+export async function getLiveBlockUsersByProjectID(id: string) {
+  const project = await prisma.project.findUnique({
+    where: {
+      id: id,
+    },
+    select: {
+      members: true,
+    },
+  });
+  if (!project) {
+    return [];
+  }
+  return [...project.members];
+}
+
 export async function getProjectUsers(id: string) {
   const user = await getAuthUser();
   if (!user) {

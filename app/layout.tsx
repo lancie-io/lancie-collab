@@ -4,6 +4,7 @@ import ToasterProvider from '@/components/providers/ToasterProvider';
 import { ModalProvider } from '@/components/shared/modal';
 import { inter } from '@/lib/fonts';
 import '@liveblocks/react-comments/styles.css';
+import '@liveblocks/react-comments/styles/dark/attributes.css';
 import type { Metadata } from 'next';
 import './globals.css';
 
