@@ -1,5 +1,4 @@
 import { FileText, Upload } from 'lucide-react';
-import ElementBar from '../shared/ElementBar';
 import { FilesCustomInstance } from './FilesBuilderElement';
 
 interface FilesManagerProps {
@@ -9,7 +8,6 @@ interface FilesManagerProps {
 const FilesManager = ({ element }: FilesManagerProps) => {
   return (
     <div>
-      <ElementBar label="Files"></ElementBar>
       <div className="flex flex-wrap p-4 gap-4">
         <FileItem />
         <FileItem />
