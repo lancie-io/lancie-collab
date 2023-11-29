@@ -21,10 +21,10 @@ const ModuleButton = ({ builderElement }: ModuleButtonProps) => {
   return (
     <Button
       ref={draggable.setNodeRef}
-      variant="outline"
+      variant="muted"
       className={cn(
-        'transition duration-150 aspect-square border-2 w-[156px] h-[156px] shadow-sm rounded-xl flex flex-col items-center justify-center gap-3 hover:border-primary hover:shadow-lg cursor-grab',
-        draggable.isDragging && 'ring-2 ring-primary'
+        'transition duration-150 aspect-square border-2 w-[156px] h-[156px] shadow-sm rounded-xl flex flex-col items-center justify-center gap-3 hover:border-ring hover:shadow-lg cursor-grab',
+        draggable.isDragging && 'border-ring'
       )}
       {...draggable.attributes}
       {...draggable.listeners}
@@ -42,7 +42,7 @@ export const ModuleButtonOverlay = ({ builderElement }: ModuleButtonProps) => {
     <Button
       variant="outline"
       className={cn(
-        'transition duration-150 aspect-square border-2 w-[156px] h-[156px] shadow-sm rounded-xl flex flex-col items-center justify-center gap-2 hover:border-primary hover:shadow-lg cursor-grab'
+        'transition duration-150 aspect-square border-2 w-[156px] h-[156px] shadow-sm rounded-xl flex flex-col items-center justify-center gap-2 hover:border-ring hover:shadow-lg cursor-grab'
       )}
     >
       <Icon className="h-8 w-8" />

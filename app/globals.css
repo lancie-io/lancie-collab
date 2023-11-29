@@ -70,7 +70,7 @@
     --input: 12 6.5% 15.1%;
     --ring: 24 5.7% 82.9%;
   } */
-  .dark {
+  /* .dark {
     --background: 224 71.4% 4.1%;
     --foreground: 210 20% 98%;
     --card: 224 71.4% 4.1%;
@@ -85,6 +85,8 @@
     --muted-foreground: 217.9 10.6% 64.9%;
     --accent: 215 25% 27%;
     --accent-foreground: 210 20% 98%;
+    --subtle: 219 32% 10%;
+    --subtle-foreground: 210 20% 98%;
     --success: 142 71% 45%;
     --success-foreground: 60 9.1% 97.8%;
     --destructive: 0 62.8% 30.6%;
@@ -92,6 +94,31 @@
     --border: 215 27.9% 16.9%;
     --input: 215 27.9% 16.9%;
     --ring: 216 12.2% 83.9%;
+  } */
+  .dark {
+    --background: 210 4% 10%;
+    --foreground: 0 0% 100%;
+    --card: 220, 5%, 12%;
+    --card-foreground: 0 0% 100%;
+    --popover: 220, 5%, 12%;
+    --popover-foreground: 0 0% 100%;
+    --primary: 19 84% 56%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 220 5% 24%;
+    --secondary-foreground: 0 0% 100%;
+    --muted: 220, 5%, 12%;
+    --muted-foreground: 0 0% 64%;
+    --accent: 220 4% 14%;
+    --accent-foreground: 0 0% 100%;
+    --subtle: 240 1% 13%;
+    --subtle-foreground: 0 0% 100%;
+    --success: 142 71% 45%;
+    --success-foreground: 60 9.1% 97.8%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 20% 98%;
+    --border: 220 4% 14%;
+    --input: 220 4% 14%;
+    --ring: 0 0% 48%;
   }
   .lancie {
     --background: #2b2b2b;

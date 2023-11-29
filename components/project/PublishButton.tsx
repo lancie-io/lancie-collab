@@ -10,6 +10,7 @@ const PublishButton = () => {
   const { project, setProject } = useProject();
   return (
     <Button
+      variant="primary"
       onClick={() =>
         show(<PublishModal project={project} setProject={setProject} />)
       }

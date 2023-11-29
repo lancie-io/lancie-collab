@@ -5,15 +5,17 @@ import {
   BuilderElement,
   BuilderElementInstance,
   ElementType,
-} from '../BuilderElements';
+} from '../../BuilderElements';
+import VideoGallery from './VideoGallery';
 
 const type: ElementType = 'videos';
 
 const extraAttributes = {
-  label: 'Text',
-  helperText: 'This is a text element',
+  label: 'Reference Videos',
+  helperText: 'This is a videos element.',
   required: false,
   placeholder: 'Enter text here',
+  videos: [],
 };
 
 export const VideosBuilderElement: BuilderElement = {
@@ -33,7 +35,7 @@ export const VideosBuilderElement: BuilderElement = {
   propertiesComponent: PropertiesComponent,
 };
 
-type CustomInstance = BuilderElementInstance & {
+export type VideosCustomInstance = BuilderElementInstance & {
   extraAttributes: typeof extraAttributes;
 };
 
@@ -42,7 +44,7 @@ function PropertiesComponent({
 }: {
   elementInstance: BuilderElementInstance;
 }) {
-  const element = elementInstance as CustomInstance;
+  const element = elementInstance as VideosCustomInstance;
 
   return <div>Videos Properties Component</div>;
 }
@@ -52,13 +54,6 @@ function BuilderComponent({
 }: {
   elementInstance: BuilderElementInstance;
 }) {
-  const element = elementInstance as CustomInstance;
-  return (
-    <div className="w-full bg-background h-[180px] p-4">
-      <div className="aspect-video border-2 border-dashed rounded-md h-full flex flex-col gap-2 items-center justify-center">
-        <Video />
-        Add video reference
-      </div>
-    </div>
-  );
+  const element = elementInstance as VideosCustomInstance;
+  return <VideoGallery elementInstance={element} />;
 }

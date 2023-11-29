@@ -5,13 +5,14 @@ import {
   BuilderElement,
   BuilderElementInstance,
   ElementType,
-} from '../BuilderElements';
+} from '../../BuilderElements';
+import Moodboard from './Moodboard';
 
 const type: ElementType = 'moodboard';
 
 const extraAttributes = {
-  label: 'Text',
-  helperText: 'This is a text element',
+  label: 'Moodboard',
+  helperText: 'This is a moodboard element.',
   required: false,
   placeholder: 'Enter text here',
 };
@@ -53,12 +54,7 @@ function BuilderComponent({
   elementInstance: BuilderElementInstance;
 }) {
   const element = elementInstance as CustomInstance;
-  return (
-    <div className="relative w-full bg-muted aspect-[2/1] shadow-inner grid place-items-center">
-      <div className="text-xl font-semibold">Drop Images</div>
-      <Toolbar />
-    </div>
-  );
+  return <Moodboard />;
 }
 
 const Toolbar = () => {

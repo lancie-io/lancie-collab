@@ -18,8 +18,8 @@ import Editor from './Editor';
 const type: ElementType = 'summary';
 
 const extraAttributes = {
-  label: 'Text',
-  helperText: 'This is a text element',
+  label: 'Summary',
+  helperText: 'This is a summary element',
   required: false,
   placeholder: 'Enter text here',
   content: '',

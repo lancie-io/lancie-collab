@@ -5,13 +5,14 @@ import {
   BuilderElement,
   BuilderElementInstance,
   ElementType,
-} from '../BuilderElements';
+} from '../../BuilderElements';
+import FilesManager from './FilesManager';
 
 const type: ElementType = 'files';
 
 const extraAttributes = {
-  label: 'Text',
-  helperText: 'This is a text element',
+  label: 'Files Manager',
+  helperText: 'This is a files element.',
   required: false,
   placeholder: 'Enter text here',
 };
@@ -33,7 +34,7 @@ export const FilesBuilderElement: BuilderElement = {
   propertiesComponent: PropertiesComponent,
 };
 
-type CustomInstance = BuilderElementInstance & {
+export type FilesCustomInstance = BuilderElementInstance & {
   extraAttributes: typeof extraAttributes;
 };
 
@@ -42,8 +43,6 @@ function PropertiesComponent({
 }: {
   elementInstance: BuilderElementInstance;
 }) {
-  const element = elementInstance as CustomInstance;
-
   return <div>Paperclip Properties Component</div>;
 }
 
@@ -52,10 +51,10 @@ function BuilderComponent({
 }: {
   elementInstance: BuilderElementInstance;
 }) {
-  const element = elementInstance as CustomInstance;
+  const element = elementInstance as FilesCustomInstance;
   return (
-    <div className="w-full bg-background min-h-[120px] aspect-[4800/2430]">
-      <div>Drop Image here</div>
+    <div className="w-full bg-background">
+      <FilesManager element={element} />
     </div>
   );
 }

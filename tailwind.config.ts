@@ -41,9 +41,9 @@ const config: Config = {
       },
       colors: {
         brand: {
-          400: '#FF8500',
-          500: '#ff7607',
-          600: '#FF4F18',
+          400: '#EF8933',
+          500: '#EE7231',
+          600: '#EC5C31',
         },
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',
@@ -66,7 +66,10 @@ const config: Config = {
           DEFAULT: 'hsl(var(--success))',
           foreground: 'hsl(var(--success-foreground))',
         },
-
+        subtle: {
+          DEFAULT: 'hsl(var(--subtle))',
+          foreground: 'hsl(var(--subtle-foreground))',
+        },
         muted: {
           DEFAULT: 'hsl(var(--muted))',
           foreground: 'hsl(var(--muted-foreground))',

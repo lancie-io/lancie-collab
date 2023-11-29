@@ -1,8 +1,6 @@
-import { getAuthUser } from '@/lib/auth';
 import { Prisma } from '@prisma/client';
 import { Home } from 'lucide-react';
 import Link from 'next/link';
-import Avatar from '../shared/Avatar';
 import Title from '../shared/Title';
 import AvatarStack from './AvatarStack';
 import PublishButton from './PublishButton';
@@ -12,8 +10,7 @@ import ShareButton from './ShareButton';
 interface BuilderHeaderProps {
   project: Prisma.ProjectGetPayload<{}>;
 }
-const BuilderHeader = async ({ project }: BuilderHeaderProps) => {
-  const user = await getAuthUser();
+const BuilderHeader = ({ project }: BuilderHeaderProps) => {
   return (
     <div className="border-b h-16 flex justify-between items-center px-4 shrink-0">
       <Link
@@ -28,7 +25,6 @@ const BuilderHeader = async ({ project }: BuilderHeaderProps) => {
       </div>
       <div className="flex items-center gap-3">
         <AvatarStack />
-        <Avatar className="h-8 w-8" data={user} />
         <SaveButton id={project.id} />
         <ShareButton />
         <PublishButton />

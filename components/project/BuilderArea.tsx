@@ -119,7 +119,7 @@ const BuilderArea = ({ project, children }: BuilderAreaProps) => {
 
   return (
     <div
-      className="grow py-12 px-24 bg-muted/50 overflow-scroll flex flex-col"
+      className="grow py-12 px-24 bg-subtle overflow-scroll flex flex-col"
       // onClick={(e) => {
       //   console.log('area clicked');
       //   e.stopPropagation();
@@ -129,7 +129,7 @@ const BuilderArea = ({ project, children }: BuilderAreaProps) => {
       <div
         ref={droppable.setNodeRef}
         className={cn(
-          'bg-background border grow p-4 rounded-xl flex flex-col',
+          'bg-subtle border grow p-4 rounded-xl flex flex-col',
           droppable.isOver && 'ring-2 ring-primary/50'
         )}
       >
@@ -143,7 +143,7 @@ const BuilderArea = ({ project, children }: BuilderAreaProps) => {
           <div className="h-[100px] bg-primary/20 rounded-md p-4 w-full" />
         )}
         {elements.length > 0 && (
-          <div className="flex flex-col gap-4 w-full">
+          <div className="flex flex-col gap-8 w-full">
             {elements.map((element) => (
               <BuilderElementWrapper key={element.id} element={element} />
             ))}
@@ -212,13 +212,19 @@ function BuilderElementWrapper({
         className="absolute bottom-0 w-full h-1/2"
       />
       {topHalf.isOver && (
-        <div className="absolute -top-3 w-full h-2 bg-foreground rounded-lg" />
+        <div className="absolute -top-5 w-full h-2 bg-foreground rounded-lg" />
       )}
       {bottomHalf.isOver && (
-        <div className="absolute -bottom-3 w-full h-2 bg-foreground rounded-lg" />
+        <div className="absolute -bottom-5 w-full h-2 bg-foreground rounded-lg" />
       )}
-      <div className="border-2 border-ring/20 bg-background rounded-md overflow-hidden relative z-10">
-        <BuilderElement elementInstance={element} />
+      <div className="space-y-1">
+        <div className="flex items-center gap-2">
+          <div className="h-5 w-1 bg-primary rounded-lg" />
+          <span className="font-medium">{element.extraAttributes?.label}</span>
+        </div>
+        <div className="border bg-background rounded-lg overflow-hidden relative">
+          <BuilderElement elementInstance={element} />
+        </div>
       </div>
     </div>
   );

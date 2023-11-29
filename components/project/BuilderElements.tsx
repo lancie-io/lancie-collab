@@ -1,11 +1,11 @@
 import { DeliverablesBuilderElement } from './elements/DeliverablesElement';
-import { FilesBuilderElement } from './elements/FilesBuilderElement';
+import { FilesBuilderElement } from './elements/files/FilesBuilderElement';
 import { FinancialsBuilderElement } from './elements/FinancialsBuilderElement';
 import { MapBuilderElement } from './elements/MapBuilderElement';
-import { MoodboardBuilderElement } from './elements/MoodboardBuilderElement';
+import { MoodboardBuilderElement } from './elements/moodboard/MoodboardBuilderElement';
 import { ResponsibilitiesBuilderElement } from './elements/ResponsibilitiesElement';
 import { SummaryBuilderElement } from './elements/summary/SummaryBuilderElement';
-import { VideosBuilderElement } from './elements/VideosBuilderElement';
+import { VideosBuilderElement } from './elements/videos/VideosBuilderElement';
 
 export type ElementType =
   | 'summary'
