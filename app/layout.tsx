@@ -21,7 +21,7 @@ export default function RootLayout({
   modal?: React.ReactNode;
 }) {
   return (
-    <html lang="en" className="dark">
+    <html lang="en" className="dark no-scrollbar">
       <body className={`${inter.className}`}>
         <main className="flex min-h-screen flex-col">
           <AuthProvider>

@@ -1,4 +1,5 @@
 import { Config } from 'tailwindcss/types/config';
+import { BREAKPOINTS } from './lib/constants';
 /** @type {import('tailwindcss').Config} */
 
 const config: Config = {
@@ -10,6 +11,13 @@ const config: Config = {
     './src/**/*.{ts,tsx}',
   ],
   theme: {
+    screens: {
+      sm: `${BREAKPOINTS.SM}px`,
+      md: `${BREAKPOINTS.MD}px`,
+      lg: `${BREAKPOINTS.LG}px`,
+      xl: `${BREAKPOINTS.XL}px`,
+      '2xl': `${BREAKPOINTS['2XL']}px`,
+    },
     container: {
       center: true,
       padding: '2rem',

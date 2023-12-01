@@ -38,8 +38,8 @@ export function Conversation() {
   );
 
   return (
-    <div className="w-[360px] p-4 border-l bg-background overflow-scroll shrink-0">
-      <div className="space-y-4">
+    <div className="w-[300px] p-3 border-l bg-background overflow-scroll no-scrollbar shrink-0">
+      <div className="space-y-3">
         <Composer
           className="bg-muted border rounded-lg"
           onComposerSubmit={handleSubmit}

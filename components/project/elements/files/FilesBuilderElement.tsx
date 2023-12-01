@@ -1,20 +1,38 @@
 'use client';
 
-import { Paperclip } from 'lucide-react';
+import { Paperclip, icons } from 'lucide-react';
 import {
   BuilderElement,
   BuilderElementInstance,
   ElementType,
+  ExtraAttributes,
 } from '../../BuilderElements';
 import FilesManager from './FilesManager';
 
 const type: ElementType = 'files';
 
-const extraAttributes = {
+export type File = {
+  icon: keyof typeof icons;
+  name: string;
+  label: string;
+  url: string;
+};
+
+export type FilesAttributes = {
+  files: File[];
+};
+
+const extraAttributes: ExtraAttributes<FilesAttributes> = {
   label: 'Files Manager',
-  helperText: 'This is a files element.',
-  required: false,
-  placeholder: 'Enter text here',
+  helperText: 'Manage any additional files and links.',
+  files: [
+    {
+      icon: 'FileText',
+      name: 'lookbook.pdf',
+      label: 'Lookbook',
+      url: 'https://www.google.com',
+    },
+  ],
 };
 
 export const FilesBuilderElement: BuilderElement = {
@@ -30,31 +48,19 @@ export const FilesBuilderElement: BuilderElement = {
   },
 
   builderComponent: BuilderComponent,
-  previewComponent: () => <div>Moodboard Preview Component</div>,
-  propertiesComponent: PropertiesComponent,
+  previewComponent: () => <div>Files Preview Component</div>,
 };
 
-export type FilesCustomInstance = BuilderElementInstance & {
-  extraAttributes: typeof extraAttributes;
-};
-
-function PropertiesComponent({
-  elementInstance,
-}: {
-  elementInstance: BuilderElementInstance;
-}) {
-  return <div>Paperclip Properties Component</div>;
-}
+export type FilesElement = BuilderElementInstance<FilesAttributes>;
 
 function BuilderComponent({
   elementInstance,
 }: {
-  elementInstance: BuilderElementInstance;
+  elementInstance: FilesElement;
 }) {
-  const element = elementInstance as FilesCustomInstance;
   return (
     <div className="w-full bg-background">
-      <FilesManager element={element} />
+      <FilesManager element={elementInstance} />
     </div>
   );
 }

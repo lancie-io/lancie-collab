@@ -1,73 +1,82 @@
-import { Icons } from '@/components/shared/Icons';
-import ImageUploadPlaceholder from '@/components/shared/ImageUploadPlaceholder';
 import OptimizedImage from '@/components/shared/OptimizedImage';
 import { Button } from '@/components/ui/button';
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from '@/components/ui/popover';
-import { Link, MessagesSquare, Upload } from 'lucide-react';
+import { Link, Trash, Upload } from 'lucide-react';
+import useBuilder from '../../hooks/useBuilder';
 import ElementBar from '../shared/ElementBar';
+import EmptyState from '../shared/EmptyState';
+import EmbedImagePopover from './EmbedImagePopover';
+import { MoodboardElement, TImage } from './MoodboardBuilderElement';
+import UnsplashButton from './UnsplashButton';
 
-const images = [
-  'https://images.pexels.com/photos/209977/pexels-photo-209977.jpeg?auto=compress&cs=tinysrgb&w=1600',
-  'https://images.pexels.com/photos/863988/pexels-photo-863988.jpeg?auto=compress&cs=tinysrgb&w=1600',
-  'https://images.pexels.com/photos/71104/utah-mountain-biking-bike-biking-71104.jpeg?auto=compress&cs=tinysrgb&w=1600',
-  'https://images.pexels.com/photos/163407/cyclists-trail-bike-clouds-163407.jpeg?auto=compress&cs=tinysrgb&w=1600',
-  'https://images.pexels.com/photos/7862/pexels-photo.jpg?auto=compress&cs=tinysrgb&w=1600',
-  'https://images.pexels.com/photos/1761282/pexels-photo-1761282.jpeg?auto=compress&cs=tinysrgb&w=1600',
-  'https://images.pexels.com/photos/1604869/pexels-photo-1604869.jpeg?auto=compress&cs=tinysrgb&w=1600',
-  'https://images.pexels.com/photos/1068596/pexels-photo-1068596.jpeg?auto=compress&cs=tinysrgb&w=1600',
-];
+interface MoodboardProps {
+  element: MoodboardElement;
+}
 
-const Moodboard = () => {
+const Moodboard = ({ element }: MoodboardProps) => {
+  const { images } = element.extraAttributes || {};
+  const { updateElement } = useBuilder();
+
+  function removeImage(url: string) {
+    updateElement(element.id, {
+      ...element,
+      extraAttributes: {
+        ...element.extraAttributes,
+        images: [
+          ...element.extraAttributes.images.filter(
+            (image: TImage) => image.url !== url
+          ),
+        ],
+      },
+    });
+  }
+
   return (
-    <div className="aspect-[3/2] group w-full flex flex-col">
+    <div className="aspect-[5/3] overflow-hidden group w-full flex flex-col">
       <ElementBar>
-        <Button size="s" variant="outline">
-          <Link className="w-3 h-3" />
-          Embed
-        </Button>
-        <Button size="s" variant="outline">
+        <EmbedImagePopover element={element}>
+          <Button size="s" variant="outline">
+            <Link className="w-3 h-3" />
+            Embed
+          </Button>
+        </EmbedImagePopover>
+        <UnsplashButton element={element} />
+        <Button size="s" variant="outline" disabled>
           <Upload className="w-3 h-3" />
           Upload
         </Button>
-        <Button size="s" variant="outline">
-          <Icons.unsplash className="w-2.5 h-2.5 text-foreground fill-foreground" />
-          Unsplash
-        </Button>
       </ElementBar>
-      {images && (
+      <div className="grow overflow-scroll no-scrollbar">
         <div className="grid grid-cols-3 gap-4 p-4 items-start">
-          {images.map((image, idx) => (
-            <div className="relative" key={idx}>
-              <OptimizedImage src={image} />
-              {idx % 2 === 0 && (
-                <div className="relative">
-                  <Popover>
-                    <PopoverTrigger>
-                      <Button
-                        size="iconSmall"
-                        variant="primary"
-                        className="absolute bottom-0 right-0 translate-x-2 translate-y-2"
-                      >
-                        <MessagesSquare className="w-5 h-5" />
-                      </Button>
-                    </PopoverTrigger>
-                    <PopoverContent>Chat</PopoverContent>
-                  </Popover>
-                </div>
-              )}
+          {images?.length == 0 && (
+            <>
+              <EmptyState
+                className="aspect-[4/5]"
+                icon="Image"
+                title="Add Images"
+                description="Define mood and visual style of your project."
+              />
+              <div className="aspect-[3/2] border-2 opacity-50 rounded-lg"></div>
+              <div className="aspect-square border-2 opacity-50 rounded-lg"></div>
+            </>
+          )}
+          {images.map((image: TImage, idx: number) => (
+            <div
+              className="relative rounded-md overflow-hidden group"
+              key={image.url}
+            >
+              <Button
+                onClick={() => removeImage(image.url)}
+                variant="ghost"
+                size="iconSmall"
+                className="transition duration-100 opacity-0 group-hover:opacity-100 absolute top-2 right-2"
+              >
+                <Trash className="w-4 h-4" />
+              </Button>
+              <OptimizedImage src={image.url} />
             </div>
           ))}
         </div>
-      )}
-      {!images && (
-        <div className="grow w-full grid place-items-center">
-          <ImageUploadPlaceholder />
-        </div>
-      )}
+      </div>
     </div>
   );
 };

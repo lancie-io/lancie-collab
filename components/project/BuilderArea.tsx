@@ -1,19 +1,13 @@
 'use client';
 
 import { cn, idGenerator } from '@/lib/utils';
-import {
-  DragEndEvent,
-  useDndMonitor,
-  useDraggable,
-  useDroppable,
-} from '@dnd-kit/core';
+import { useBroadcastEvent, useEventListener } from '@/liveblocks.config';
+import { DragEndEvent, useDndMonitor, useDroppable } from '@dnd-kit/core';
 import { Prisma } from '@prisma/client';
+import isEqual from 'lodash.isequal';
 import { useEffect } from 'react';
-import {
-  BuilderElementInstance,
-  BuilderElements,
-  ElementType,
-} from './BuilderElements';
+import BuilderElementWrapper from './BuilderElementWrapper';
+import { BuilderElements, ElementType } from './BuilderElements';
 import useBuilder from './hooks/useBuilder';
 
 interface BuilderAreaProps extends React.HTMLAttributes<HTMLDivElement> {
@@ -30,6 +24,21 @@ const BuilderArea = ({ project, children }: BuilderAreaProps) => {
     setSelectedElement,
   } = useBuilder();
 
+  const broadcast = useBroadcastEvent();
+  useEffect(() => {
+    console.log('elements changed');
+    broadcast({ type: 'elements', data: elements });
+  }, [elements]);
+
+  useEventListener(({ event, user, connectionId }: any) => {
+    //                       ^^^^ Will be Client A
+    // Do something
+    const newElements = event.data;
+    if (!isEqual(elements, newElements)) {
+      setElements(newElements);
+    }
+  });
+
   useEffect(() => {
     const elementsFromServer = JSON.parse(project.content as string);
 
@@ -43,7 +52,6 @@ const BuilderArea = ({ project, children }: BuilderAreaProps) => {
   });
   useDndMonitor({
     onDragEnd: (event: DragEndEvent) => {
-      console.log('DRAG END', event);
       const { active, over } = event;
       if (!active || !over) return;
       const isModuleButton = active.data?.current?.isModuleButton;
@@ -56,7 +64,6 @@ const BuilderArea = ({ project, children }: BuilderAreaProps) => {
         const newElement = BuilderElements[type as ElementType].construct(
           idGenerator()
         );
-        console.log('newElement', newElement);
         addElement(elements.length, newElement);
         return;
       }
@@ -119,7 +126,7 @@ const BuilderArea = ({ project, children }: BuilderAreaProps) => {
 
   return (
     <div
-      className="grow py-12 px-24 bg-subtle overflow-scroll flex flex-col"
+      className="grow p-4 lg:p-6 xl:p-8 bg-subtle overflow-scroll no-scrollbar flex flex-col"
       // onClick={(e) => {
       //   console.log('area clicked');
       //   e.stopPropagation();
@@ -129,8 +136,8 @@ const BuilderArea = ({ project, children }: BuilderAreaProps) => {
       <div
         ref={droppable.setNodeRef}
         className={cn(
-          'bg-subtle border grow p-4 rounded-xl flex flex-col',
-          droppable.isOver && 'ring-2 ring-primary/50'
+          'bg-subtle border grow p-8 rounded-xl flex flex-col',
+          droppable.isOver && 'ring-2 ring-ring'
         )}
       >
         {elements.length === 0 && !droppable.isOver && (
@@ -140,7 +147,7 @@ const BuilderArea = ({ project, children }: BuilderAreaProps) => {
         )}
 
         {droppable.isOver && elements.length === 0 && (
-          <div className="h-[100px] bg-primary/20 rounded-md p-4 w-full" />
+          <div className="h-[100px] bg-ring rounded-md p-4 w-full" />
         )}
         {elements.length > 0 && (
           <div className="flex flex-col gap-8 w-full">
@@ -155,79 +162,5 @@ const BuilderArea = ({ project, children }: BuilderAreaProps) => {
     </div>
   );
 };
-
-function BuilderElementWrapper({
-  element,
-}: {
-  element: BuilderElementInstance;
-}) {
-  const { selectedElement, setSelectedElement } = useBuilder();
-
-  const topHalf = useDroppable({
-    id: `${element.id}-top`,
-    data: {
-      type: element.type,
-      elementId: element.id,
-      isTopHalfBuilderElement: true,
-    },
-  });
-  const bottomHalf = useDroppable({
-    id: `${element.id}-bottom`,
-    data: {
-      type: element.type,
-      elementId: element.id,
-      isBottomHalfBuilderElement: true,
-    },
-  });
-
-  const draggable = useDraggable({
-    id: `${element.id}-drag-handler`,
-    data: {
-      type: element.type,
-      elementId: element.id,
-      isBuilderElement: true,
-    },
-  });
-
-  const BuilderElement = BuilderElements[element.type].builderComponent;
-
-  if (draggable.isDragging) return null;
-  return (
-    <div
-      ref={draggable.setNodeRef}
-      {...draggable.attributes}
-      {...draggable.listeners}
-      className="relative"
-      // onClick={(e) => {
-      //   e.stopPropagation();
-      //   setSelectedElement(element);
-      // }}
-    >
-      <div
-        ref={topHalf.setNodeRef}
-        className={cn('absolute top-0 w-full h-1/2')}
-      />
-      <div
-        ref={bottomHalf.setNodeRef}
-        className="absolute bottom-0 w-full h-1/2"
-      />
-      {topHalf.isOver && (
-        <div className="absolute -top-5 w-full h-2 bg-foreground rounded-lg" />
-      )}
-      {bottomHalf.isOver && (
-        <div className="absolute -bottom-5 w-full h-2 bg-foreground rounded-lg" />
-      )}
-      <div className="space-y-1">
-        <div className="flex items-center gap-2">
-          <div className="h-5 w-1 bg-primary rounded-lg" />
-          <span className="font-medium">{element.extraAttributes?.label}</span>
-        </div>
-        <div className="border bg-background rounded-lg overflow-hidden relative">
-          <BuilderElement elementInstance={element} />
-        </div>
-      </div>
-    </div>
-  );
-}
 
 export default BuilderArea;

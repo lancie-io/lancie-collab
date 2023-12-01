@@ -11,6 +11,12 @@ type BuilderContextType = {
   selectedElement: BuilderElementInstance | null;
   setSelectedElement: Dispatch<SetStateAction<BuilderElementInstance | null>>;
   updateElement: (id: string, element: BuilderElementInstance) => void;
+  moveElementUp: (id: string) => void;
+  moveElementDown: (id: string) => void;
+  moveElementFirst: (id: string) => void;
+  moveElementLast: (id: string) => void;
+  isFirst: (id: string) => boolean;
+  isLast: (id: string) => boolean;
 };
 
 export const BuilderContext = React.createContext<BuilderContextType | null>(
@@ -43,6 +49,50 @@ export default function BuilderContextProvider({
     });
   };
 
+  const moveElementUp = (id: string) => {
+    setElements((prev) => {
+      const next = [...prev];
+      const index = next.findIndex((e) => e.id === id);
+      const element = next[index];
+      next.splice(index, 1);
+      next.splice(index - 1, 0, element);
+      return next;
+    });
+  };
+
+  const moveElementDown = (id: string) => {
+    setElements((prev) => {
+      const next = [...prev];
+      const index = next.findIndex((e) => e.id === id);
+      const element = next[index];
+      next.splice(index, 1);
+      next.splice(index + 1, 0, element);
+      return next;
+    });
+  };
+
+  const moveElementFirst = (id: string) => {
+    setElements((prev) => {
+      const next = [...prev];
+      const index = next.findIndex((e) => e.id === id);
+      const element = next[index];
+      next.splice(index, 1);
+      next.unshift(element);
+      return next;
+    });
+  };
+
+  const moveElementLast = (id: string) => {
+    setElements((prev) => {
+      const next = [...prev];
+      const index = next.findIndex((e) => e.id === id);
+      const element = next[index];
+      next.splice(index, 1);
+      next.push(element);
+      return next;
+    });
+  };
+
   const updateElement = (id: string, element: BuilderElementInstance) => {
     setElements((prev) => {
       const newElements = [...prev];
@@ -51,6 +101,15 @@ export default function BuilderContextProvider({
       return newElements;
     });
   };
+
+  const isFirst = (id: string) => {
+    return elements[0].id === id;
+  };
+
+  const isLast = (id: string) => {
+    return elements[elements.length - 1].id === id;
+  };
+
   return (
     <BuilderContext.Provider
       value={{
@@ -61,6 +120,12 @@ export default function BuilderContextProvider({
         selectedElement,
         setSelectedElement,
         updateElement,
+        moveElementUp,
+        moveElementDown,
+        moveElementFirst,
+        moveElementLast,
+        isFirst,
+        isLast,
       }}
     >
       {children}

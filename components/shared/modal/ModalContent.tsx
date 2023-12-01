@@ -9,7 +9,7 @@ export function ModalContent({ children, ...props }: ModalContentProps) {
   return (
     <div
       className={cn(
-        'shrink overflow-scroll px-4 py-4 md:px-6 md:py-6',
+        'shrink overflow-scroll no-scrollbar px-4 py-4 md:px-6 md:py-6',
         className
       )}
       id="modal-content"

@@ -4,7 +4,6 @@ import BuilderSidebar from '@/components/project/BuilderSidebar';
 import ProjectProvider from '@/components/project/ProjectProvider';
 import { CommentsProvider } from '@/components/project/comments/CommentsSidebar';
 import { Conversation } from '@/components/project/comments/Conversation';
-import { getAuthUser } from '@/lib/auth';
 import prisma from '@/lib/prisma';
 import { notFound } from 'next/navigation';
 import { Room } from './Room';
@@ -26,7 +25,6 @@ const ProjectPage = async ({ params }: { params: { id: string } }) => {
     },
   });
 
-  const user = await getAuthUser();
   if (!project) {
     notFound();
   }
@@ -43,7 +41,7 @@ const ProjectPage = async ({ params }: { params: { id: string } }) => {
         <CommentsProvider initialComments={project.comments}>
           <div className="grow flex flex-col" style={{ height: '100dvh' }}>
             <BuilderHeader project={project} />
-            <div className="grow flex overflow-scroll">
+            <div className="grow flex overflow-scroll no-scrollbar">
               <BuilderSidebar />
               <BuilderArea project={project} />
               <Conversation />

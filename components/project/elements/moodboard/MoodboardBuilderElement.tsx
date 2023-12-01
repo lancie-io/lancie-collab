@@ -5,16 +5,26 @@ import {
   BuilderElement,
   BuilderElementInstance,
   ElementType,
+  ExtraAttributes,
 } from '../../BuilderElements';
 import Moodboard from './Moodboard';
 
 const type: ElementType = 'moodboard';
 
-const extraAttributes = {
+export type TImage = {
+  url: string;
+};
+
+export type MoodboardAttributes = {
+  images: TImage[];
+};
+
+export type MoodboardElement = BuilderElementInstance<MoodboardAttributes>;
+
+const extraAttributes: ExtraAttributes<MoodboardAttributes> = {
   label: 'Moodboard',
   helperText: 'This is a moodboard element.',
-  required: false,
-  placeholder: 'Enter text here',
+  images: [],
 };
 
 export const MoodboardBuilderElement: BuilderElement = {
@@ -31,30 +41,14 @@ export const MoodboardBuilderElement: BuilderElement = {
 
   builderComponent: BuilderComponent,
   previewComponent: () => <div>Moodboard Preview Component</div>,
-  propertiesComponent: PropertiesComponent,
 };
-
-type CustomInstance = BuilderElementInstance & {
-  extraAttributes: typeof extraAttributes;
-};
-
-function PropertiesComponent({
-  elementInstance,
-}: {
-  elementInstance: BuilderElementInstance;
-}) {
-  const element = elementInstance as CustomInstance;
-
-  return <div>Moodboard Properties Component</div>;
-}
 
 function BuilderComponent({
   elementInstance,
 }: {
-  elementInstance: BuilderElementInstance;
+  elementInstance: BuilderElementInstance<MoodboardAttributes>;
 }) {
-  const element = elementInstance as CustomInstance;
-  return <Moodboard />;
+  return <Moodboard element={elementInstance} />;
 }
 
 const Toolbar = () => {

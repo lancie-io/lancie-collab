@@ -9,6 +9,7 @@ import { FormEvent, useCallback, useMemo, useState } from 'react';
 import ReactPlayer from 'react-player';
 import { BuilderElementInstance } from '../../BuilderElements';
 import useBuilder from '../../hooks/useBuilder';
+import EmptyState from '../shared/EmptyState';
 import VideoToolbar from './VideoToolbar';
 
 const VideoGallery = ({
@@ -21,8 +22,16 @@ const VideoGallery = ({
     <div>
       <VideoToolbar elementInstance={elementInstance} />
       <div className="p-4">
-        {elementInstance.extraAttributes?.videos.map(
-          (video: any, idx: number) => <VideoItem video={video} key={idx} />
+        {elementInstance.extraAttributes?.videos.length === 0 ? (
+          <EmptyState
+            icon="Film"
+            title="Add Videos"
+            description="With references its easier to align on story and style."
+          />
+        ) : (
+          elementInstance.extraAttributes?.videos.map(
+            (video: any, idx: number) => <VideoItem video={video} key={idx} />
+          )
         )}
       </div>
     </div>

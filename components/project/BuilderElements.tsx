@@ -1,15 +1,20 @@
 import { DeliverablesBuilderElement } from './elements/DeliverablesElement';
 import { FilesBuilderElement } from './elements/files/FilesBuilderElement';
 import { FinancialsBuilderElement } from './elements/FinancialsBuilderElement';
-import { MapBuilderElement } from './elements/MapBuilderElement';
+import { LocationsBuilderElement } from './elements/map/LocationsBuilderElement';
 import { MoodboardBuilderElement } from './elements/moodboard/MoodboardBuilderElement';
 import { ResponsibilitiesBuilderElement } from './elements/ResponsibilitiesElement';
 import { SummaryBuilderElement } from './elements/summary/SummaryBuilderElement';
 import { VideosBuilderElement } from './elements/videos/VideosBuilderElement';
 
+export type ExtraAttributes<T = Record<string, any>> = {
+  label: string;
+  helperText: string;
+} & T;
+
 export type ElementType =
   | 'summary'
-  | 'map'
+  | 'locations'
   | 'moodboard'
   | 'videos'
   | 'files'
@@ -31,15 +36,15 @@ export type BuilderElement = {
   previewComponent: React.FC<{
     elementInstance: BuilderElementInstance;
   }>;
-  propertiesComponent: React.FC<{
+  propertiesComponent?: React.FC<{
     elementInstance: BuilderElementInstance;
   }>;
 };
 
-export type BuilderElementInstance = {
+export type BuilderElementInstance<T = Record<string, any>> = {
   id: string;
   type: ElementType;
-  extraAttributes?: Record<string, any>;
+  extraAttributes: ExtraAttributes<T> | ExtraAttributes;
 };
 
 type BuilderElementType = {
@@ -49,7 +54,7 @@ type BuilderElementType = {
 export const BuilderElements: BuilderElementType = {
   summary: SummaryBuilderElement,
   moodboard: MoodboardBuilderElement,
-  map: MapBuilderElement,
+  locations: LocationsBuilderElement,
   videos: VideosBuilderElement,
   files: FilesBuilderElement,
   responsibilities: ResponsibilitiesBuilderElement,

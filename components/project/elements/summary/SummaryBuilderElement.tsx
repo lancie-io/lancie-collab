@@ -118,7 +118,7 @@ function BuilderComponent({
 }) {
   const element = elementInstance as CustomInstance;
   return (
-    <div className="w-full bg-background min-h-[120px]">
+    <div className="w-full min-h-[120px]">
       <Editor elementInstance={element} />
     </div>
   );
