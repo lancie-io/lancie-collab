@@ -20,7 +20,7 @@ const PropertiesSidebar = () => {
           <X />
         </Button>
       </div>
-      <PropertiesForm elementInstance={selectedElement} />
+      {/* <PropertiesForm elementInstance={selectedElement} /> */}
     </div>
   );
 };
