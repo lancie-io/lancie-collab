@@ -59,7 +59,7 @@ const Moodboard = ({ element }: MoodboardProps) => {
               <div className="aspect-square border-2 opacity-50 rounded-lg"></div>
             </>
           )}
-          {images.map((image: TImage, idx: number) => (
+          {images?.map((image: TImage, idx: number) => (
             <div
               className="relative rounded-md overflow-hidden group"
               key={image.url}
