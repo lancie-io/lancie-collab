@@ -14,7 +14,7 @@ const type: ElementType = 'files';
 export type File = {
   icon: keyof typeof icons;
   name: string;
-  label: string;
+  label?: string;
   url: string;
 };
 
@@ -25,14 +25,7 @@ export type FilesAttributes = {
 const extraAttributes: ExtraAttributes<FilesAttributes> = {
   label: 'Files Manager',
   helperText: 'Manage any additional files and links.',
-  files: [
-    {
-      icon: 'FileText',
-      name: 'lookbook.pdf',
-      label: 'Lookbook',
-      url: 'https://www.google.com',
-    },
-  ],
+  files: [],
 };
 
 export const FilesBuilderElement: BuilderElement = {

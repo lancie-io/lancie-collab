@@ -24,7 +24,7 @@ function FileInput({ value, setValue }: any) {
       return;
     }
     const filename = encodeURIComponent(file.name);
-    const res = await fetch(`/api/images?filename=${filename}`);
+    const res = await fetch(`/api/upload?filename=${filename}`);
     const data = await res.json();
     const formData = new FormData();
     Object.entries({ ...data.post.fields, file }).forEach(
@@ -42,7 +42,6 @@ function FileInput({ value, setValue }: any) {
     }
     setTimeout(
       setValue(
-        'imageUrl',
         `https://${process.env.NEXT_PUBLIC_AWS_S3_BUCKET_NAME}.s3.amazonaws.com/experiments/${data.timestamp}-${filename}`
       ),
       1000

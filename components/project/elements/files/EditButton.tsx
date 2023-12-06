@@ -6,10 +6,27 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { Image, MoreVertical, PencilLine, Trash } from 'lucide-react';
+import useBuilder from '../../hooks/useBuilder';
+import { File, FilesElement } from './FilesBuilderElement';
 
-interface EditButtonProps extends ButtonProps {}
+interface EditButtonProps extends ButtonProps {
+  file: File;
+  element: FilesElement;
+}
 
-const EditButton = ({ className }: EditButtonProps) => {
+const EditButton = ({ file, element, className }: EditButtonProps) => {
+  const { updateElement } = useBuilder();
+  function removeFile(fileUrl: string) {
+    updateElement(element.id, {
+      ...element,
+      extraAttributes: {
+        ...element.extraAttributes,
+        files: element.extraAttributes.files.filter(
+          (file: File) => file.url !== fileUrl
+        ),
+      },
+    });
+  }
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -27,7 +44,7 @@ const EditButton = ({ className }: EditButtonProps) => {
           <span>Rename</span>
         </DropdownMenuItem>
 
-        <DropdownMenuItem>
+        <DropdownMenuItem onClick={() => removeFile(file.url)}>
           <Trash className="mr-2 w-4 h-4" />
           <span>Delete</span>
         </DropdownMenuItem>

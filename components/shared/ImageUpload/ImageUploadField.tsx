@@ -1,10 +1,8 @@
 import { Loader2, X } from 'lucide-react';
-import Image from 'next/image';
 import React, { FC } from 'react';
 
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
-import ImageUploadPlaceholder from './ImageUploadPlaceholder';
 
 interface ImageUploadFieldProps extends React.HTMLAttributes<HTMLDivElement> {
   isUploading: boolean;
@@ -27,18 +25,19 @@ const ImageUploadField: FC<ImageUploadFieldProps> = ({
       <div
         tabIndex={0}
         className={cn(
-          'w-full hover:bg-muted group relative flex aspect-[4/3] cursor-pointer items-center justify-center overflow-hidden rounded-md border border-input ring-offset-background transition duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2'
+          'w-64 hover:bg-muted group relative flex h-16 cursor-pointer items-center justify-center overflow-hidden rounded-md border border-input ring-offset-background transition duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2'
         )}
         {...props}
       >
-        {!isUploading && !imageUrl && <ImageUploadPlaceholder />}
+        {!isUploading && !imageUrl && <Button>Upload</Button>}
         {imageUrl && !isUploading && (
-          <Image
-            src={imageUrl}
-            style={{ objectFit: 'contain' }}
-            alt="image"
-            fill={true}
-          />
+          // <Image
+          //   src={imageUrl}
+          //   style={{ objectFit: 'contain' }}
+          //   alt="image"
+          //   fill={true}
+          // />
+          <pre>{JSON.stringify(imageUrl, null, 2)}</pre>
         )}
         {imageUrl && !isUploading && (
           <RemoveImageButton onClick={handleRemove} />
