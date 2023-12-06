@@ -84,7 +84,7 @@ const UnsplashButton = ({ element }: UnsplashButtonProps) => {
               {status === 'success' && photos.length < 1 && (
                 <div className="text-muted-foreground">No photos found</div>
               )}
-              {photos && (
+              {photos && photos.length > 0 && (
                 <div className="grid grid-cols-3 gap-4">
                   {distributeItems(photos, 3).map((column, colIdx: number) => {
                     return (
