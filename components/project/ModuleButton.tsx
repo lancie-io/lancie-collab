@@ -1,9 +1,14 @@
 'use client';
 
-import { cn } from '@/lib/utils';
+import { cn, idGenerator } from '@/lib/utils';
 import { useDraggable } from '@dnd-kit/core';
 import { Button } from '../ui/button';
-import { BuilderElement } from './BuilderElements';
+import {
+  BuilderElement,
+  BuilderElements,
+  ElementType,
+} from './BuilderElements';
+import useBuilder from './hooks/useBuilder';
 
 interface ModuleButtonProps {
   builderElement: BuilderElement;
@@ -19,6 +24,17 @@ const ModuleButton = ({ builderElement, disabled }: ModuleButtonProps) => {
       isModuleButton: true,
     },
   });
+
+  const { addElement } = useBuilder();
+
+  const type = builderElement.type as ElementType;
+
+  const handleAdd = () => {
+    const newElement = BuilderElements[type as ElementType].construct(
+      idGenerator()
+    );
+    addElement(0, newElement);
+  };
   return (
     <Button
       disabled={disabled}
@@ -31,6 +47,7 @@ const ModuleButton = ({ builderElement, disabled }: ModuleButtonProps) => {
       {...draggable.attributes}
       {...draggable.listeners}
       key={label}
+      onClick={handleAdd}
     >
       <Icon className="h-8 w-8" />
       <p className="text-sm font-medium">{label}</p>

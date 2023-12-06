@@ -6,6 +6,7 @@ import { DragEndEvent, useDndMonitor, useDroppable } from '@dnd-kit/core';
 import { Prisma } from '@prisma/client';
 import isEqual from 'lodash.isequal';
 import { useEffect } from 'react';
+import { Icons } from '../shared/Icons';
 import BuilderElementWrapper from './BuilderElementWrapper';
 import { BuilderElements, ElementType } from './BuilderElements';
 import useBuilder from './hooks/useBuilder';
@@ -141,7 +142,8 @@ const BuilderArea = ({ project, children }: BuilderAreaProps) => {
         )}
       >
         {elements.length === 0 && !droppable.isOver && (
-          <div className="grow grid place-items-center font-semibold text-xl">
+          <div className="grow flex flex-col items-center justify-center gap-8 font-semibold text-xl text-muted-foreground">
+            <Icons.dragDrop className="w-2/5 stroke-muted-foreground" />
             Drop here
           </div>
         )}
