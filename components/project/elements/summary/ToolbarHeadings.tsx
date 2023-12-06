@@ -14,10 +14,10 @@ import { cn } from '@/lib/utils';
 import { Editor } from '@tiptap/react';
 
 const headings = [
-  { value: 'p', label: 'Paragraph' },
-  { value: 'h1', label: 'Heading 1' },
-  { value: 'h2', label: 'Heading 2' },
-  { value: 'h3', label: 'Heading 3' },
+  { value: 'p', label: <>Paragraph (&#9166;)</> },
+  { value: 'h1', label: 'Heading 1 (#)' },
+  { value: 'h2', label: 'Heading 2 (##)' },
+  { value: 'h3', label: 'Heading 3 (###)' },
 ];
 
 interface ToolbarHeadingsProps {

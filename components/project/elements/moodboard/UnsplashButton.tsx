@@ -22,7 +22,7 @@ interface UnsplashButtonProps {
 const UnsplashButton = ({ element }: UnsplashButtonProps) => {
   const [searchValue, setSearchValue] = useState('');
   const debouncedSearchValue = useDebounce(searchValue, 300);
-  const { data: photos, status } = useQuery({
+  const { data, status } = useQuery({
     queryKey: ['unsplash', debouncedSearchValue],
     queryFn: async () => {
       return await fetchUnsplash({ query: debouncedSearchValue });
@@ -81,34 +81,36 @@ const UnsplashButton = ({ element }: UnsplashButtonProps) => {
                 </div>
               )}
               {status === 'error' && <div>Error...</div>}
-              {status === 'success' && photos.length < 1 && (
+              {/* {status === 'success' && photos.length < 1 && (
                 <div className="text-muted-foreground">No photos found</div>
-              )}
-              {photos && photos.length > 0 && (
+              )} */}
+              {data?.results?.length && (
                 <div className="grid grid-cols-3 gap-4">
-                  {distributeItems(photos, 3).map((column, colIdx: number) => {
-                    return (
-                      <div className="space-y-4" key={colIdx}>
-                        {column.map((photo, rowIdx: number) => {
-                          return (
-                            <button
-                              key={photo.urls.regular}
-                              tabIndex={-1}
-                              className="relative overflow-hidden rounded-md"
-                              onClick={() => handleClick(photo.urls.regular)}
-                            >
-                              <Image
-                                src={photo.urls.regular}
-                                width={photo.width}
-                                height={photo.height}
-                                alt={photo.alt_description}
-                              />
-                            </button>
-                          );
-                        })}
-                      </div>
-                    );
-                  })}
+                  {distributeItems(data.results, 3).map(
+                    (column, colIdx: number) => {
+                      return (
+                        <div className="space-y-4" key={colIdx}>
+                          {column.map((photo, rowIdx: number) => {
+                            return (
+                              <button
+                                key={photo.urls.regular}
+                                tabIndex={-1}
+                                className="relative overflow-hidden rounded-md"
+                                onClick={() => handleClick(photo.urls.regular)}
+                              >
+                                <Image
+                                  src={photo.urls.regular}
+                                  width={photo.width}
+                                  height={photo.height}
+                                  alt={photo.alt_description}
+                                />
+                              </button>
+                            );
+                          })}
+                        </div>
+                      );
+                    }
+                  )}
                 </div>
               )}
             </div>

@@ -55,6 +55,7 @@ const UploadProvider = ({ children, onFileChange }: UploadProviderProps) => {
     const filename = encodeURIComponent(file.name);
     const res = await fetch(`/api/upload?filename=${filename}`);
     const data = await res.json();
+    console.log('data-aws', data);
     const formData = new FormData();
     Object.entries({ ...data.post.fields, file }).forEach(
       ([key, value]: any) => {

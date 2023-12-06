@@ -52,8 +52,9 @@ const VideoToolbar = ({
     <div className="border-b p-1">
       <Popover open={open} onOpenChange={setOpen}>
         <PopoverTrigger>
-          <Button size="iconSmall" variant="outline">
+          <Button size="sm" variant="outline">
             <Link className="w-4 h-4" />
+            <span>Embed</span>
           </Button>
         </PopoverTrigger>
         <PopoverContent>
@@ -84,8 +85,9 @@ const VideoToolbar = ({
           </Form>
         </PopoverContent>
       </Popover>
-      <Button size="iconSmall" variant="outline">
+      <Button size="sm" variant="outline">
         <FileVideo2 className="w-4 h-4" />
+        <span>Upload</span>
       </Button>
     </div>
   );

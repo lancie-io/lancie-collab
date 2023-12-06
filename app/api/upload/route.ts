@@ -1,4 +1,3 @@
-import { slugify } from '@/lib/utils';
 import aws from 'aws-sdk';
 import { NextResponse } from 'next/server';
 
@@ -23,7 +22,7 @@ export async function GET(request: Request) {
     const post = await s3.createPresignedPost({
       Bucket: process.env.NEXT_PUBLIC_AWS_S3_BUCKET_NAME,
       Fields: {
-        key: `experiments/${currentTimeInSeconds}-${slugify(filename!)}`,
+        key: `experiments/${currentTimeInSeconds}-${filename}`,
       },
       Expires: 60, // seconds
       Conditions: [

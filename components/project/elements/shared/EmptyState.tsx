@@ -21,7 +21,7 @@ const EmptyState = ({
   return (
     <div
       className={cn(
-        'cursor-transition duration-100 flex flex-col justify-center items-center border-2 border-dashed rounded-lg bg-muted py-8 hover:brightness-105 px-4 text-center ',
+        'cursor-transition duration-100 flex flex-col justify-center items-center rounded-lg py-16 px-4 text-center ',
         className
       )}
     >
