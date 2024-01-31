@@ -1,5 +1,6 @@
 'use client';
 
+import { cn } from '@/lib/utils';
 import Placeholder from '@tiptap/extension-placeholder';
 import { EditorContent, useEditor } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
@@ -8,11 +9,12 @@ import useBuilder from '../../hooks/useBuilder';
 import { CustomInstance } from './SummaryBuilderElement';
 import Toolbar from './Toolbar';
 
-const Tiptap = ({
-  elementInstance,
-}: {
+interface TipTapProps {
   elementInstance: BuilderElementInstance;
-}) => {
+  isPreview: boolean;
+}
+
+const Tiptap = ({ elementInstance, isPreview }: TipTapProps) => {
   const element = elementInstance as CustomInstance;
   const { updateElement } = useBuilder();
   const editor = useEditor({
@@ -32,6 +34,7 @@ const Tiptap = ({
       attributes: {
         class: 'prose dark:prose-invert focus:outline-none p-4',
       },
+      editable: () => !isPreview,
     },
     content: element.extraAttributes.content,
     onUpdate: ({ editor }) => {
@@ -48,10 +51,10 @@ const Tiptap = ({
   });
 
   return (
-    <div>
+    <div className={cn(isPreview && '')}>
       {editor && (
         <div>
-          <Toolbar editor={editor} />
+          {!isPreview && <Toolbar editor={editor} />}
           <EditorContent editor={editor} />
         </div>
       )}

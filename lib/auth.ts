@@ -28,14 +28,23 @@ export const authOptions: NextAuthOptions = {
         session.user.name = token.name;
         session.user.email = token.email;
         session.user.image = token.image;
+        session.user.projects = token.projects;
       }
       return session;
     },
 
     async jwt({ token, user }: any) {
-      const dbUser = await prisma.user.findFirst({
+      let dbUser;
+      dbUser = await prisma.user.findFirst({
         where: {
           email: token.email!,
+        },
+        include: {
+          projects: {
+            select: {
+              id: true,
+            },
+          },
         },
       });
 
@@ -49,6 +58,7 @@ export const authOptions: NextAuthOptions = {
         name: dbUser.name,
         email: dbUser.email,
         image: dbUser.image,
+        projects: dbUser.projects.map((project) => project.id),
       };
     },
 

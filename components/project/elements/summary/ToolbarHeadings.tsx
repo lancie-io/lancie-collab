@@ -14,10 +14,10 @@ import { cn } from '@/lib/utils';
 import { Editor } from '@tiptap/react';
 
 const headings = [
-  { value: 'p', label: <>Paragraph (&#9166;)</> },
-  { value: 'h1', label: 'Heading 1 (#)' },
-  { value: 'h2', label: 'Heading 2 (##)' },
-  { value: 'h3', label: 'Heading 3 (###)' },
+  { value: 'p', label: 'Paragraph', shortcut: <>&#9166;</> },
+  { value: 'h1', label: 'Heading 1', shortcut: '(#)' },
+  { value: 'h2', label: 'Heading 2', shortcut: '(##)' },
+  { value: 'h3', label: 'Heading 3', shortcut: '(###)' },
 ];
 
 interface ToolbarHeadingsProps {
@@ -110,6 +110,9 @@ export function ToolbarHeadings({ editor }: ToolbarHeadingsProps) {
                   )}
                 />
                 {heading.label}
+                <span className="text-xs text-muted-foreground ml-1.5">
+                  {heading.shortcut}
+                </span>
               </CommandItem>
             ))}
           </CommandGroup>

@@ -29,6 +29,15 @@ const GMap = ({ element }: GMapProps) => {
               position={location.coordinates}
               onLoad={() => console.log('Marker Loaded')}
             />
+            // <OverlayView
+            //   mapPaneName={OverlayView.OVERLAY_MOUSE_TARGET}
+            //   key={location.placeId}
+            //   position={location.coordinates}
+
+            //   onLoad={() => console.log('Marker Loaded')}
+            // >
+            //   <Icons.marker className="w-8" />
+            // </OverlayView>
           )
         )}
       </GoogleMap>

@@ -1,19 +1,30 @@
 export type FlipperData = {
+  keyword: string;
+  colorClass: string;
   title: string;
   description: string;
 };
 
-export const flippers = [
+export const flippers: FlipperData[] = [
   {
-    title: 'Value Prop',
-    description: 'We do X...',
+    keyword: 'Create',
+    colorClass: 'text-green-500',
+    title: 'Craft beautiful video concepts in seconds.',
+    description:
+      'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.',
   },
   {
-    title: 'Pain Point that is overcome',
-    description: 'We do X...',
+    keyword: 'Pitch',
+    colorClass: 'text-fuchsia-500',
+    title: 'Impress clients with a stunning pitch deck.',
+    description:
+      'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.',
   },
   {
-    title: 'Call To Action',
-    description: 'Do this now...',
+    keyword: 'Collaborate',
+    colorClass: 'text-blue-500',
+    title: 'Get everyone onboard. Realtime.',
+    description:
+      'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.',
   },
 ];

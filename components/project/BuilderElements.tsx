@@ -1,9 +1,9 @@
-import { DeliverablesBuilderElement } from './elements/DeliverablesElement';
+import { DeliverablesBuilderElement } from './elements/deliverables/DeliverablesBuilderElement';
 import { FilesBuilderElement } from './elements/files/FilesBuilderElement';
-import { FinancialsBuilderElement } from './elements/FinancialsBuilderElement';
+import { FinancialsBuilderElement } from './elements/financials/FinancialsBuilderElement';
 import { LocationsBuilderElement } from './elements/map/LocationsBuilderElement';
 import { MoodboardBuilderElement } from './elements/moodboard/MoodboardBuilderElement';
-import { ResponsibilitiesBuilderElement } from './elements/ResponsibilitiesElement';
+import { PersonsBuilderElement } from './elements/persons/PersonsBuilderElement';
 import { SummaryBuilderElement } from './elements/summary/SummaryBuilderElement';
 import { VideosBuilderElement } from './elements/videos/VideosBuilderElement';
 
@@ -18,7 +18,7 @@ export type ElementType =
   | 'moodboard'
   | 'videos'
   | 'files'
-  | 'responsibilities'
+  | 'persons'
   | 'deliverables'
   | 'financials';
 
@@ -57,7 +57,7 @@ export const BuilderElements: BuilderElementType = {
   locations: LocationsBuilderElement,
   videos: VideosBuilderElement,
   files: FilesBuilderElement,
-  responsibilities: ResponsibilitiesBuilderElement,
+  persons: PersonsBuilderElement,
   deliverables: DeliverablesBuilderElement,
   financials: FinancialsBuilderElement,
 };

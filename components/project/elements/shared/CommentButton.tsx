@@ -52,10 +52,10 @@ const CommentButton = ({ element }: CommentButtonProps) => {
           )}
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="p-0 z-40">
+      <PopoverContent className="p-0">
         {filteredThreads.map((thread) => {
           return (
-            <div key={thread.id} className="relative z-50">
+            <div key={thread.id} className="relative">
               {thread.comments.map((comment) => (
                 <Comment
                   showActions={true}
@@ -65,16 +65,13 @@ const CommentButton = ({ element }: CommentButtonProps) => {
                   className="bg-muted"
                 />
               ))}
-              <Composer
-                className="border-t bg-muted relative z-50"
-                threadId={thread.id}
-              />
+              <Composer className="border-t bg-muted" threadId={thread.id} />
             </div>
           );
         })}
         {filteredThreads.length < 1 && (
           <Composer
-            className="border-t bg-muted relative z-50"
+            className="border-t bg-muted"
             onComposerSubmit={handleSubmit}
           />
         )}

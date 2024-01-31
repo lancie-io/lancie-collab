@@ -16,9 +16,10 @@ const center = {
 
 interface LocationsProps {
   element: LocationsElement;
+  isPreview: boolean;
 }
 
-function Locations({ element }: LocationsProps) {
+function Locations({ element, isPreview }: LocationsProps) {
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_API_KEY!,
     libraries: ['places'],
@@ -28,7 +29,7 @@ function Locations({ element }: LocationsProps) {
   return (
     <div className="grid grid-cols-12 aspect-[3/1]">
       <div className="col-span-5 p-2 flex flex-col overflow-hidden">
-        <PlacesAutocomplete element={element} />
+        <PlacesAutocomplete element={element} isPreview={isPreview} />
       </div>
       <div className="col-span-7 p-3 flex flex-col">
         <GMap element={element} />

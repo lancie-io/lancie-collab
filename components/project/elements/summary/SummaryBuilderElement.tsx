@@ -13,7 +13,7 @@ import {
   ElementType,
 } from '../../BuilderElements';
 import useBuilder from '../../hooks/useBuilder';
-import Editor from './Editor';
+import Tiptap from './TipTap';
 
 const type: ElementType = 'summary';
 
@@ -42,7 +42,7 @@ export const SummaryBuilderElement: BuilderElement = {
   },
 
   builderComponent: BuilderComponent,
-  previewComponent: () => <div>Text Preview Component</div>,
+  previewComponent: PreviewComponent,
   propertiesComponent: PropertiesComponent,
 };
 
@@ -113,13 +113,24 @@ function PropertiesComponent({
 
 function BuilderComponent({
   elementInstance,
+  isPreview = false,
 }: {
   elementInstance: BuilderElementInstance;
+  isPreview?: boolean;
 }) {
   const element = elementInstance as CustomInstance;
   return (
     <div className="w-full min-h-[120px]">
-      <Editor elementInstance={element} />
+      <Tiptap elementInstance={element} isPreview={isPreview} />
     </div>
   );
+}
+
+export function PreviewComponent({
+  elementInstance,
+}: {
+  elementInstance: BuilderElementInstance;
+}) {
+  const element = elementInstance as CustomInstance;
+  return <BuilderComponent elementInstance={element} isPreview={true} />;
 }

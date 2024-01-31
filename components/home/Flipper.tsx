@@ -9,15 +9,18 @@ interface FlipperProps {
 }
 
 const Flipper = ({ data, flip }: FlipperProps) => {
-  const { title, description } = data;
+  const { keyword, colorClass, title, description } = data;
   return (
     <Container>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-16">
         <div className="space-y-4">
-          <Title as="h2" className="font-bold">
+          <span className={cn('uppercase font-medium tracking-wider')}>
+            {keyword}
+          </span>
+          <Title as="h2" className="font-bold text-4xl">
             {title}
           </Title>
-          <p>{description}</p>
+          <p className="text-lg text-muted-foreground">{description}</p>
         </div>
         <div
           className={cn(

@@ -1,5 +1,8 @@
 'use client';
 
+import UploadProvider, {
+  UploadedFile,
+} from '@/components/shared/upload/UploadProvider';
 import { Paperclip, icons } from 'lucide-react';
 import {
   BuilderElement,
@@ -7,6 +10,7 @@ import {
   ElementType,
   ExtraAttributes,
 } from '../../BuilderElements';
+import useBuilder from '../../hooks/useBuilder';
 import FilesManager from './FilesManager';
 
 const type: ElementType = 'files';
@@ -47,13 +51,30 @@ export const FilesBuilderElement: BuilderElement = {
 export type FilesElement = BuilderElementInstance<FilesAttributes>;
 
 function BuilderComponent({
-  elementInstance,
+  elementInstance: element,
 }: {
   elementInstance: FilesElement;
 }) {
+  const { updateElement } = useBuilder();
+  function addFile(file: UploadedFile) {
+    const newFile: File = {
+      icon: 'FileText',
+      name: file.name!,
+      url: file.url!,
+    };
+    updateElement(element.id, {
+      ...element,
+      extraAttributes: {
+        ...element.extraAttributes,
+        files: [newFile, ...element.extraAttributes.files],
+      },
+    });
+  }
   return (
     <div className="w-full bg-background">
-      <FilesManager element={elementInstance} />
+      <UploadProvider onFileChange={addFile}>
+        <FilesManager element={element} />
+      </UploadProvider>
     </div>
   );
 }

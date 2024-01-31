@@ -1,6 +1,6 @@
 'use client';
 
-import { Image, Link, StickyNote, Upload } from 'lucide-react';
+import { Image } from 'lucide-react';
 import {
   BuilderElement,
   BuilderElementInstance,
@@ -27,6 +27,10 @@ const extraAttributes: ExtraAttributes<MoodboardAttributes> = {
   images: [],
 };
 
+type CustomInstance = BuilderElementInstance & {
+  extraAttributes: typeof extraAttributes;
+};
+
 export const MoodboardBuilderElement: BuilderElement = {
   type,
   construct: (id: string) => ({
@@ -40,26 +44,27 @@ export const MoodboardBuilderElement: BuilderElement = {
   },
 
   builderComponent: BuilderComponent,
-  previewComponent: () => <div>Moodboard Preview Component</div>,
+  previewComponent: PreviewComponent,
 };
 
 function BuilderComponent({
   elementInstance,
+  isPreview = false,
 }: {
   elementInstance: BuilderElementInstance<MoodboardAttributes>;
+  isPreview?: boolean;
 }) {
-  return <Moodboard element={elementInstance} />;
+  return <Moodboard element={elementInstance} isPreview={isPreview} />;
 }
 
-const Toolbar = () => {
-  return (
-    <div className="absolute bottom-4 bg-foreground rounded-lg flex items-center gap-2 p-2 text-background">
-      <BarIcon icon={Link} />
-      <BarIcon icon={Upload} />
-      <BarIcon icon={StickyNote} />
-    </div>
-  );
-};
+export function PreviewComponent({
+  elementInstance,
+}: {
+  elementInstance: BuilderElementInstance;
+}) {
+  const element = elementInstance as CustomInstance;
+  return <BuilderComponent elementInstance={element} isPreview={true} />;
+}
 
 interface BarIconProps {
   icon: React.ElementType;

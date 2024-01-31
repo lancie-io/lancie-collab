@@ -12,7 +12,7 @@ const FileItem = ({ element, file }: FileItemProps) => {
   return (
     <div className="relative shrink-0 rounded-lg aspect-[5/4] flex flex-col items-center justify-center gap-2 border-2 bg-muted w-[160px] text-muted-foreground overflow-hidden">
       <LucideIcon name={icon} />
-      <p className="text-sm whitespace-nowrap w-full overflow-hidden text-right text-ellipsis ">
+      <p className="text-sm whitespace-nowrap w-full overflow-hidden text-center text-ellipsis ">
         {label || name}
       </p>
       <EditButton

@@ -89,5 +89,14 @@ model VerificationToken {
   @@unique([identifier, token])
 }
 
+model Feedback {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+  email     String?
+  message   String?
+  path      String?
+  type      String?
+}
+
 
 

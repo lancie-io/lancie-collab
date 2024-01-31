@@ -1,4 +1,5 @@
 'use client';
+import { Toaster as SonnerToaster } from '@/components/ui/sonner';
 import colors from '@/resolveConfig';
 import React from 'react';
 import { Toaster } from 'react-hot-toast';
@@ -7,6 +8,7 @@ const ToasterProvider = ({ children }: { children: React.ReactNode }) => {
   return (
     <>
       {children}
+      <SonnerToaster />
       <Toaster
         toastOptions={{
           // Define default options

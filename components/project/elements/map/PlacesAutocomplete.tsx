@@ -17,6 +17,7 @@ import { LocationsElement } from './LocationsBuilderElement';
 
 interface PlacesAutocompleteProps {
   element: LocationsElement;
+  isPreview: boolean;
 }
 
 export type GoogleLocation = {
@@ -32,7 +33,10 @@ export type GoogleLocation = {
   };
 };
 
-const PlacesAutocomplete = ({ element }: PlacesAutocompleteProps) => {
+const PlacesAutocomplete = ({
+  element,
+  isPreview,
+}: PlacesAutocompleteProps) => {
   const { id } = element;
   const { updateElement } = useBuilder();
 
@@ -86,49 +90,52 @@ const PlacesAutocomplete = ({ element }: PlacesAutocompleteProps) => {
   };
   return (
     <div className="relative flex flex-col gap-3 grow overflow-hidden p-1">
-      <Popover open={open} onOpenChange={setOpen}>
-        <PopoverTrigger disabled className="w-full">
-          <Input
-            disabled={!ready}
-            value={value}
-            onChange={(e) => setValue(e.target.value)}
-            placeholder="Search a place..."
-            className="w-full shrink-0"
-          />
-        </PopoverTrigger>
-        <PopoverContent
-          align="start"
-          onOpenAutoFocus={(e) => e.preventDefault()}
-          className="p-1 mt-2"
-        >
-          <ul>
-            {data.map(
-              ({
-                place_id,
-                description,
-                structured_formatting: { main_text, secondary_text },
-              }) => (
-                <li
-                  key={place_id}
-                  onClick={() =>
-                    handleSelect({
-                      placeId: place_id,
-                      description: description,
-                      formatted: {
-                        main: main_text,
-                        secondary: secondary_text,
-                      },
-                    })
-                  }
-                  className="cursor-pointer transition duration-100 hover:bg-accent px-2 py-1.5 text-sm whitespace-nowrap overflow-scroll no-scrollbar rounded-sm"
-                >
-                  {description}
-                </li>
-              )
-            )}
-          </ul>
-        </PopoverContent>
-      </Popover>
+      {!isPreview && (
+        <Popover open={open} onOpenChange={setOpen}>
+          <PopoverTrigger disabled className="w-full">
+            <Input
+              disabled={!ready}
+              value={value}
+              onChange={(e) => setValue(e.target.value)}
+              placeholder="Search a place..."
+              className="w-full shrink-0"
+            />
+          </PopoverTrigger>
+          <PopoverContent
+            align="start"
+            onOpenAutoFocus={(e) => e.preventDefault()}
+            className="p-1 mt-2"
+          >
+            <ul>
+              {data.map(
+                ({
+                  place_id,
+                  description,
+                  structured_formatting: { main_text, secondary_text },
+                }) => (
+                  <li
+                    key={place_id}
+                    onClick={() =>
+                      handleSelect({
+                        placeId: place_id,
+                        description: description,
+                        formatted: {
+                          main: main_text,
+                          secondary: secondary_text,
+                        },
+                      })
+                    }
+                    className="cursor-pointer transition duration-100 hover:bg-accent px-2 py-1.5 text-sm whitespace-nowrap overflow-scroll no-scrollbar rounded-sm"
+                  >
+                    {description}
+                  </li>
+                )
+              )}
+            </ul>
+          </PopoverContent>
+        </Popover>
+      )}
+
       <div className="space-y-2 overflow-scroll no-scrollbar">
         {locations.map((location: GoogleLocation) => (
           <LocationCard

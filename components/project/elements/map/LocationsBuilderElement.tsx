@@ -37,13 +37,28 @@ export const LocationsBuilderElement: BuilderElement = {
   },
 
   builderComponent: BuilderComponent,
-  previewComponent: () => <div>Locations Preview Component</div>,
+  previewComponent: PreviewComponent,
 };
 
 function BuilderComponent({
   elementInstance,
+  isPreview = false,
 }: {
   elementInstance: BuilderElementInstance<LocationsAttributes>;
+  isPreview?: boolean;
 }) {
-  return <Locations element={elementInstance} />;
+  return <Locations element={elementInstance} isPreview={isPreview} />;
+}
+
+type CustomInstance = BuilderElementInstance & {
+  extraAttributes: typeof extraAttributes;
+};
+
+export function PreviewComponent({
+  elementInstance,
+}: {
+  elementInstance: BuilderElementInstance;
+}) {
+  const element = elementInstance as CustomInstance;
+  return <BuilderComponent elementInstance={element} isPreview={true} />;
 }
