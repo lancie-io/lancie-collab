@@ -1,4 +1,5 @@
 'use client';
+import { cn } from '@/lib/utils';
 import { useState } from 'react';
 import { Button, ButtonProps } from '../ui/button';
 import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover';
@@ -6,7 +7,7 @@ import FeedbackForm from './FeedbackForm';
 
 interface FeedbackButtonProps extends ButtonProps {}
 
-const FeedbackButton = (props: FeedbackButtonProps) => {
+const FeedbackButton = ({ className, ...props }: FeedbackButtonProps) => {
   const [open, setOpen] = useState(false);
 
   const handleClose = () => {
@@ -15,7 +16,12 @@ const FeedbackButton = (props: FeedbackButtonProps) => {
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger>
-        <Button {...props} size="sm" variant="outline">
+        <Button
+          className={cn(className)}
+          {...props}
+          size="sm"
+          variant="outline"
+        >
           Feedback
         </Button>
       </PopoverTrigger>

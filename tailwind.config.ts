@@ -26,6 +26,10 @@ const config: Config = {
       },
     },
     extend: {
+      fontSize: {
+        '3xs': ['.5rem', '.625rem'],
+        '2xs': ['.625rem', '.75rem'],
+      },
       typography: {
         sm: {
           css: {

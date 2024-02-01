@@ -1,31 +1,54 @@
-import { Presentation } from 'lucide-react';
 import Image from 'next/image';
+import MegaButton from '../buttons/MegaButton';
 import Container from '../shared/Container';
 import Title from '../shared/Title';
-import { Button } from '../ui/button';
+import ModuleButtonReplica from './ModuleButtonReplica';
 
 const Hero = () => {
   return (
-    <section id="hero">
-      <Container className="flex flex-col items-start gap-4">
+    <section id="hero" className="">
+      <Container className="flex flex-col items-center gap-8 md:gap-12">
         <Title
           as="h1"
-          className="text-4xl lg:text-7xl text-left tracking-[-0.04em] font-extrabold"
+          className="text-center tracking-[-0.04em] font-extrabold leading-[1.1] bg-white bg-gradient-to-b from-white to-ring/50 bg-clip-text text-transparent"
+          style={{
+            fontSize: 'clamp(2.25rem, 7vw, 5.5rem)',
+          }}
         >
-          How you pitch, collaborate and align with your client matters. Do it
-          on your Lancie board.
+          The pre-production <br className="md:hidden" />
+          tool
+          <br className="hidden md:inline" /> for the modern{' '}
+          <br className="md:hidden" />
+          video creator
         </Title>
-        <Button className="bg-gradient-to-b from-brand-400 to-brand-600 text-foreground h-16 px-12 text-xl mt-4">
-          Get Started
-        </Button>
-        <div className="p-3 border rounded-3xl bg-gradient-to-br from-accent to-background relative -left-3 w-[calc(100%+12px)] mt-16">
-          <div className="aspect-video relative w-full border-2 border-ring rounded-2xl overflow-hidden">
-            <Image src="/tv-placeholder.jpg" alt="tv-placeholder" fill />
-          </div>
-          <div className="aspect-square rounded-xl w-[112px] border-2 border-ring border-dashed absolute top-0 right-0 -translate-x-0 -translate-y-[110%] rotate-0 opacity-50"></div>
-          <div className="aspect-square flex flex-col gap-2 font-medium bg-gradient-to-b rounded-xl from-accent to-muted items-center justify-center w-[128px] border-2 border-ring absolute top-0 right-0 translate-x-1/3 -translate-y-2/3 rotate-12">
-            <Presentation className="w-8 h-8" />
-            <span>Storyboard</span>
+        <div className="relative">
+          <MegaButton className="relative shadow-[0_0_40px_30px_rgba(22,23,24,0.9)]">
+            Get Started
+          </MegaButton>
+        </div>
+        <div className="relative w-full mt-8">
+          <ModuleButtonReplica
+            className="absolute top-0 right-0 -translate-y-[75%] rotate-12 opacity-80"
+            icon="Presentation"
+            label="Storyboard"
+          />
+          <ModuleButtonReplica
+            className="absolute top-0 left-0 -translate-y-[90%] translate-x-[15%] -rotate-12 opacity-80"
+            icon="Map"
+            label="Locations"
+          />
+          <div className="p-2 md:p-3 border rounded-3xl bg-muted relative w-full shadow-[0_0_40px_30px_rgba(22,23,24,0.9)]">
+            {/* <div className="aspect-video relative w-full border md:border-2 border-ring rounded-2xl overflow-hidden"> */}
+            <div
+              className="aspect-video overflow-hidden relative w-full rounded-2xl"
+              style={{
+                background:
+                  'linear-gradient(#0000ff00, #0000ff00) padding-box, linear-gradient(-45deg, #7A7A7A75, #7A7A7A30, #7A7A7A75) border-box',
+                border: '2px solid transparent',
+              }}
+            >
+              <Image src="/tv-placeholder.jpg" alt="tv-placeholder" fill />
+            </div>
           </div>
         </div>
       </Container>

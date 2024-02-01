@@ -3,6 +3,7 @@ export type FlipperData = {
   colorClass: string;
   title: string;
   description: string;
+  image: string;
 };
 
 export const flippers: FlipperData[] = [
@@ -12,6 +13,7 @@ export const flippers: FlipperData[] = [
     title: 'Craft beautiful video concepts in seconds.',
     description:
       'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.',
+    image: '/flipper-image-create.jpg',
   },
   {
     keyword: 'Pitch',
@@ -19,6 +21,7 @@ export const flippers: FlipperData[] = [
     title: 'Impress clients with a stunning pitch deck.',
     description:
       'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.',
+    image: '/flipper-image-publish.jpg',
   },
   {
     keyword: 'Collaborate',
@@ -26,5 +29,6 @@ export const flippers: FlipperData[] = [
     title: 'Get everyone onboard. Realtime.',
     description:
       'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.',
+    image: '/flipper-image-collaborate.jpg',
   },
 ];
