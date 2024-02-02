@@ -10,13 +10,13 @@ const ProjectGrid = async () => {
       userId: user?.id,
     },
     orderBy: {
-      createdAt: 'desc',
+      updatedAt: 'desc',
     },
   });
   return (
     <div>
       {projects.length > 0 && (
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 md:gap-4 lg:gap-8">
           {projects.map((project) => (
             <GridItem key={project.id} project={project} />
           ))}

@@ -8,7 +8,7 @@ const ToasterProvider = ({ children }: { children: React.ReactNode }) => {
   return (
     <>
       {children}
-      <SonnerToaster />
+      <SonnerToaster position="top-center" />
       <Toaster
         toastOptions={{
           // Define default options

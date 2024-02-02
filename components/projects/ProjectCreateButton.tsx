@@ -1,16 +1,30 @@
-'use client';
 import { PlusCircle } from 'lucide-react';
-import { useModal } from '../shared/modal';
 import { Button } from '../ui/button';
-import ProjectModalForm from './ProjectModalForm';
+import {
+  Modal,
+  ModalContent,
+  ModalHeader,
+  ModalTitle,
+  ModalTrigger,
+} from './Modal';
+import ProjectCreateForm from './ProjectCreateForm';
 
 const ProjectCreateButton = () => {
-  const { show } = useModal();
   return (
-    <Button variant="primary" onClick={() => show(<ProjectModalForm />)}>
-      <PlusCircle className="w-4 h-4" />
-      Create Project
-    </Button>
+    <Modal>
+      <ModalTrigger>
+        <Button variant="primary">
+          <PlusCircle className="w-4 h-4" />
+          Create Project
+        </Button>
+      </ModalTrigger>
+      <ModalContent>
+        <ModalHeader>
+          <ModalTitle>Create Project</ModalTitle>
+        </ModalHeader>
+        <ProjectCreateForm />
+      </ModalContent>
+    </Modal>
   );
 };
 

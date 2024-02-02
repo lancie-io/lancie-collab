@@ -1,7 +1,7 @@
 import Image from 'next/image';
-import MegaButton from '../buttons/MegaButton';
 import Container from '../shared/Container';
 import Title from '../shared/Title';
+import HeroCTA from './HeroCTA';
 import ModuleButtonReplica from './ModuleButtonReplica';
 
 const Hero = () => {
@@ -21,11 +21,7 @@ const Hero = () => {
           <br className="md:hidden" />
           video creator
         </Title>
-        <div className="relative">
-          <MegaButton className="relative shadow-[0_0_40px_30px_rgba(22,23,24,0.9)]">
-            Get Started
-          </MegaButton>
-        </div>
+        <HeroCTA />
         <div className="relative w-full mt-8">
           <ModuleButtonReplica
             className="absolute top-0 right-0 -translate-y-[75%] rotate-12 opacity-80"

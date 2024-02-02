@@ -39,6 +39,7 @@ model Project {
   comments      Comment[]
   published     Boolean   @default(false)
   members       User[]    @relation("ProjectMembers")
+  cover         String?
 }
 
 model Comment {

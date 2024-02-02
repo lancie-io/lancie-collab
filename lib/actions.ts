@@ -44,6 +44,32 @@ export async function createProject(
   }
 }
 
+export async function deleteProject(id: string) {
+  const user = await getAuthUser();
+  if (!user) {
+    return {
+      success: false,
+      message: 'User not authenticated.',
+    };
+  }
+  try {
+    await prisma.project.delete({
+      where: {
+        id: id,
+      },
+    });
+    return {
+      success: true,
+      message: 'Project deleted.',
+    };
+  } catch (error) {
+    return {
+      success: false,
+      message: 'Project deletion failed.',
+    };
+  }
+}
+
 export async function saveProject(id: string, content: string) {
   const user = await getAuthUser();
   if (!user) {
