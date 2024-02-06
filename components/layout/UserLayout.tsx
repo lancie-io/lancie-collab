@@ -6,10 +6,9 @@ interface UserLayoutProps {
   title: string;
   children: React.ReactNode;
   cta?: React.ReactNode;
-  page: '/' | '/settings';
 }
 
-const UserLayout = ({ title, children, cta, page }: UserLayoutProps) => {
+const UserLayout = ({ title, children, cta }: UserLayoutProps) => {
   return (
     <div className="space-y-8">
       <div className="flex items-center md:items-end justify-between">

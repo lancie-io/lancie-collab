@@ -13,7 +13,7 @@ const SettingsPage = async () => {
     },
   });
   return (
-    <UserLayout title="Settings" page="/settings">
+    <UserLayout title="Settings">
       <Tabs defaultValue="general">
         <TabsList className="grid grid-cols-2 w-[240px]">
           <TabsTrigger value="general">General</TabsTrigger>
