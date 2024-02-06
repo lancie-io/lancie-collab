@@ -12,9 +12,9 @@ const ModuleButtonsSidebar = () => {
         <ModuleButton builderElement={BuilderElements.locations} />
         <ModuleButton builderElement={BuilderElements.videos} />
         <ModuleButton builderElement={BuilderElements.files} />
-        <ModuleButton builderElement={BuilderElements.persons} />
-        <ModuleButton builderElement={BuilderElements.deliverables} />
-        <ModuleButton builderElement={BuilderElements.financials} />
+        <ModuleButton builderElement={BuilderElements.persons} disabled />
+        <ModuleButton builderElement={BuilderElements.deliverables} disabled />
+        <ModuleButton builderElement={BuilderElements.financials} disabled />
       </div>
       <Separator />
       <div className="shrink flex flex-col p-3 flex-grow text-sm">
