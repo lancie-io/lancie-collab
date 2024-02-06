@@ -26,6 +26,8 @@ model User {
   memberProjects Project[] @relation("ProjectMembers")
   isInternal    Boolean @default(false)
   invites       Invite[] @relation("fromUser")
+  receiveComments   Boolean @default(true)
+  receiveMarketing  Boolean @default(true)
 }
 
 model Invite {

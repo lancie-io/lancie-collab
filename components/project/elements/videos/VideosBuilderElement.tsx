@@ -55,5 +55,6 @@ function BuilderComponent({
   elementInstance: BuilderElementInstance;
 }) {
   const element = elementInstance as VideosCustomInstance;
+  // return <VideoGallery elementInstance={element} />;
   return <VideoGallery elementInstance={element} />;
 }

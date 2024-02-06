@@ -19,9 +19,10 @@ const buttonVariants = cva(
         muted: 'bg-muted hover:bg-accent border hover:border-ring',
         secondary:
           'bg-secondary text-secondary-foreground hover:bg-secondary/80',
-        ghost: 'hover:bg-accent hover:text-accent-foreground',
+        ghost: 'hover:bg-accent',
         link: 'text-primary underline-offset-4 hover:underline',
         silent: 'bg-transparent text-muted-foreground hover:text-foreground',
+        list: 'bg-transparent text-muted-foreground hover:text-foreground',
       },
       size: {
         default: 'h-10 px-4 py-2',

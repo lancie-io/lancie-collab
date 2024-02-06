@@ -22,14 +22,14 @@ const VideoGallery = ({
     <div>
       <VideoToolbar elementInstance={elementInstance} />
       <div className="p-4">
-        {elementInstance.extraAttributes?.videos.length === 0 ? (
+        {elementInstance.extraAttributes?.videos?.length === 0 ? (
           <EmptyState
             icon="Film"
             title="Add Videos"
             description="With references its easier to align on story and style."
           />
         ) : (
-          elementInstance.extraAttributes?.videos.map(
+          elementInstance.extraAttributes?.videos?.map(
             (video: any, idx: number) => <VideoItem video={video} key={idx} />
           )
         )}

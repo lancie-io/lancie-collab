@@ -6,6 +6,33 @@ import { getAuthUser } from './auth';
 import prisma from './prisma';
 import { sendInviteEmail } from './sendgrid';
 
+export async function updateUser(data: Prisma.UserUpdateInput) {
+  const user = await getAuthUser();
+  if (!user) {
+    return {
+      success: false,
+      message: 'User not authenticated.',
+    };
+  }
+  try {
+    await prisma.user.update({
+      where: {
+        id: user.id,
+      },
+      data,
+    });
+    return {
+      success: true,
+      message: 'User updated.',
+    };
+  } catch (error) {
+    return {
+      success: false,
+      message: 'User update failed.',
+    };
+  }
+}
+
 export async function handleInvite(inviteId: string) {
   const user = await getAuthUser();
   const invite = await prisma.invite.findUnique({

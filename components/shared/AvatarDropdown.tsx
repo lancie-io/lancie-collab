@@ -6,7 +6,7 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { getAuthUser } from '@/lib/auth';
-import { LayoutGrid, Monitor } from 'lucide-react';
+import { LayoutGrid, Monitor, Settings } from 'lucide-react';
 import Link from 'next/link';
 import LogOutDropdownItem from './LogOutDropdownItem';
 
@@ -20,6 +20,9 @@ const AvatarDropdown = async ({
   inApp,
 }: AvatarDropdownProps) => {
   const user = await getAuthUser();
+  if (!user) {
+    return;
+  }
 
   function renderFirstLink() {
     if (inApp) {
@@ -42,13 +45,21 @@ const AvatarDropdown = async ({
       <DropdownMenuTrigger className="flex gap-2 items-center max-w-full">
         <Avatar data={user} className="w-8 h-8" />
         {showName && (
-          <div className="font-medium text-sm whitespace-nowrap text-ellipsis overflow-hidden">
+          <div className="font-medium text-sm leading-[1.1] whitespace-nowrap text-ellipsis text-left overflow-hidden">
             {user?.name}
+            <br />
+            <span className="text-muted-foreground text-xs">{user?.email}</span>
           </div>
         )}
       </DropdownMenuTrigger>
       <DropdownMenuContent>
         <DropdownMenuItem asChild>{renderFirstLink()}</DropdownMenuItem>
+        <DropdownMenuItem asChild>
+          <Link href={`/app/${user.id}/settings`}>
+            <Settings className="mr-2 h-4 w-4" />
+            <span>Settings</span>
+          </Link>
+        </DropdownMenuItem>
         <LogOutDropdownItem />
       </DropdownMenuContent>
     </DropdownMenu>

@@ -39,7 +39,7 @@ const ShareForm = ({ projectId }: ShareFormProps) => {
     });
     if (res.success) {
       toast.success(`Invite sent to ${values.email}`);
-      form.setValue('email', '');
+      form.setValue('email', undefined as unknown as string);
     } else {
       toast.error(res.message);
     }
@@ -52,7 +52,7 @@ const ShareForm = ({ projectId }: ShareFormProps) => {
           name="email"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Edit Access</FormLabel>
+              <FormLabel>Email</FormLabel>
               <FormControl className="flex">
                 <div className="flex gap-2">
                   <Input placeholder="Enter email..." {...field} />

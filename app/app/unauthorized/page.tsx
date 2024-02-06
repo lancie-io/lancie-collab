@@ -13,7 +13,7 @@ const UnauthorizedPage = () => {
           <ShieldX className="h-4 w-4" />
           <AlertTitle>Access denied!</AlertTitle>
           <AlertDescription className="space-y-2">
-            <p>You are not authorized to access this team.</p>
+            <p>You are not authorized to access this project.</p>
 
             <Link
               href="/app"

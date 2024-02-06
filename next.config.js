@@ -11,6 +11,12 @@ const nextConfig = {
         protocol: 'https',
         hostname: 'uplift-images.s3.amazonaws.com',
       },
+      {
+        protocol: 'https',
+        hostname: '**',
+        port: '',
+        pathname: '**',
+      },
     ],
   },
 };
