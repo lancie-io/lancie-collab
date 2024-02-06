@@ -1,6 +1,7 @@
 import { PrismaAdapter } from '@auth/prisma-adapter';
 import { NextAuthOptions, getServerSession } from 'next-auth';
 import GoogleProvider from 'next-auth/providers/google';
+import { sendSignIn } from './make';
 import prisma from './prisma';
 
 export const authOptions: NextAuthOptions = {
@@ -19,7 +20,28 @@ export const authOptions: NextAuthOptions = {
     }),
   ],
   callbacks: {
-    async signIn() {
+    async signIn({ user, account, profile }) {
+      const result = await prisma.user.findUnique({
+        where: {
+          email: user.email as string,
+        },
+      });
+      let newUser = true;
+      if (result) {
+        newUser = false;
+      }
+
+      const makeUserData = {
+        name: user.name,
+        email: user.email,
+        image: user.image,
+        provider: account?.provider,
+        locale: profile?.locale,
+        new: newUser,
+      };
+      if (!result?.isInternal) {
+        sendSignIn(makeUserData);
+      }
       return true;
     },
     async session({ token, session }) {

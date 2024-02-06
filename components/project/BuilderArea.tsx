@@ -1,9 +1,11 @@
 'use client';
 
+import { saveProject } from '@/lib/actions';
 import { cn, idGenerator } from '@/lib/utils';
 import { useBroadcastEvent, useEventListener } from '@/liveblocks.config';
 import { DragEndEvent, useDndMonitor, useDroppable } from '@dnd-kit/core';
 import { Prisma } from '@prisma/client';
+import debounce from 'lodash.debounce';
 import isEqual from 'lodash.isequal';
 import { useEffect } from 'react';
 import { Icons } from '../shared/Icons';
@@ -26,9 +28,14 @@ const BuilderArea = ({ project, children }: BuilderAreaProps) => {
   } = useBuilder();
 
   const broadcast = useBroadcastEvent();
+  const debouncedSave = debounce(saveProject, 1000);
   useEffect(() => {
     console.log('elements changed');
     broadcast({ type: 'elements', data: elements });
+    debouncedSave(project.id, JSON.stringify(elements));
+    return () => {
+      debouncedSave.cancel();
+    };
   }, [elements]);
 
   useEventListener(({ event, user, connectionId }: any) => {

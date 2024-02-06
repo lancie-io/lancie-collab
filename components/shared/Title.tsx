@@ -18,7 +18,7 @@ const HeadingTag: FC<{
   return (
     <Component
       className={cn(
-        'text-2xl leading-tight tracking-[-0.01em] font-bold',
+        'text-2xl font-bold',
         className,
         mega && 'tracking-[-0.04em] font-extrabold leading-[1.1]',
         semi && 'font-semibold'

@@ -57,11 +57,11 @@ const FilesManager = ({ element }: FilesManagerProps) => {
             <p className="text-sm">Uploading...</p>
           </div>
         )}
-        {files.map((file: File) => (
+        {files?.map((file: File) => (
           <FileItem element={element} file={file} key={file.url} />
         ))}
       </div>
-      {files.length < 1 && (
+      {files?.length < 1 && (
         <EmptyState
           title="Add Files"
           description="Add anything that is relevant to the production"

@@ -3,37 +3,42 @@ import Image from 'next/image';
 import Container from '../shared/Container';
 import Title from '../shared/Title';
 
-type Testimonial = {
+export type Testimonial = {
   name: string;
   username: string;
   image: string;
   text: string;
+  followers: number;
 };
 
-const testimonialData: Testimonial[] = [
+export const testimonialData: Testimonial[] = [
   {
-    name: 'Mats',
-    username: '@matswhatever',
-    image: '/mats.png',
+    name: 'Jens/Jan',
+    username: '@dscvr.twins',
+    image: '/creator-twins.jpg',
     text: 'Those pre-built modules unlock a new superpower!',
+    followers: 35,
+  },
+  {
+    name: 'Maik',
+    username: '@maik.hns',
+    image: '/creator-maik.jpg',
+    text: 'Those pre-built modules unlock a new superpower!',
+    followers: 46,
+  },
+  {
+    name: 'Julie',
+    username: '@julievalentina',
+    image: '/creator-juliane.jpg',
+    text: 'Those pre-built modules unlock a new superpower!',
+    followers: 36,
   },
   {
     name: 'Mats',
-    username: '@matswhatever',
+    username: '@matsmitzett',
     image: '/mats.png',
     text: 'Those pre-built modules unlock a new superpower!',
-  },
-  {
-    name: 'Mats',
-    username: '@matswhatever',
-    image: '/mats.png',
-    text: 'Those pre-built modules unlock a new superpower!',
-  },
-  {
-    name: 'Mats',
-    username: '@matswhatever',
-    image: '/mats.png',
-    text: 'Those pre-built modules unlock a new superpower!',
+    followers: 11,
   },
 ];
 

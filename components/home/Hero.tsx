@@ -12,7 +12,7 @@ const Hero = () => {
           as="h1"
           className="text-center tracking-[-0.04em] font-extrabold leading-[1.1] bg-white bg-gradient-to-b from-white to-ring/50 bg-clip-text text-transparent"
           style={{
-            fontSize: 'clamp(2.25rem, 7vw, 5.5rem)',
+            fontSize: 'clamp(2.25rem, 6vw, 4rem)',
           }}
         >
           The pre-production <br className="md:hidden" />

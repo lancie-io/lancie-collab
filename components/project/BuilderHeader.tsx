@@ -4,9 +4,7 @@ import Link from 'next/link';
 import FeedbackButton from '../FeedbackButton';
 import Title from '../shared/Title';
 import AvatarStack from './AvatarStack';
-import PublishButton from './PublishButton';
-import SaveButton from './SaveButton';
-import ShareButton from './ShareButton';
+import ShareButton from './sharebutton/ShareButton';
 
 interface BuilderHeaderProps {
   project: Prisma.ProjectGetPayload<{}>;
@@ -16,9 +14,9 @@ const BuilderHeader = ({ project }: BuilderHeaderProps) => {
     <div className="border-b h-16 flex justify-between items-center px-4 shrink-0 bg-background z-40">
       <Link
         href="/app"
-        className="transition duration-150 border-r h-full grid place-items-center relative -left-4 px-4 group hover:bg-primary"
+        className="transition duration-150 border-r h-full grid place-items-center relative -left-4 px-4 group hover:bg-accent"
       >
-        <Home className="group-hover:text-secondary" />
+        <Home />
       </Link>
 
       <div className="mr-auto pl-4">
@@ -28,9 +26,7 @@ const BuilderHeader = ({ project }: BuilderHeaderProps) => {
       <div className="flex items-center gap-3">
         <FeedbackButton />
         <AvatarStack />
-        <SaveButton id={project.id} />
-        <ShareButton />
-        <PublishButton />
+        <ShareButton projectId={project.id} />
       </div>
     </div>
   );

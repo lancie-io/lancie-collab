@@ -7,6 +7,10 @@ declare module 'next-auth' {
       projects: string[];
     } & DefaultSession['user'];
   }
+
+  interface Profile {
+    locale?: string;
+  }
 }
 
 declare module 'next-auth/jwt' {

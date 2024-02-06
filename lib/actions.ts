@@ -1,8 +1,192 @@
 'use server';
 
 import { Prisma } from '@prisma/client';
+import { redirect } from 'next/navigation';
 import { getAuthUser } from './auth';
 import prisma from './prisma';
+import { sendInviteEmail } from './sendgrid';
+
+export async function handleInvite(inviteId: string) {
+  const user = await getAuthUser();
+  const invite = await prisma.invite.findUnique({
+    where: {
+      id: inviteId,
+    },
+    include: {
+      project: {
+        select: {
+          id: true,
+        },
+      },
+    },
+  });
+
+  if (!user) {
+    // const loginCallbackPath = `/login?callbackUrl=${encodeURIComponent(
+    //   `/app/project/${invite?.project.id}`
+    // )}`;
+    redirect('/login');
+  }
+  redirect(`/app/project/${invite?.project.id}`);
+}
+
+interface InviteLinkResponse {
+  success: boolean;
+  message: string;
+  data: any;
+}
+export async function generateInviteLink(
+  projectId: string
+): Promise<InviteLinkResponse> {
+  const user = await getAuthUser();
+  if (!user) {
+    return {
+      success: false,
+      message: 'User not authenticated.',
+      data: null,
+    };
+  }
+  try {
+    const invite = await prisma.invite.create({
+      data: {
+        fromUser: {
+          connect: {
+            id: user.id,
+          },
+        },
+        project: {
+          connect: {
+            id: projectId,
+          },
+        },
+      },
+    });
+    return {
+      success: true,
+      message: 'Invite link generated.',
+      data: invite,
+    };
+  } catch (error) {
+    return {
+      success: false,
+      message: 'Invite link generation failed.',
+      data: null,
+    };
+  }
+}
+
+export async function createInvite({
+  email,
+  projectId,
+}: {
+  email: string;
+  projectId: string;
+}) {
+  const user = await getAuthUser();
+
+  if (!user) {
+    return {
+      success: false,
+      message: 'User not authenticated.',
+    };
+  }
+
+  try {
+    const project = await prisma.project.findUnique({
+      where: {
+        id: projectId,
+      },
+      select: {
+        members: true,
+        name: true,
+      },
+    });
+    if (!project) {
+      throw new Error('Project not found.');
+    }
+    const isMemberOfProject = project.members.some(
+      (member) => member.email === email
+    );
+    if (isMemberOfProject) {
+      return {
+        success: false,
+        message: 'User is already a member of the project.',
+      };
+    }
+
+    const dbInvite = await prisma.invite.findFirst({
+      where: {
+        toEmail: email,
+        projectId,
+      },
+    });
+
+    if (dbInvite) {
+      return {
+        success: false,
+        message: 'User is already invited.',
+      };
+    }
+
+    const signedUpUser = await prisma.user.findUnique({
+      where: {
+        email,
+      },
+    });
+
+    if (signedUpUser) {
+      await prisma.project.update({
+        where: {
+          id: projectId,
+        },
+        data: {
+          members: {
+            connect: {
+              email: email,
+            },
+          },
+        },
+      });
+    }
+
+    const invite = await prisma.invite.create({
+      data: {
+        fromUser: {
+          connect: {
+            id: user.id,
+          },
+        },
+        toEmail: email,
+        project: {
+          connect: {
+            id: projectId,
+          },
+        },
+      },
+    });
+
+    const sendgridProjectData = {
+      projectName: project.name,
+      senderName: user.name,
+      recipientName: signedUpUser?.name,
+      inviteId: invite.id,
+      domain: process.env.NEXT_PUBLIC_HOST_URL,
+    };
+
+    console.log('email and data:', email, sendgridProjectData);
+    //TBD: send email to user
+    sendInviteEmail(email, sendgridProjectData);
+    return {
+      success: true,
+      message: 'User added to project.',
+    };
+  } catch (error) {
+    return {
+      success: false,
+      message: 'Invite failed',
+    };
+  }
+}
 
 export async function createProject(
   data: Omit<Prisma.ProjectCreateInput, 'user'>
@@ -71,6 +255,7 @@ export async function deleteProject(id: string) {
 }
 
 export async function saveProject(id: string, content: string) {
+  console.log('save executed');
   const user = await getAuthUser();
   if (!user) {
     return {

@@ -28,7 +28,7 @@ import {
   AlertDialogTrigger,
 } from '../ui/alert-dialog';
 
-import { ImageIcon, Pencil, Settings2, Trash } from 'lucide-react';
+import { ImageIcon, Loader2, Pencil, Settings2, Trash } from 'lucide-react';
 import { Button } from '../ui/button';
 
 import { deleteProject, updateProject } from '@/lib/actions';
@@ -149,7 +149,7 @@ const ModalDialogContent = ({
   });
 
   const router = useRouter();
-
+  const isSubmitting = form.formState.isSubmitting;
   async function onSubmit(values: z.infer<typeof formSchema>) {
     console.log(values);
     const res = await updateProject(id, { name: values.name });
@@ -184,7 +184,8 @@ const ModalDialogContent = ({
               </FormItem>
             )}
           />
-          <Button className="self-end" type="submit">
+          <Button className="self-end" type="submit" disabled={isSubmitting}>
+            {isSubmitting && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
             Save
           </Button>
         </form>

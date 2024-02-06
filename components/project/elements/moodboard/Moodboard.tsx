@@ -50,7 +50,7 @@ const Moodboard = ({ element, isPreview }: MoodboardProps) => {
       )}
       <div className="grow overflow-scroll flex no-scrollbar">
         {/* <pre>{JSON.stringify(element, null, 2)}</pre> */}
-        {images.length == 0 && (
+        {images?.length == 0 && (
           <EmptyState
             className="w-full h-full "
             icon="Image"
@@ -59,8 +59,8 @@ const Moodboard = ({ element, isPreview }: MoodboardProps) => {
           />
         )}
 
-        {images.length > 0 &&
-          images.map((image: TImage, idx: number) => (
+        {images?.length > 0 &&
+          images?.map((image: TImage, idx: number) => (
             <div key={idx} className="grid grid-cols-3 gap-4 p-4 items-start">
               <div
                 className="relative rounded-md overflow-hidden group"

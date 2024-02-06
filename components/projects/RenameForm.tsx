@@ -1,10 +1,8 @@
 'use client';
 
-import { createProject } from '@/lib/actions';
-import { sendProjectCreated } from '@/lib/make';
+import { updateProject } from '@/lib/actions';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Loader2 } from 'lucide-react';
-import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
@@ -25,31 +23,29 @@ const formSchema = z.object({
   name: z.string(),
 });
 
-const ProjectCreateForm = () => {
-  const session = useSession();
+interface RenameFormProps {
+  initValue: string;
+  id: string;
+}
+
+const RenameForm = ({ initValue, id }: RenameFormProps) => {
   const { hide } = useModal();
   const router = useRouter();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      name: undefined,
+      name: initValue,
     },
   });
   const isSubmitting = form.formState.isSubmitting;
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    const res = await createProject(values);
-    const makeProjectData = {
-      name: values.name,
-      email: session?.data?.user?.email,
-      amount: session?.data?.user?.projects?.length,
-    };
+    const res = await updateProject(id, { name: values.name });
     if (res.success) {
-      toast.success(res.message);
-      sendProjectCreated(makeProjectData);
+      toast.success('Project updated.');
       router.refresh();
       hide();
     } else {
-      toast.error(res.message);
+      toast.error('Project update failed.');
     }
   }
   return (
@@ -70,11 +66,11 @@ const ProjectCreateForm = () => {
         />
         <Button className="w-full" disabled={isSubmitting}>
           {isSubmitting && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-          Create
+          Save
         </Button>
       </form>
     </Form>
   );
 };
 
-export default ProjectCreateForm;
+export default RenameForm;

@@ -31,3 +31,7 @@ const ModuleButtonsSidebar = () => {
 };
 
 export default ModuleButtonsSidebar;
+
+const ModuleButtonsTopBar = () => {
+  return <div></div>;
+};
