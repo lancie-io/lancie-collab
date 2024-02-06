@@ -4,14 +4,14 @@ import { buttonVariants } from '@/components/ui/button';
 import { getAuthUser } from '@/lib/auth';
 import prisma from '@/lib/prisma';
 import Link from 'next/link';
-import { notFound } from 'next/navigation';
+import { notFound, redirect } from 'next/navigation';
 
 const InvitePage = async ({
   params,
   searchParams,
 }: {
   params: { id: string };
-  searchParams?: { search?: string };
+  searchParams?: { project?: string };
 }) => {
   const invite = await prisma.invite.findUnique({
     where: {
@@ -43,6 +43,9 @@ const InvitePage = async ({
       },
     });
     nextHref = `/app/project/${invite?.project.id}`;
+    if (searchParams?.project) {
+      redirect(`/app/project/${searchParams.project}`);
+    }
   } else {
     nextHref = `/login?callbackUrl=${encodeURIComponent(
       `/invite/${invite.id}?project=${invite.project.id}`
@@ -51,6 +54,7 @@ const InvitePage = async ({
 
   return (
     <Container className="grow flex flex-col items-center justify-center gap-8 md:gap-12">
+      <pre>{JSON.stringify(searchParams, null, 2)}</pre>
       <Link href="/" className="w-20 absolute top-8">
         <Icons.logoText />
       </Link>
