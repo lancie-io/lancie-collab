@@ -1,7 +1,7 @@
 import UserLayout from '@/components/layout/UserLayout';
 import GeneralSettings from '@/components/settings/GeneralSettings';
+import LoadingSettings from '@/components/settings/LoadingSettings';
 import NotificationSettings from '@/components/settings/NotificationSettings';
-import { Skeleton } from '@/components/ui/skeleton';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Suspense } from 'react';
 
@@ -29,21 +29,3 @@ const SettingsPage = () => {
 };
 
 export default SettingsPage;
-
-export const LoadingSettings = () => {
-  return (
-    <div className="flex flex-col md:flex-row gap-8">
-      <Skeleton className="w-48 h-48 rounded-full" />
-      <div className="space-y-4">
-        <div className="space-y-2">
-          <Skeleton className="w-32 h-4" />
-          <Skeleton className="w-64 h-10" />
-        </div>
-        <div className="space-y-2">
-          <Skeleton className="w-32 h-4" />
-          <Skeleton className="w-64 h-10" />
-        </div>
-      </div>
-    </div>
-  );
-};
