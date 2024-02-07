@@ -1,0 +1,15 @@
+.prose p {
+  margin: 0.5em 0;
+}
+
+.prose p:first-child {
+  margin-top: 0; /* Remove top margin from first child p element */
+}
+
+.prose :where(li) > p {
+  margin: 0;
+}
+
+.prose :where(ul, ol) {
+  margin-top: 0;
+}

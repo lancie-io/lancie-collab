@@ -8,6 +8,7 @@ import '@liveblocks/react-comments/styles/dark/attributes.css';
 import type { Metadata } from 'next';
 import './globals.css';
 import './liveblocks.css';
+import './prose.css';
 
 export const metadata: Metadata = {
   title: 'Lancie Collab',

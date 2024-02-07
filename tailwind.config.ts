@@ -30,27 +30,35 @@ const config: Config = {
         '3xs': ['.5rem', '.625rem'],
         '2xs': ['.625rem', '.75rem'],
       },
-      typography: {
-        sm: {
+      typography: (theme: any) => ({
+        DEFAULT: {
           css: {
-            color: '#333',
-            a: {
-              color: '#3182ce',
-              '&:hover': {
-                color: '#2c5282',
-              },
-            },
-            '> ul > li p ': {
-              marginTop: 0,
-              marginBottom: 0,
-            },
-            '> ol > li p': {
-              marginTop: 0,
-              marginBottom: 0,
-            },
+            '--tw-prose-invert-bullets': theme('colors.foreground'),
+            '--tw-prose-invert-counters': theme('colors.foreground'),
+            // ...
           },
         },
-      },
+        // sm: {
+        //   css: {
+        //     color: '#333',
+        //     a: {
+        //       color: '#3182ce',
+        //       '&:hover': {
+        //         color: '#2c5282',
+        //       },
+        //     },
+        //     '> ul > li p ': {
+        //       marginTop: 0,
+        //       marginBottom: 0,
+        //     },
+        //     '> ol > li p': {
+        //       marginTop: 0,
+        //       marginBottom: 0,
+        //     },
+        //   },
+        // },
+      }),
+
       colors: {
         brand: {
           400: '#EF8933',
