@@ -10,23 +10,22 @@ import {
 import { Switch } from '@/components/ui/switch';
 import { updateProject } from '@/lib/actions';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { Prisma } from '@prisma/client';
 import Link from 'next/link';
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 import { z } from 'zod';
-import { useProject } from '../BuilderProvider';
 
 const formSchema = z.object({
   published: z.boolean(),
 });
 
 interface PublishFormProps {
-  projectId?: string;
+  project: Prisma.ProjectGetPayload<{}>;
 }
 
-const PublishForm = () => {
-  const { project, setProject } = useProject();
+const PublishForm = ({ project }: PublishFormProps) => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -37,7 +36,7 @@ const PublishForm = () => {
     const res = await updateProject(project.id, values);
     if (res.success) {
       toast.success('Project updated.');
-      setProject({ ...project, published: values.published });
+      // setProject({ ...project, published: values.published });
     } else {
       toast.error('Project update failed');
     }
