@@ -1,6 +1,5 @@
 'use client';
 
-import { Map } from 'lucide-react';
 import {
   BuilderElement,
   BuilderElementInstance,
@@ -32,7 +31,7 @@ export const LocationsBuilderElement: BuilderElement = {
     extraAttributes,
   }),
   buttonComponent: {
-    icon: Map,
+    icon: 'Map',
     label: 'Locations',
   },
 

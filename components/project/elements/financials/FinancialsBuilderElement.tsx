@@ -1,6 +1,5 @@
 'use client';
 
-import { Coins } from 'lucide-react';
 import {
   BuilderElement,
   BuilderElementInstance,
@@ -38,7 +37,7 @@ export const FinancialsBuilderElement: BuilderElement = {
     extraAttributes,
   }),
   buttonComponent: {
-    icon: Coins,
+    icon: 'Coins',
     label: 'Financials',
   },
 

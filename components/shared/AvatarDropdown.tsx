@@ -43,7 +43,7 @@ const AvatarDropdown = async ({
   return (
     <DropdownMenu>
       <DropdownMenuTrigger className="flex gap-2 items-center max-w-full">
-        <Avatar data={user} className="w-8 h-8" />
+        <Avatar user={user} className="w-8 h-8" />
         {showName && (
           <div className="font-medium text-sm leading-[1.1] whitespace-nowrap text-ellipsis text-left overflow-hidden">
             {user?.name}

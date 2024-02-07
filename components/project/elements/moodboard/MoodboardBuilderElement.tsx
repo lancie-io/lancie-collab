@@ -1,6 +1,5 @@
 'use client';
 
-import { Image } from 'lucide-react';
 import {
   BuilderElement,
   BuilderElementInstance,
@@ -39,7 +38,7 @@ export const MoodboardBuilderElement: BuilderElement = {
     extraAttributes,
   }),
   buttonComponent: {
-    icon: Image,
+    icon: 'Image',
     label: 'Moodboard',
   },
 
@@ -65,15 +64,3 @@ export function PreviewComponent({
   const element = elementInstance as CustomInstance;
   return <BuilderComponent elementInstance={element} isPreview={true} />;
 }
-
-interface BarIconProps {
-  icon: React.ElementType;
-}
-const BarIcon = (props: BarIconProps) => {
-  const { icon: Icon } = props;
-  return (
-    <div>
-      <Icon className="text-muted hover:text-background w-5 h-5" />
-    </div>
-  );
-};

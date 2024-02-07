@@ -4,7 +4,7 @@
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
+    /* --background: 0 0% 100%;
     --foreground: 20 14.3% 4.1%;
 
     --card: 0 0% 100%;
@@ -33,7 +33,7 @@
 
     --border: 20 5.9% 90%;
     --input: 20 5.9% 90%;
-    --ring: 20 14.3% 4.1%;
+    --ring: 20 14.3% 4.1%; */
 
     --radius: 0.5rem;
   }
@@ -63,7 +63,7 @@
     --input: 220 4% 16%;
     --ring: 0 0% 48%;
   }
-  .lancie {
+  /* .lancie {
     --background: #2b2b2b;
     --foreground: #ffffff;
 
@@ -94,7 +94,7 @@
     --border: #333436;
     --input: #333436;
     --ring: #b1b1b1;
-  }
+  } */
 }
 
 @layer base {

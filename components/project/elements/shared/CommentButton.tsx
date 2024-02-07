@@ -6,9 +6,9 @@ import {
 } from '@/components/ui/popover';
 import { useCreateThread, useThreads } from '@/liveblocks.config';
 import {
-  Comment,
   Composer,
   ComposerSubmitComment,
+  Thread,
 } from '@liveblocks/react-comments';
 import { MessageSquare, MessageSquarePlus } from 'lucide-react';
 import { FormEvent, useCallback } from 'react';
@@ -33,6 +33,7 @@ const CommentButton = ({ element }: CommentButtonProps) => {
         metadata: {
           type: 'module',
           id: element.id,
+          resolved: false,
         },
       });
     },
@@ -53,28 +54,14 @@ const CommentButton = ({ element }: CommentButtonProps) => {
         </Button>
       </PopoverTrigger>
       <PopoverContent className="p-0">
+        {filteredThreads.length < 1 && (
+          <Composer onComposerSubmit={handleSubmit} className="border-none" />
+        )}
         {filteredThreads.map((thread) => {
           return (
-            <div key={thread.id} className="relative">
-              {thread.comments.map((comment) => (
-                <Comment
-                  showActions={true}
-                  showReactions={true}
-                  key={comment.id}
-                  comment={comment}
-                  className="bg-muted"
-                />
-              ))}
-              <Composer className="border-t bg-muted" threadId={thread.id} />
-            </div>
+            <Thread thread={thread} key={thread.id} className="border-none" />
           );
         })}
-        {filteredThreads.length < 1 && (
-          <Composer
-            className="border-t bg-muted"
-            onComposerSubmit={handleSubmit}
-          />
-        )}
       </PopoverContent>
     </Popover>
   );

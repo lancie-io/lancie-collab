@@ -7,7 +7,11 @@ import FeedbackForm from './FeedbackForm';
 
 interface FeedbackButtonProps extends ButtonProps {}
 
-const FeedbackButton = ({ className, ...props }: FeedbackButtonProps) => {
+const FeedbackButton = ({
+  className,
+  children,
+  ...props
+}: FeedbackButtonProps) => {
   const [open, setOpen] = useState(false);
 
   const handleClose = () => {
@@ -18,11 +22,11 @@ const FeedbackButton = ({ className, ...props }: FeedbackButtonProps) => {
       <PopoverTrigger>
         <Button
           className={cn(className)}
-          {...props}
           size="sm"
           variant="outline"
+          {...props}
         >
-          Feedback
+          {children || 'Feedback'}
         </Button>
       </PopoverTrigger>
       <PopoverContent>

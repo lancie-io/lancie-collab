@@ -5,21 +5,26 @@ import {
   ModalTitle,
   ModalTrigger,
 } from '@/components/projects/Modal';
-import { Button } from '@/components/ui/button';
+import { Button, ButtonProps } from '@/components/ui/button';
+import { cn } from '@/lib/utils';
 import GenerateLinkButton from './GenerateLinkButton';
 import MemberTable from './MemberTable';
-import PublishForm from './PublishForm';
 import ShareForm from './ShareForm';
 
-interface ShareButtonProps {
+interface ShareButtonProps extends ButtonProps {
   projectId: string;
 }
 
-const ShareButton = ({ projectId }: ShareButtonProps) => {
+const ShareButton = ({ projectId, className, ...props }: ShareButtonProps) => {
   return (
     <Modal>
       <ModalTrigger>
-        <Button variant="primary" size="sm">
+        <Button
+          variant="primary"
+          size="sm"
+          className={cn(className)}
+          {...props}
+        >
           Share
         </Button>
       </ModalTrigger>
@@ -27,7 +32,7 @@ const ShareButton = ({ projectId }: ShareButtonProps) => {
         <ModalHeader>
           <ModalTitle>Share</ModalTitle>
         </ModalHeader>
-        <PublishForm />
+        {/* <PublishForm /> */}
         <div className="w-full flex flex-col items-stretch gap-2">
           <ShareForm projectId={projectId} />
           <p className="text-sm text-muted-foreground text-center">or</p>

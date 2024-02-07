@@ -1,6 +1,5 @@
 'use client';
 
-import { Users } from 'lucide-react';
 import {
   BuilderElement,
   BuilderElementInstance,
@@ -38,7 +37,7 @@ export const PersonsBuilderElement: BuilderElement = {
     extraAttributes,
   }),
   buttonComponent: {
-    icon: Users,
+    icon: 'Users',
     label: 'Persons',
   },
 

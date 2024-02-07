@@ -1,18 +1,19 @@
 'use client';
 
-import { useCreateThread, useSelf, useThreads } from '@/liveblocks.config';
+import { cn } from '@/lib/utils';
+import { useCreateThread, useThreads } from '@/liveblocks.config';
 import {
-  Comment,
   Composer,
   ComposerSubmitComment,
+  Thread,
 } from '@liveblocks/react-comments';
-import { FormEvent, useCallback, useMemo } from 'react';
+import React, { FormEvent, useCallback, useMemo } from 'react';
 
-export function Conversation() {
+interface ConversationProps extends React.HTMLAttributes<HTMLDivElement> {}
+
+export function Conversation({ className, ...props }: ConversationProps) {
   const { threads } = useThreads();
-  const filteredThreads = threads.filter(
-    (thread) => thread.metadata.type === 'conversation-thread'
-  );
+  const filteredThreads = threads.filter((thread) => !thread.metadata.resolved);
   const sortedThreads = useMemo(() => {
     return filteredThreads.sort((a, b) => {
       const aDate = new Date(a.comments[0].createdAt);
@@ -21,7 +22,6 @@ export function Conversation() {
     });
   }, [threads]);
 
-  const self = useSelf((me) => me.info);
   const createThread = useCreateThread();
 
   const handleSubmit = useCallback(
@@ -30,34 +30,47 @@ export function Conversation() {
       createThread({
         body,
         metadata: {
-          type: 'conversation-thread',
+          type: 'general',
+          resolved: false,
         },
       });
     },
     []
   );
 
+  const handleThreadClick = (id?: string) => {
+    if (!id) return;
+    const element = document.getElementById(id);
+    const outlineClass1 = 'outline-dashed';
+    const outlineClass2 = 'outline-ring';
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+      element.classList.add(outlineClass1);
+      element.classList.add(outlineClass2);
+      setTimeout(() => {
+        element.classList.remove(outlineClass1);
+        element.classList.remove(outlineClass2);
+      }, 1500);
+    }
+  };
+
   return (
-    <div className="w-[300px] p-3 border-l bg-background overflow-scroll no-scrollbar shrink-0">
+    <div
+      className={cn(
+        'w-full md:w-[300px] p-3 md:border-l bg-background overflow-scroll no-scrollbar shrink-0',
+        className
+      )}
+      {...props}
+    >
       <div className="space-y-3">
-        <Composer
-          className="bg-muted border rounded-lg"
-          onComposerSubmit={handleSubmit}
-        />
+        <Composer onComposerSubmit={handleSubmit} />
         {sortedThreads.map((thread) => {
           return (
-            <div className="border rounded-lg overflow-hidden" key={thread.id}>
-              {thread.comments.map((comment) => (
-                <Comment
-                  showActions={true}
-                  showReactions={true}
-                  key={comment.id}
-                  comment={comment}
-                  className="bg-muted"
-                />
-              ))}
-              <Composer className="bg-muted border-t" threadId={thread.id} />
-            </div>
+            <Thread
+              thread={thread}
+              key={thread.id}
+              onClick={() => handleThreadClick(thread.metadata.id)}
+            />
           );
         })}
       </div>

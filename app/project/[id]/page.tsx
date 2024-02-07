@@ -4,7 +4,6 @@ import AvatarStack from '@/components/project/AvatarStack';
 import { BuilderElementInstance } from '@/components/project/BuilderElements';
 import { Conversation } from '@/components/project/comments/Conversation';
 import { Button } from '@/components/ui/button';
-import { getAuthUser } from '@/lib/auth';
 import prisma from '@/lib/prisma';
 import { Home, Link, MessageSquare } from 'lucide-react';
 import { notFound } from 'next/navigation';
@@ -33,8 +32,6 @@ const PublicProjectPage = async ({ params }: { params: { id: string } }) => {
   const elements: BuilderElementInstance[] = JSON.parse(
     project.content as string
   );
-
-  const user = await getAuthUser();
 
   return (
     <Room roomId={`${project.id}-public`}>

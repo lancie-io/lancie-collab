@@ -1,12 +1,17 @@
 import OptimizedImage from '@/components/shared/OptimizedImage';
+import UploadProvider, {
+  UploadedFile,
+} from '@/components/shared/upload/UploadProvider';
 import { Button } from '@/components/ui/button';
-import { Link, Trash, Upload } from 'lucide-react';
+import { Trash } from 'lucide-react';
+import { toast } from 'sonner';
 import useBuilder from '../../hooks/useBuilder';
 import ElementBar from '../shared/ElementBar';
 import EmptyState from '../shared/EmptyState';
-import EmbedImagePopover from './EmbedImagePopover';
+import EmbedImageButton from './EmbedImageButton';
 import { MoodboardElement, TImage } from './MoodboardBuilderElement';
 import UnsplashButton from './UnsplashButton';
+import UploadButton from './UploadButton';
 
 interface MoodboardProps {
   element: MoodboardElement;
@@ -16,6 +21,17 @@ interface MoodboardProps {
 const Moodboard = ({ element, isPreview }: MoodboardProps) => {
   const { images } = element.extraAttributes;
   const { updateElement } = useBuilder();
+
+  function addImage(file: UploadedFile) {
+    updateElement(element.id, {
+      ...element,
+      extraAttributes: {
+        ...element.extraAttributes,
+        images: [{ url: file.url }, ...element.extraAttributes.images],
+      },
+    });
+    toast.success('Image added');
+  }
 
   function removeImage(url: string) {
     updateElement(element.id, {
@@ -32,23 +48,17 @@ const Moodboard = ({ element, isPreview }: MoodboardProps) => {
   }
 
   return (
-    <div className="aspect-[2/1] overflow-hidden group w-full flex flex-col">
+    <div className="aspect-[2/1] overflow-hidden w-full flex flex-col">
       {!isPreview && (
         <ElementBar>
-          <EmbedImagePopover element={element}>
-            <Button size="s" variant="outline">
-              <Link className="w-3 h-3" />
-              Embed
-            </Button>
-          </EmbedImagePopover>
+          <EmbedImageButton element={element} />
           <UnsplashButton element={element} />
-          <Button size="s" variant="outline" disabled>
-            <Upload className="w-3 h-3" />
-            Upload
-          </Button>
+          <UploadProvider onFileChange={addImage}>
+            <UploadButton element={element} />
+          </UploadProvider>
         </ElementBar>
       )}
-      <div className="grow overflow-scroll flex no-scrollbar">
+      <div className="grow overflow-scroll flex flex-col no-scrollbar">
         {/* <pre>{JSON.stringify(element, null, 2)}</pre> */}
         {images?.length == 0 && (
           <EmptyState
@@ -58,12 +68,11 @@ const Moodboard = ({ element, isPreview }: MoodboardProps) => {
             description="Define mood and visual style of your project."
           />
         )}
-
-        {images?.length > 0 &&
-          images?.map((image: TImage, idx: number) => (
-            <div key={idx} className="grid grid-cols-3 gap-4 p-4 items-start">
+        {images?.length > 0 && (
+          <div className="grid grid-cols-3 gap-4 p-4 items-start grow">
+            {images?.map((image: TImage, idx: number) => (
               <div
-                className="relative rounded-md overflow-hidden group"
+                className="relative rounded-md overflow-hidden group bg-red-500/25 min-h-[32px]"
                 key={image.url}
               >
                 {!isPreview && (
@@ -78,8 +87,9 @@ const Moodboard = ({ element, isPreview }: MoodboardProps) => {
                 )}
                 <OptimizedImage src={image.url} />
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );

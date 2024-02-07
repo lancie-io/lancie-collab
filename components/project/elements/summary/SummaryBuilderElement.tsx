@@ -3,7 +3,6 @@
 import { Form, FormField, FormItem, FormLabel } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Pen } from 'lucide-react';
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
@@ -37,7 +36,7 @@ export const SummaryBuilderElement: BuilderElement = {
     extraAttributes,
   }),
   buttonComponent: {
-    icon: Pen,
+    icon: 'Pen',
     label: 'Summary',
   },
 

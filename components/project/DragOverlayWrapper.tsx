@@ -1,9 +1,9 @@
 'use client';
 import { Active, DragOverlay, useDndMonitor } from '@dnd-kit/core';
 import { useState } from 'react';
+import ModuleButtonBase from '../builder/ModuleButton/ModuleButtonBase';
 import BuilderElementContainer from './BuilderElementContainer';
 import { BuilderElements, ElementType } from './BuilderElements';
-import { ModuleButtonOverlay } from './ModuleButton';
 import useBuilder from './hooks/useBuilder';
 
 const DragOverlayWrapper = () => {
@@ -33,7 +33,7 @@ const DragOverlayWrapper = () => {
   const isModuleButton = draggedItem.data?.current?.isModuleButton;
   if (isModuleButton) {
     const type = draggedItem.data?.current?.type as ElementType;
-    node = <ModuleButtonOverlay builderElement={BuilderElements[type]} />;
+    node = <ModuleButtonBase builderElement={BuilderElements[type]} />;
   }
   const isBuilderElement = draggedItem.data?.current?.isBuilderElement;
   if (isBuilderElement) {

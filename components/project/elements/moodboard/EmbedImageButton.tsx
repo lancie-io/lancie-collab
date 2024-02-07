@@ -7,24 +7,24 @@ import {
   PopoverTrigger,
 } from '@/components/ui/popover';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { Link } from 'lucide-react';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import useBuilder from '../../hooks/useBuilder';
 import { MoodboardElement } from './MoodboardBuilderElement';
 
-const FormSchema = z.object({
+const formSchema = z.object({
   url: z.string().url(),
 });
 
-interface EmbedImagePopoverProps {
+interface EmbedImageButtonProps {
   element: MoodboardElement;
-  children: React.ReactNode;
 }
 
-const EmbedImagePopover = ({ children, element }: EmbedImagePopoverProps) => {
-  const form = useForm<z.infer<typeof FormSchema>>({
-    resolver: zodResolver(FormSchema),
+const EmbedImageButton = ({ element }: EmbedImageButtonProps) => {
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
     defaultValues: {
       url: undefined,
     },
@@ -32,7 +32,7 @@ const EmbedImagePopover = ({ children, element }: EmbedImagePopoverProps) => {
   const { updateElement } = useBuilder();
   const [open, setOpen] = useState(false);
 
-  async function onSubmit(data: z.infer<typeof FormSchema>) {
+  async function onSubmit(data: z.infer<typeof formSchema>) {
     updateElement(element.id, {
       ...element,
       extraAttributes: {
@@ -45,10 +45,15 @@ const EmbedImagePopover = ({ children, element }: EmbedImagePopoverProps) => {
   }
   return (
     <Popover open={open} onOpenChange={setOpen}>
-      <PopoverTrigger asChild>{children}</PopoverTrigger>
+      <PopoverTrigger asChild>
+        <Button size="s" variant="outline">
+          <Link className="w-3 h-3" />
+          Embed
+        </Button>
+      </PopoverTrigger>
       <PopoverContent>
         <Form {...form}>
-          <p className="text-sm mb-2 font-medium">Add Image URL</p>
+          <p className="text-sm mb-2 font-medium">Add Image via URL</p>
           <form
             onSubmit={form.handleSubmit(onSubmit)}
             className="flex items-start gap-2"
@@ -60,7 +65,7 @@ const EmbedImagePopover = ({ children, element }: EmbedImagePopoverProps) => {
                 <FormItem className="w-full">
                   <Input
                     className="h-9"
-                    placeholder="Enter video url..."
+                    placeholder="Enter image url..."
                     {...field}
                   />
                   <FormMessage />
@@ -77,4 +82,4 @@ const EmbedImagePopover = ({ children, element }: EmbedImagePopoverProps) => {
   );
 };
 
-export default EmbedImagePopover;
+export default EmbedImageButton;

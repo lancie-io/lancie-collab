@@ -1,3 +1,4 @@
+import { icons } from 'lucide-react';
 import { DeliverablesBuilderElement } from './elements/deliverables/DeliverablesBuilderElement';
 import { FilesBuilderElement } from './elements/files/FilesBuilderElement';
 import { FinancialsBuilderElement } from './elements/financials/FinancialsBuilderElement';
@@ -27,7 +28,7 @@ export type BuilderElement = {
 
   construct: (id: string) => BuilderElementInstance;
   buttonComponent: {
-    icon: React.ElementType;
+    icon: keyof typeof icons;
     label: string;
   };
   builderComponent: React.FC<{

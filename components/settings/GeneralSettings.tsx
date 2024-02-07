@@ -12,6 +12,7 @@ import { Button } from '../ui/button';
 import {
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -23,6 +24,7 @@ import UserImage from './UserImage';
 
 const formSchema = z.object({
   name: z.string().trim().min(1, 'Name is required'),
+  title: z.string().optional(),
 });
 
 const GeneralSettings = ({
@@ -34,6 +36,7 @@ const GeneralSettings = ({
     resolver: zodResolver(formSchema),
     defaultValues: {
       name: user?.name as string | undefined,
+      title: user?.title as string | undefined,
     },
   });
   const isSubmitting = form.formState.isSubmitting;
@@ -80,6 +83,22 @@ const GeneralSettings = ({
                 <FormControl className="flex">
                   <Input {...field} placeholder="Enter your name..." />
                 </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="title"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Title</FormLabel>
+                <FormControl className="flex">
+                  <Input {...field} placeholder="Enter your title..." />
+                </FormControl>
+                <FormDescription>
+                  Tell others at Lancie what you do.
+                </FormDescription>
                 <FormMessage />
               </FormItem>
             )}

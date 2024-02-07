@@ -134,7 +134,7 @@ const BuilderArea = ({ project, children }: BuilderAreaProps) => {
 
   return (
     <div
-      className="grow p-4 lg:p-6 xl:p-8 bg-subtle overflow-scroll no-scrollbar flex flex-col"
+      className="grow p-1.5 md:p-4 lg:p-6 xl:p-8 bg-subtle overflow-scroll no-scrollbar flex flex-col"
       // onClick={(e) => {
       //   console.log('area clicked');
       //   e.stopPropagation();
@@ -144,12 +144,12 @@ const BuilderArea = ({ project, children }: BuilderAreaProps) => {
       <div
         ref={droppable.setNodeRef}
         className={cn(
-          'bg-subtle border grow p-8 rounded-xl flex flex-col',
+          'bg-subtle border grow p-1.5 md:p-8 rounded-xl flex flex-col',
           droppable.isOver && 'ring-2 ring-ring'
         )}
       >
         {elements.length === 0 && !droppable.isOver && (
-          <div className="grow flex flex-col items-center justify-center gap-8 font-semibold text-xl text-muted-foreground">
+          <div className="grow flex flex-col items-center justify-center gap-3 md:gap-8 font-semibold text-lg md:text-xl text-muted-foreground">
             <Icons.dragDrop className="w-2/5 stroke-muted-foreground" />
             Drop here
           </div>
@@ -159,7 +159,7 @@ const BuilderArea = ({ project, children }: BuilderAreaProps) => {
           <div className="h-[100px] bg-ring rounded-md p-4 w-full" />
         )}
         {elements.length > 0 && (
-          <div className="flex flex-col gap-8 w-full">
+          <div className="flex flex-col gap-3 md:gap-8 w-full">
             {elements.map((element) => (
               <BuilderElementWrapper key={element.id} element={element} />
             ))}

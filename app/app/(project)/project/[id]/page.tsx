@@ -1,3 +1,4 @@
+import MobileToolbar from '@/components/builder/toolbar/MobileToolbar';
 import BuilderArea from '@/components/project/BuilderArea';
 import BuilderHeader from '@/components/project/BuilderHeader';
 import BuilderSidebar from '@/components/project/BuilderSidebar';
@@ -46,10 +47,11 @@ const ProjectPage = async ({ params }: { params: { id: string } }) => {
         >
           <div className="grow flex flex-col" style={{ height: '100dvh' }}>
             <BuilderHeader project={project} />
+            <MobileToolbar project={project} />
             <div className="grow flex overflow-scroll no-scrollbar">
-              <BuilderSidebar />
+              <BuilderSidebar className="hidden md:block" />
               <BuilderArea project={project} />
-              <Conversation />
+              <Conversation className="hidden md:block" />
             </div>
           </div>
         </ProjectProvider>

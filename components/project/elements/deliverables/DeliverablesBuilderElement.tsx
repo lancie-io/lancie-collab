@@ -1,6 +1,5 @@
 'use client';
 
-import { Group } from 'lucide-react';
 import {
   BuilderElement,
   BuilderElementInstance,
@@ -39,7 +38,7 @@ export const DeliverablesBuilderElement: BuilderElement = {
     extraAttributes,
   }),
   buttonComponent: {
-    icon: Group,
+    icon: 'Group',
     label: 'Deliverables',
   },
 

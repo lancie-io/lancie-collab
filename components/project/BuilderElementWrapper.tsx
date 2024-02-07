@@ -38,6 +38,7 @@ function BuilderElementWrapper({
   return (
     <div
       className="relative"
+      id={element.id}
       // onClick={(e) => {
       //   e.stopPropagation();
       //   setSelectedElement(element);

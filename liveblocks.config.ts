@@ -53,7 +53,7 @@ type RoomEvent = {
 export type ThreadMetadata = {
   type: string;
   id?: string;
-  // resolved: boolean;
+  resolved: boolean;
   // quote: string;
   // time: number;
 };

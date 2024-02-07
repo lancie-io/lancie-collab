@@ -1,6 +1,5 @@
 'use client';
 
-import { Video } from 'lucide-react';
 import {
   BuilderElement,
   BuilderElementInstance,
@@ -26,7 +25,7 @@ export const VideosBuilderElement: BuilderElement = {
     extraAttributes,
   }),
   buttonComponent: {
-    icon: Video,
+    icon: 'Video',
     label: 'Videos',
   },
 

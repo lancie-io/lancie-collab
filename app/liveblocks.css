@@ -1,0 +1,30 @@
+.lb-root {
+  --lb-accent: purple;
+  --lb-spacing: 1em;
+  --lb-radius: 0;
+  --lb-background: theme(colors.muted.DEFAULT);
+  --lb-foreground: theme(colors.foreground);
+  --lb-elevation-background: theme(colors.muted.DEFAULT);
+  --lb-elevation-foreground: theme(colors.foreground);
+  --lb-accent: theme(colors.accent.DEFAULT);
+  --lb-accent-foreground: theme(colors.accent.foreground);
+  @apply border rounded-md overflow-hidden;
+}
+
+.lb-composer-mention,
+.lb-comment-mention {
+  @apply text-blue-500 bg-blue-500/20 rounded-sm;
+}
+
+.lb-comment-link,
+.lb-composer-link {
+  @apply hover:text-blue-500 hover:underline hover:decoration-blue-500;
+}
+
+.lb-comment {
+  @apply p-4;
+}
+
+.lb-comment-actions {
+  @apply bg-accent/50 rounded-md absolute -top-2 -right-2 border;
+}

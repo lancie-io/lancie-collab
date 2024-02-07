@@ -3,7 +3,7 @@
 import UploadProvider, {
   UploadedFile,
 } from '@/components/shared/upload/UploadProvider';
-import { Paperclip, icons } from 'lucide-react';
+import { icons } from 'lucide-react';
 import {
   BuilderElement,
   BuilderElementInstance,
@@ -40,7 +40,7 @@ export const FilesBuilderElement: BuilderElement = {
     extraAttributes,
   }),
   buttonComponent: {
-    icon: Paperclip,
+    icon: 'Paperclip',
     label: 'Files',
   },
 

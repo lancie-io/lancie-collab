@@ -1,24 +1,33 @@
 import { cn } from '@/lib/utils';
 import { AvatarProps as UIAvatarProps } from '@radix-ui/react-avatar';
-import { User } from 'lucide-react';
+import { Loader2, User } from 'lucide-react';
 import { AvatarFallback, AvatarImage, UIAvatar } from '../ui/avatar';
 
 interface AvatarProps extends UIAvatarProps {
-  data?: {
+  user?: {
     image?: string | null;
     name?: string | null;
-  };
+  } | null;
+  loading?: boolean;
 }
 
-const Avatar = ({ data, ...props }: AvatarProps) => {
+const Avatar = ({ user, loading, ...props }: AvatarProps) => {
   const { className, ...rest } = props;
   return (
     <>
-      <UIAvatar className={cn('rounded-full bg-muted', className)} {...rest}>
-        <AvatarImage src={data?.image as string | undefined} />
+      <UIAvatar
+        className={cn(
+          'rounded-full bg-muted grid place-items-center',
+          className,
+          loading && 'opacity-50'
+        )}
+        {...rest}
+      >
+        {loading && <Loader2 className="w-1/2 h-1/2 animate-spin absolute" />}
+        {user?.image && <AvatarImage src={user.image} />}
         <AvatarFallback className="uppercase text-xs">
-          {data?.name?.slice(0, 2) ?? (
-            <User className="w-[60%] h-[60%] text-muted-foreground" />
+          {user?.name?.slice(0, 1) || (
+            <User className="w-1/2 h-1/2 text-muted-foreground" />
           )}
         </AvatarFallback>
       </UIAvatar>
