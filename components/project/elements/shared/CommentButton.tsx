@@ -21,7 +21,7 @@ interface CommentButtonProps {
 const CommentButton = ({ element }: CommentButtonProps) => {
   const { threads } = useThreads();
   const filteredThreads = threads.filter(
-    (thread) => thread.metadata.id === element.id
+    (thread) => thread.metadata.id === element.id && !thread.metadata.resolved
   );
   const createThread = useCreateThread();
 

@@ -129,7 +129,7 @@ const VideoItem = ({ video, element }: VideoItemProps) => {
           />
         )}
       </div>
-      <div className="col-span-12 border-l relative group min-h-[200px] max-h-[300px]">
+      <div className="col-span-12 border-t relative group min-h-[200px] max-h-[300px]">
         <Editor
           onUpdate={updateVideoNotes}
           content={video.notes}
