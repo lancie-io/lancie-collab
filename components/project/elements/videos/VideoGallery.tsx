@@ -130,11 +130,13 @@ const VideoItem = ({ video, element }: VideoItemProps) => {
         )}
       </div>
       <div className="col-span-12 border-t relative group min-h-[200px] max-h-[300px]">
-        <Editor
-          onUpdate={updateVideoNotes}
-          content={video.notes}
-          placeholder="Take notes about the video..."
-        />
+        <div className="w-full h-full overflow-scroll no-scrollbar">
+          <Editor
+            onUpdate={updateVideoNotes}
+            content={video.notes}
+            placeholder="Take notes about the video..."
+          />
+        </div>
         <Button
           onClick={deleteVideoItem}
           variant="ghost"
