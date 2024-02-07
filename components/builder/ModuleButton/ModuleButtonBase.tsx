@@ -30,3 +30,5 @@ export const ModuleButtonBase = forwardRef<
 });
 
 export default ModuleButtonBase;
+
+ModuleButtonBase.displayName = 'ModuleButtonBase';
