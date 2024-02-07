@@ -5,7 +5,7 @@ import Placeholder from '@tiptap/extension-placeholder';
 import { EditorContent, useEditor } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
 import { BuilderElementInstance } from '../../BuilderElements';
-import useBuilder from '../../hooks/useBuilder';
+import { useBuilder } from '../../BuilderProvider';
 import { CustomInstance } from './SummaryBuilderElement';
 import Toolbar from './Toolbar';
 

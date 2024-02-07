@@ -13,7 +13,7 @@ import Link from 'next/link';
 import { useState } from 'react';
 import ReactPlayer from 'react-player';
 import { BuilderElementInstance } from '../../BuilderElements';
-import useBuilder from '../../hooks/useBuilder';
+import { useBuilder } from '../../BuilderProvider';
 import EmptyState from '../shared/EmptyState';
 import VideoToolbar, { TVideoItem } from './VideoToolbar';
 

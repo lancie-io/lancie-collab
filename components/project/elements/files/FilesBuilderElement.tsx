@@ -10,7 +10,7 @@ import {
   ElementType,
   ExtraAttributes,
 } from '../../BuilderElements';
-import useBuilder from '../../hooks/useBuilder';
+import { useBuilder } from '../../BuilderProvider';
 import FilesManager from './FilesManager';
 
 const type: ElementType = 'files';

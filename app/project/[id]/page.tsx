@@ -1,4 +1,4 @@
-import { Room } from '@/app/app/(project)/project/[id]/Room';
+import { RoomWrapper } from '@/app/app/(project)/project/[id]/Room';
 import AccessButtons from '@/components/project/AccessButtons';
 import AvatarStack from '@/components/project/AvatarStack';
 import { BuilderElementInstance } from '@/components/project/BuilderElements';
@@ -7,7 +7,6 @@ import { Button } from '@/components/ui/button';
 import prisma from '@/lib/prisma';
 import { Home, Link, MessageSquare } from 'lucide-react';
 import { notFound } from 'next/navigation';
-import Modules from './Modules';
 
 const PublicProjectPage = async ({ params }: { params: { id: string } }) => {
   const project = await prisma.project.findUnique({
@@ -34,7 +33,7 @@ const PublicProjectPage = async ({ params }: { params: { id: string } }) => {
   );
 
   return (
-    <Room roomId={`${project.id}-public`}>
+    <RoomWrapper roomId={`${project.id}-public`}>
       <div
         className="bg-subtle grow flex flex-col"
         style={{ height: '100dvh' }}
@@ -54,11 +53,11 @@ const PublicProjectPage = async ({ params }: { params: { id: string } }) => {
           </div>
         </div>
         <div className="w-full grow flex overflow-hidden">
-          <Modules elements={elements} />
+          {/* <Modules elements={elements} /> */}
           <Conversation />
         </div>
       </div>
-    </Room>
+    </RoomWrapper>
   );
 };
 

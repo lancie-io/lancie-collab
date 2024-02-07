@@ -1,6 +1,6 @@
 import update from 'immutability-helper';
 import { useEffect, useReducer } from 'react';
-import useBuilder from '../../hooks/useBuilder';
+import { useBuilder } from '../../BuilderProvider';
 import Table from './Table';
 import './style.css';
 import { ActionTypes, DataTypes, randomColor } from './utils';

@@ -1,6 +1,5 @@
 'use client';
 
-import BuilderContextProvider from '@/components/project/BuilderContext';
 import {
   BuilderElementInstance,
   BuilderElements,
@@ -14,24 +13,22 @@ interface ClientParentProps {
 
 const Modules = ({ elements }: ClientParentProps) => {
   return (
-    <BuilderContextProvider>
-      <div className="grow overflow-scroll flex flex-col gap-4 py-4 px-[100px]">
-        {elements.map((element) => {
-          const BuilderElement = BuilderElements[element.type].previewComponent;
-          return (
-            <div
-              key={element.id}
-              className={cn(
-                'border bg-background rounded-lg relative shrink-0'
-              )}
-            >
-              <PreviewModuleBar element={element} />
-              <BuilderElement elementInstance={element} />
-            </div>
-          );
-        })}
-      </div>
-    </BuilderContextProvider>
+    // <BuilderProvider>
+    <div className="grow overflow-scroll flex flex-col gap-4 py-4 px-[100px]">
+      {elements.map((element) => {
+        const BuilderElement = BuilderElements[element.type].previewComponent;
+        return (
+          <div
+            key={element.id}
+            className={cn('border bg-background rounded-lg relative shrink-0')}
+          >
+            <PreviewModuleBar element={element} />
+            <BuilderElement elementInstance={element} />
+          </div>
+        );
+      })}
+    </div>
+    // </BuilderProvider>
   );
 };
 

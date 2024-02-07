@@ -1,15 +1,30 @@
 'use client';
-
-import React, { Dispatch, SetStateAction } from 'react';
+import { saveProject } from '@/lib/actions';
+import { useBroadcastEvent } from '@/liveblocks.config';
+import { Prisma } from '@prisma/client';
+import { debounce } from 'lodash';
+import {
+  Dispatch,
+  SetStateAction,
+  createContext,
+  useContext,
+  useEffect,
+  useState,
+} from 'react';
 import { BuilderElementInstance } from './BuilderElements';
 
-type BuilderContextType = {
+const debouncedSave = debounce(saveProject, 1000);
+
+export type TProject = Pick<
+  Prisma.ProjectGetPayload<{}>,
+  'id' | 'published' | 'name' | 'userId'
+>;
+
+type BuilderContextT = {
   elements: BuilderElementInstance[];
   setElements: Dispatch<SetStateAction<BuilderElementInstance[]>>;
   addElement: (index: number, element: BuilderElementInstance) => void;
   removeElement: (id: string) => void;
-  selectedElement: BuilderElementInstance | null;
-  setSelectedElement: Dispatch<SetStateAction<BuilderElementInstance | null>>;
   updateElement: (id: string, element: BuilderElementInstance) => void;
   moveElementUp: (id: string) => void;
   moveElementDown: (id: string) => void;
@@ -18,19 +33,36 @@ type BuilderContextType = {
   isFirst: (id: string) => boolean;
   isLast: (id: string) => boolean;
 };
+export const BuilderContext = createContext<BuilderContextT | null>(null);
 
-export const BuilderContext = React.createContext<BuilderContextType | null>(
-  null
-);
-
-export default function BuilderContextProvider({
+const BuilderProvider = ({
   children,
+  elementsFromServer,
+  projectId,
 }: {
   children: React.ReactNode;
-}) {
-  const [elements, setElements] = React.useState<BuilderElementInstance[]>([]);
-  const [selectedElement, setSelectedElement] =
-    React.useState<BuilderElementInstance | null>(null);
+  elementsFromServer: Prisma.ProjectGetPayload<{}>['content'];
+  projectId: string;
+}) => {
+  const [loading, setLoading] = useState(true);
+  const parsedElementsFromServer = elementsFromServer
+    ? JSON.parse(elementsFromServer as string)
+    : [];
+  const [elements, setElements] = useState<BuilderElementInstance[]>([
+    ...parsedElementsFromServer,
+  ]);
+
+  const broadcast = useBroadcastEvent();
+  useEffect(() => {
+    // Fetch additional data or perform any other initialization here
+    setLoading(false);
+    debouncedSave(projectId, JSON.stringify(elements));
+    // broadcast({ type: 'elements', data: elements });
+
+    return () => {
+      debouncedSave.cancel();
+    };
+  }, []);
 
   const addElement = (index: number, element: BuilderElementInstance) => {
     setElements((prev) => {
@@ -110,6 +142,11 @@ export default function BuilderContextProvider({
     return elements[elements.length - 1].id === id;
   };
 
+  // if (loading) {
+  //   // You might want to return a loading state or skeleton component here
+  //   return <div>Loading project...</div>;
+  // }
+
   return (
     <BuilderContext.Provider
       value={{
@@ -117,8 +154,6 @@ export default function BuilderContextProvider({
         setElements,
         addElement,
         removeElement,
-        selectedElement,
-        setSelectedElement,
         updateElement,
         moveElementUp,
         moveElementDown,
@@ -131,4 +166,14 @@ export default function BuilderContextProvider({
       {children}
     </BuilderContext.Provider>
   );
-}
+};
+
+export default BuilderProvider;
+
+export const useBuilder = () => {
+  const context = useContext(BuilderContext);
+  if (!context) {
+    throw new Error('useProject must be used within a ProjectProvider');
+  }
+  return context;
+};

@@ -15,7 +15,7 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { BuilderElementInstance } from '../../BuilderElements';
-import useBuilder from '../../hooks/useBuilder';
+import { useBuilder } from '../../BuilderProvider';
 import { VideosCustomInstance } from './VideosBuilderElement';
 
 export type TVideoItem = {

@@ -5,7 +5,7 @@ import {
   BuilderElements,
   ElementType,
 } from '@/components/project/BuilderElements';
-import useBuilder from '@/components/project/hooks/useBuilder';
+import { useBuilder } from '@/components/project/BuilderProvider';
 import { idGenerator } from '@/lib/utils';
 import { useDraggable } from '@dnd-kit/core';
 import ModuleButtonBase from './ModuleButtonBase';

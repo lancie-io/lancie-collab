@@ -1,15 +1,15 @@
 import MobileToolbar from '@/components/builder/toolbar/MobileToolbar';
 import BuilderArea from '@/components/project/BuilderArea';
 import BuilderHeader from '@/components/project/BuilderHeader';
+import BuilderProvider from '@/components/project/BuilderProvider';
 import BuilderSidebar from '@/components/project/BuilderSidebar';
 import DragOverlayWrapper from '@/components/project/DragOverlayWrapper';
-import ProjectProvider from '@/components/project/ProjectProvider';
 import { Conversation } from '@/components/project/comments/Conversation';
 import DndProvider from '@/components/providers/DndProvider';
 import { getAuthUser } from '@/lib/auth';
 import prisma from '@/lib/prisma';
 import { notFound, redirect } from 'next/navigation';
-import { Room } from './Room';
+import { RoomWrapper } from './Room';
 
 const ProjectPage = async ({ params }: { params: { id: string } }) => {
   const user = await getAuthUser();
@@ -35,15 +35,11 @@ const ProjectPage = async ({ params }: { params: { id: string } }) => {
   }
 
   return (
-    <Room roomId={project.id}>
+    <RoomWrapper roomId={project.id}>
       <DndProvider>
-        <ProjectProvider
-          initialProject={{
-            id: project.id,
-            name: project.name,
-            published: project.published,
-            userId: project.userId,
-          }}
+        <BuilderProvider
+          elementsFromServer={project.content}
+          projectId={project.id}
         >
           <div className="grow flex flex-col" style={{ height: '100dvh' }}>
             <BuilderHeader project={project} />
@@ -54,10 +50,10 @@ const ProjectPage = async ({ params }: { params: { id: string } }) => {
               <Conversation className="hidden md:block" />
             </div>
           </div>
-        </ProjectProvider>
-        <DragOverlayWrapper />
+          <DragOverlayWrapper />
+        </BuilderProvider>
       </DndProvider>
-    </Room>
+    </RoomWrapper>
   );
 };
 

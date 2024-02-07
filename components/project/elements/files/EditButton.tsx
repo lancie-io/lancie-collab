@@ -6,7 +6,7 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { Image, MoreVertical, PencilLine, Trash } from 'lucide-react';
-import useBuilder from '../../hooks/useBuilder';
+import { useBuilder } from '../../BuilderProvider';
 import { File, FilesElement } from './FilesBuilderElement';
 
 interface EditButtonProps extends ButtonProps {

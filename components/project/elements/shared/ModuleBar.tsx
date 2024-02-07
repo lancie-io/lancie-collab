@@ -4,7 +4,7 @@ import { useDraggable } from '@dnd-kit/core';
 import { GripHorizontal } from 'lucide-react';
 import { useState } from 'react';
 import { BuilderElementInstance } from '../../BuilderElements';
-import useBuilder from '../../hooks/useBuilder';
+import { useBuilder } from '../../BuilderProvider';
 import CommentButton from './CommentButton';
 import MoreButton from './MoreButton';
 

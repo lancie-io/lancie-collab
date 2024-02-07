@@ -16,7 +16,7 @@ import {
   Trash,
 } from 'lucide-react';
 import { BuilderElementInstance } from '../../BuilderElements';
-import useBuilder from '../../hooks/useBuilder';
+import { useBuilder } from '../../BuilderProvider';
 
 interface MoreButtonProps extends ButtonProps {
   element: BuilderElementInstance;

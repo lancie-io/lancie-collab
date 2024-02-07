@@ -4,7 +4,7 @@ import { useState } from 'react';
 import ModuleButtonBase from '../builder/ModuleButton/ModuleButtonBase';
 import BuilderElementContainer from './BuilderElementContainer';
 import { BuilderElements, ElementType } from './BuilderElements';
-import useBuilder from './hooks/useBuilder';
+import { useBuilder } from './BuilderProvider';
 
 const DragOverlayWrapper = () => {
   const { elements } = useBuilder();

@@ -11,7 +11,7 @@ import { Link } from 'lucide-react';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
-import useBuilder from '../../hooks/useBuilder';
+import { useBuilder } from '../../BuilderProvider';
 import { MoodboardElement } from './MoodboardBuilderElement';
 
 const formSchema = z.object({

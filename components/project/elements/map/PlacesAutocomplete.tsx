@@ -12,7 +12,7 @@ import usePlacesAutocomplete, {
   getGeocode,
   getLatLng,
 } from 'use-places-autocomplete';
-import useBuilder from '../../hooks/useBuilder';
+import { useBuilder } from '../../BuilderProvider';
 import { LocationsElement } from './LocationsBuilderElement';
 
 interface PlacesAutocompleteProps {

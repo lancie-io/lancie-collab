@@ -18,9 +18,7 @@ const OptimizedImage: FC<OptimizedImageProps> = ({
 }) => {
   return (
     <AdvancedImage
-      width="100%"
-      height="100%"
-      style={{ objectFit: objectFit, ...style }}
+      style={{ objectFit: objectFit, width: '100%', height: '100%', ...style }}
       cldImg={getCloudinaryImage(src)}
       plugins={[responsive({ steps })]}
     />

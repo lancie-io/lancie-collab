@@ -15,7 +15,7 @@ import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 import { z } from 'zod';
-import { useProject } from '../ProjectProvider';
+import { useProject } from '../BuilderProvider';
 
 const formSchema = z.object({
   published: z.boolean(),

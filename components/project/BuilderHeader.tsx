@@ -5,6 +5,7 @@ import FeedbackButton from '../FeedbackButton';
 import LucideIcon from '../shared/LucideIcon';
 import Title from '../shared/Title';
 import AvatarStack from './AvatarStack';
+import SaveButton from './SaveButton';
 import ShareButton from './sharebutton/ShareButton';
 
 interface BuilderHeaderProps {
@@ -27,6 +28,7 @@ const BuilderHeader = ({ project }: BuilderHeaderProps) => {
         {/* <EditableLabel label={project.name} /> */}
       </div>
       <div className="flex items-center gap-3">
+        <SaveButton id={project.id} />
         <FeedbackButton className="hidden md:inline-flex" />
         <AvatarStack className="hidden md:flex" />
         <div className="md:hidden">

@@ -11,7 +11,7 @@ import { useDebounce } from '@uidotdev/usehooks';
 import { Loader2 } from 'lucide-react';
 import Image from 'next/image';
 import { useState } from 'react';
-import useBuilder from '../../hooks/useBuilder';
+import { useBuilder } from '../../BuilderProvider';
 import { MoodboardElement } from './MoodboardBuilderElement';
 import { fetchUnsplash } from './unsplash-action';
 

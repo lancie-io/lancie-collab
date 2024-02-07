@@ -5,7 +5,7 @@ import UploadProvider, {
 import { Button } from '@/components/ui/button';
 import { Trash } from 'lucide-react';
 import { toast } from 'sonner';
-import useBuilder from '../../hooks/useBuilder';
+import { useBuilder } from '../../BuilderProvider';
 import ElementBar from '../shared/ElementBar';
 import EmptyState from '../shared/EmptyState';
 import EmbedImageButton from './EmbedImageButton';

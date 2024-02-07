@@ -11,7 +11,7 @@ import {
   BuilderElementInstance,
   ElementType,
 } from '../../BuilderElements';
-import useBuilder from '../../hooks/useBuilder';
+import { useBuilder } from '../../BuilderProvider';
 import Tiptap from './TipTap';
 
 const type: ElementType = 'summary';
