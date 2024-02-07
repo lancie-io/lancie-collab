@@ -1,8 +1,8 @@
 'use client';
 import { saveProject } from '@/lib/actions';
-import { useBroadcastEvent } from '@/liveblocks.config';
+import { useBroadcastEvent, useEventListener } from '@/liveblocks.config';
 import { Prisma } from '@prisma/client';
-import { debounce } from 'lodash';
+import { debounce, isEqual } from 'lodash';
 import {
   Dispatch,
   SetStateAction,
@@ -57,12 +57,21 @@ const BuilderProvider = ({
     // Fetch additional data or perform any other initialization here
     setLoading(false);
     debouncedSave(projectId, JSON.stringify(elements));
-    // broadcast({ type: 'elements', data: elements });
+    broadcast({ type: 'elements', data: elements });
 
     return () => {
       debouncedSave.cancel();
     };
   }, []);
+
+  useEventListener(({ event, user, connectionId }: any) => {
+    //                       ^^^^ Will be Client A
+    // Do something
+    const newElements = event.data;
+    if (!isEqual(elements, newElements)) {
+      setElements(newElements);
+    }
+  });
 
   const addElement = (index: number, element: BuilderElementInstance) => {
     setElements((prev) => {

@@ -1,17 +1,11 @@
 import UserLayout from '@/components/layout/UserLayout';
 import GeneralSettings from '@/components/settings/GeneralSettings';
-import NotificationsTab from '@/components/settings/NotificationsTab';
+import NotificationSettings from '@/components/settings/NotificationSettings';
+import { Skeleton } from '@/components/ui/skeleton';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { getAuthUser } from '@/lib/auth';
-import prisma from '@/lib/prisma';
+import { Suspense } from 'react';
 
-const SettingsPage = async () => {
-  const user = await getAuthUser();
-  const userData = await prisma.user.findUnique({
-    where: {
-      id: user?.id,
-    },
-  });
+const SettingsPage = () => {
   return (
     <UserLayout title="Settings">
       <Tabs defaultValue="general">
@@ -19,11 +13,15 @@ const SettingsPage = async () => {
           <TabsTrigger value="general">General</TabsTrigger>
           <TabsTrigger value="notifications">Notifications</TabsTrigger>
         </TabsList>
-        <TabsContent value="general">
-          <GeneralSettings user={userData} />
+        <TabsContent value="general" className="mt-8">
+          <Suspense fallback={<LoadingSettings />}>
+            <GeneralSettings />
+          </Suspense>
         </TabsContent>
-        <TabsContent value="notifications">
-          <NotificationsTab userId={user?.id} />
+        <TabsContent value="notifications" className="mt-8">
+          <Suspense fallback={<LoadingSettings />}>
+            <NotificationSettings />
+          </Suspense>
         </TabsContent>
       </Tabs>
     </UserLayout>
@@ -31,3 +29,21 @@ const SettingsPage = async () => {
 };
 
 export default SettingsPage;
+
+export const LoadingSettings = () => {
+  return (
+    <div className="flex flex-col md:flex-row gap-8">
+      <Skeleton className="w-48 h-48 rounded-full" />
+      <div className="space-y-4">
+        <div className="space-y-2">
+          <Skeleton className="w-32 h-4" />
+          <Skeleton className="w-64 h-10" />
+        </div>
+        <div className="space-y-2">
+          <Skeleton className="w-32 h-4" />
+          <Skeleton className="w-64 h-10" />
+        </div>
+      </div>
+    </div>
+  );
+};

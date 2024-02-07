@@ -1,11 +1,16 @@
 import UserLayout from '@/components/layout/UserLayout';
 import ProjectCreateButton from '@/components/projects/ProjectCreateButton';
-import ProjectGrid from '@/components/projects/ProjectGrid';
+import ProjectGrid, {
+  LoadingProjectGrid,
+} from '@/components/projects/ProjectGrid';
+import { Suspense } from 'react';
 
-const OverviewPage = ({ params }: { params: { id: string } }) => {
+const OverviewPage = () => {
   return (
     <UserLayout title="Projects" cta={<ProjectCreateButton />}>
-      <ProjectGrid />
+      <Suspense fallback={<LoadingProjectGrid />}>
+        <ProjectGrid />
+      </Suspense>
     </UserLayout>
   );
 };

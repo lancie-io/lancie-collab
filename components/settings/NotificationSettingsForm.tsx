@@ -24,7 +24,7 @@ const formSchema = z.object({
   receiveMarketing: z.boolean(),
 });
 
-const Notifications = ({
+const NotificationSettingsForm = ({
   userData,
 }: {
   userData?: Prisma.UserGetPayload<{
@@ -113,4 +113,4 @@ const Notifications = ({
   );
 };
 
-export default Notifications;
+export default NotificationSettingsForm;

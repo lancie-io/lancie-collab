@@ -1,6 +1,7 @@
 import { getAuthUser } from '@/lib/auth';
 import prisma from '@/lib/prisma';
 import { Icons } from '../shared/Icons';
+import { Skeleton } from '../ui/skeleton';
 import GridItem from './GridItem';
 
 const ProjectGrid = async () => {
@@ -36,3 +37,20 @@ const ProjectGrid = async () => {
 };
 
 export default ProjectGrid;
+
+export const LoadingProjectGrid = () => {
+  return (
+    <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 md:gap-4 lg:gap-8">
+      {/* //render 6 skeleton items */}
+      {Array.from({ length: 6 }).map((_, i) => (
+        <div key={i}>
+          <Skeleton className="aspect-video w-full" />
+          <div className="mt-1.5 space-y-2">
+            <Skeleton className="h-5 w-32" />
+            <Skeleton className="h-4 w-12" />
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+};

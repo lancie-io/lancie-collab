@@ -8,12 +8,25 @@ import {
 import { getAuthUser } from '@/lib/auth';
 import { LayoutGrid, Monitor, Settings } from 'lucide-react';
 import Link from 'next/link';
+import { Skeleton } from '../ui/skeleton';
 import LogOutDropdownItem from './LogOutDropdownItem';
 
 interface AvatarDropdownProps {
   showName?: boolean;
   inApp: boolean;
 }
+
+export const LoadingAvatarDropdown = () => {
+  return (
+    <div className="flex gap-2 items-center max-w-full">
+      <Skeleton className="w-8 h-8" />
+      <div className="space-y-2">
+        <Skeleton className="w-8 h-4" />
+        <Skeleton className="w-32 h-2" />
+      </div>
+    </div>
+  );
+};
 
 const AvatarDropdown = async ({
   showName = false,

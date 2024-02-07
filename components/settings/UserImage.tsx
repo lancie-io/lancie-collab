@@ -11,7 +11,7 @@ const UserImage = ({ user }: { user?: Prisma.UserGetPayload<{}> | null }) => {
       <Avatar
         user={user}
         loading={isUploading}
-        className="cursor-pointer w-32 h-32"
+        className="cursor-pointer w-48 h-48"
       />
     </FileUploadTrigger>
   );

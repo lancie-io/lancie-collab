@@ -2,6 +2,7 @@
 import { updateProject } from '@/lib/actions';
 import { Prisma } from '@prisma/client';
 import { formatDistance } from 'date-fns';
+import { motion } from 'framer-motion';
 import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
 import UploadProvider, { UploadedFile } from '../shared/upload/UploadProvider';
@@ -27,7 +28,19 @@ const GridItem = ({ project }: GridItemProps) => {
   };
   return (
     <UploadProvider onFileChange={addImage}>
-      <div>
+      <motion.div
+        initial={{
+          opacity: 0.5,
+          scale: 1,
+        }}
+        animate={{
+          opacity: 1,
+          scale: 1,
+        }}
+        transition={{
+          duration: 0.5,
+        }}
+      >
         <div className="relative border-2 transition duration-150 aspect-video grid place-items-center rounded-lg  hover:border-ring bg-muted overflow-hidden">
           <ItemContent project={project} />
           <div className="absolute top-3 right-3">
@@ -41,7 +54,7 @@ const GridItem = ({ project }: GridItemProps) => {
             {formatDistance(project.updatedAt, new Date(), { addSuffix: true })}
           </h3>
         </div>
-      </div>
+      </motion.div>
     </UploadProvider>
   );
 };

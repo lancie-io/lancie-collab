@@ -1,7 +1,7 @@
 import { Prisma } from '@prisma/client';
 import { Loader2 } from 'lucide-react';
-import Image from 'next/image';
 import Link from 'next/link';
+import OptimizedImage from '../shared/OptimizedImage';
 import Title from '../shared/Title';
 import { useUpload } from '../shared/upload/UploadProvider';
 
@@ -17,7 +17,8 @@ const ItemContent = ({ project }: ItemContentProps) => {
       className="absolute left-0 top-0 w-full h-full grid place-items-center"
     >
       {project.cover && (
-        <Image src={project.cover} alt="cover" fill objectFit="cover" />
+        // <Image src={project.cover} alt="cover" fill objectFit="cover" />
+        <OptimizedImage src={project.cover} steps={[500]} />
       )}
       {isUploading && <Loader2 className="animate-spin w-16 h-16 absolute" />}
       {!project.cover && !isUploading && (
