@@ -52,6 +52,11 @@ const UploadProvider = ({ children, onFileChange }: UploadProviderProps) => {
       setIsUploading(false);
       return;
     }
+    if (!file.type.startsWith('image/')) {
+      setIsUploading(false);
+      toast.error('This file type is not allowed.');
+      return;
+    }
     const filename = encodeURIComponent(file.name);
     const res = await fetch(`/api/upload?filename=${filename}`);
     const data = await res.json();

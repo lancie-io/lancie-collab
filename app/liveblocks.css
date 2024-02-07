@@ -8,6 +8,8 @@
   --lb-elevation-foreground: theme(colors.foreground);
   --lb-accent: theme(colors.accent.DEFAULT);
   --lb-accent-foreground: theme(colors.accent.foreground);
+
+  --lb-foreground-subtle: theme(colors.border);
   @apply border rounded-md overflow-hidden;
 }
 
@@ -27,4 +29,8 @@
 
 .lb-comment-actions {
   @apply bg-accent/50 rounded-md absolute -top-2 -right-2 border;
+}
+
+.lb-avatar {
+  @apply text-foreground;
 }

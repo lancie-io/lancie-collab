@@ -14,6 +14,7 @@ export const FileUploadTrigger = ({
     event.preventDefault();
     const fileInput = document.createElement('input');
     fileInput.type = 'file';
+    fileInput.accept = 'image/*';
     fileInput.click();
     fileInput.onchange = (event: any) => uploadFile(event);
   };

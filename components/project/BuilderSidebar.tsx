@@ -21,11 +21,11 @@ const BuilderSidebar = ({ className, ...props }: BuilderSidebarProps) => {
           width: 'max-content',
         }}
       >
-        <ModuleButton builderElement={BuilderElements.summary} />
+        <ModuleButton builderElement={BuilderElements.summary} disabled />
         <ModuleButton builderElement={BuilderElements.moodboard} />
-        <ModuleButton builderElement={BuilderElements.locations} />
-        <ModuleButton builderElement={BuilderElements.videos} />
-        <ModuleButton builderElement={BuilderElements.files} />
+        <ModuleButton builderElement={BuilderElements.locations} disabled />
+        <ModuleButton builderElement={BuilderElements.videos} disabled />
+        <ModuleButton builderElement={BuilderElements.files} disabled />
         <ModuleButton builderElement={BuilderElements.persons} disabled />
         <ModuleButton builderElement={BuilderElements.deliverables} disabled />
         <ModuleButton builderElement={BuilderElements.financials} disabled />
