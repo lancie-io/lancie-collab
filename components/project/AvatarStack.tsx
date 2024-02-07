@@ -21,7 +21,7 @@ const AvatarStack = ({ className, ...props }: AvatarStackProps) => {
       <Avatar
         className="w-6 h-6 md:w-7 md:h-7"
         key={currentUser.connectionId}
-        data={{
+        user={{
           name: currentUser.info.name,
           image: currentUser.info.avatar,
         }}
@@ -34,7 +34,7 @@ const AvatarStack = ({ className, ...props }: AvatarStackProps) => {
         return (
           <Avatar
             key={connectionId}
-            data={avatarUser}
+            user={avatarUser}
             className="w-6 h-6 md:w-7 md:h-7"
           />
         );
