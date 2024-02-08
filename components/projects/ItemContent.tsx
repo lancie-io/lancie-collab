@@ -1,12 +1,12 @@
-import { Prisma } from '@prisma/client';
 import { Loader2 } from 'lucide-react';
 import Link from 'next/link';
 import OptimizedImage from '../shared/OptimizedImage';
 import Title from '../shared/Title';
 import { useUpload } from '../shared/upload/UploadProvider';
+import { GridProjectT } from './ProjectGrid';
 
 interface ItemContentProps {
-  project: Prisma.ProjectGetPayload<{}>;
+  project: GridProjectT;
 }
 
 const ItemContent = ({ project }: ItemContentProps) => {

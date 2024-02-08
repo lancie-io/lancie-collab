@@ -33,7 +33,6 @@ import { Button } from '../ui/button';
 
 import { deleteProject, updateProject } from '@/lib/actions';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Prisma } from '@prisma/client';
 import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
@@ -48,12 +47,14 @@ import {
   FormMessage,
 } from '../ui/form';
 import { Input } from '../ui/input';
+import { GridProjectT } from './ProjectGrid';
 
 interface ItemOptionsProps {
-  project: Prisma.ProjectGetPayload<{}>;
+  project: GridProjectT;
+  isOwner: boolean;
 }
 
-const ItemOptions = ({ project }: ItemOptionsProps) => {
+const ItemOptions = ({ project, isOwner }: ItemOptionsProps) => {
   const [modalOpen, setModalOpen] = useState(false);
 
   const router = useRouter();
@@ -92,7 +93,7 @@ const ItemOptions = ({ project }: ItemOptionsProps) => {
             </DialogTrigger>
 
             <AlertDialogTrigger asChild>
-              <DropdownMenuItem>
+              <DropdownMenuItem disabled={!isOwner}>
                 <Trash className="mr-2 h-4 w-4" />
                 <span>Delete</span>
               </DropdownMenuItem>

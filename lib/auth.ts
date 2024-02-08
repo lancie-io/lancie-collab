@@ -1,6 +1,7 @@
 import { PrismaAdapter } from '@auth/prisma-adapter';
 import { NextAuthOptions, getServerSession } from 'next-auth';
 import GoogleProvider from 'next-auth/providers/google';
+import { useSession } from 'next-auth/react';
 import { sendSignIn } from './make';
 import prisma from './prisma';
 
@@ -51,6 +52,7 @@ export const authOptions: NextAuthOptions = {
         session.user.email = token.email;
         session.user.image = token.image;
         session.user.projects = token.projects;
+        session.user.memberProjects = token.memberProjects;
       }
       return session;
     },
@@ -63,6 +65,11 @@ export const authOptions: NextAuthOptions = {
         },
         include: {
           projects: {
+            select: {
+              id: true,
+            },
+          },
+          memberProjects: {
             select: {
               id: true,
             },
@@ -81,6 +88,7 @@ export const authOptions: NextAuthOptions = {
         email: dbUser.email,
         image: dbUser.image,
         projects: dbUser.projects.map((project) => project.id),
+        memberProjects: dbUser.memberProjects.map((project) => project.id),
       };
     },
 
@@ -98,4 +106,9 @@ export const getAuthSession = () => getServerSession(authOptions);
 export const getAuthUser = async () => {
   const session = await getAuthSession();
   return session?.user;
+};
+
+export const useAuthUser = () => {
+  const session = useSession();
+  return session?.data?.user;
 };

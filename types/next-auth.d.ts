@@ -5,6 +5,7 @@ declare module 'next-auth' {
     user: {
       id: string;
       projects: string[];
+      memberProjects: string[];
     } & DefaultSession['user'];
   }
 
@@ -19,5 +20,6 @@ declare module 'next-auth/jwt' {
     id: string;
     image: string;
     projects: string[];
+    memberProjects: string[];
   }
 }

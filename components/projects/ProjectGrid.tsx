@@ -1,19 +1,41 @@
 import { getAuthUser } from '@/lib/auth';
 import prisma from '@/lib/prisma';
+import { Prisma } from '@prisma/client';
 import { Icons } from '../shared/Icons';
 import { Skeleton } from '../ui/skeleton';
 import GridItem from './GridItem';
 
+export type GridProjectT = Prisma.ProjectGetPayload<{
+  select: {
+    id: true;
+    name: true;
+    cover: true;
+    createdAt: true;
+    updatedAt: true;
+    user: true;
+  };
+}>;
+
 const ProjectGrid = async () => {
   const user = await getAuthUser();
-  const projects = await prisma.project.findMany({
+  const dbUser = await prisma.user.findUnique({
     where: {
-      userId: user?.id,
+      id: user?.id,
     },
-    orderBy: {
-      updatedAt: 'desc',
+    select: {
+      memberProjects: {
+        select: {
+          id: true,
+          name: true,
+          cover: true,
+          createdAt: true,
+          updatedAt: true,
+          user: true,
+        },
+      },
     },
   });
+  const projects = dbUser!.memberProjects;
   return (
     <div>
       {projects.length > 0 && (
