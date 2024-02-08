@@ -34,11 +34,18 @@ interface UnsplashParams {
   // Add other optional parameters as needed
 }
 
-interface UnsplashResponse {
+interface UnsplashSuccess {
   total: number;
   total_pages: number;
   results: UnsplashPhoto[];
 }
+
+interface UnsplashError {
+  errors: string[];
+}
+
+export type UnsplashResponse = UnsplashSuccess | UnsplashError;
+
 const UNSPLASH_API_URL = 'https://api.unsplash.com';
 
 export async function fetchUnsplash(
@@ -48,11 +55,11 @@ export async function fetchUnsplash(
 
   const queryString = queryParam.length > 0 ? `?query=${queryParam}` : '';
   console.log('QS LENGTH: ', queryString.length);
-  const fetchUrl =
-    queryString.length > 0
-      ? `${UNSPLASH_API_URL}/search/photos${queryString}`
-      : `${UNSPLASH_API_URL}/photos`;
-
+  // const fetchUrl =
+  //   queryString.length > 0
+  //     ? `${UNSPLASH_API_URL}/search/photos${queryString}`
+  //     : `${UNSPLASH_API_URL}/photos`;
+  const fetchUrl = `${UNSPLASH_API_URL}/search/photos${queryString}`;
   console.log('FETCH URL: ', fetchUrl);
   const res = await fetch(fetchUrl, {
     headers: {

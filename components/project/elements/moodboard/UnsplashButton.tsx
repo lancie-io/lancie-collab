@@ -1,4 +1,5 @@
 import { Icons } from '@/components/shared/Icons';
+import OptimizedImage from '@/components/shared/OptimizedImage';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import {
@@ -8,8 +9,7 @@ import {
 } from '@/components/ui/popover';
 import { useQuery } from '@tanstack/react-query';
 import { useDebounce } from '@uidotdev/usehooks';
-import { Loader2 } from 'lucide-react';
-import Image from 'next/image';
+import { HeartCrack, Image as ImageIcon, Loader2 } from 'lucide-react';
 import { useState } from 'react';
 import { useBuilder } from '../../BuilderProvider';
 import { MoodboardElement } from './MoodboardBuilderElement';
@@ -84,7 +84,19 @@ const UnsplashButton = ({ element }: UnsplashButtonProps) => {
               {/* {status === 'success' && photos.length < 1 && (
                 <div className="text-muted-foreground">No photos found</div>
               )} */}
-              {data?.results?.length && (
+              {data && 'errors' in data && (
+                <div className="flex flex-col gap-4 font-medium items-center h-full w-full justify-center">
+                  <ImageIcon className="w-10 h-10" />
+                  Start searching images
+                </div>
+              )}
+              {data && !('errors' in data) && !data?.results?.length && (
+                <div className="flex flex-col gap-4 items-center font-medium h-full w-full justify-center">
+                  <HeartCrack className="w-10 h-10" />
+                  No photos found
+                </div>
+              )}
+              {data && !('errors' in data) && data?.results?.length && (
                 <div className="grid grid-cols-3 gap-4">
                   {distributeItems(data.results, 3).map(
                     (column, colIdx: number) => {
@@ -98,11 +110,15 @@ const UnsplashButton = ({ element }: UnsplashButtonProps) => {
                                 className="relative overflow-hidden rounded-md"
                                 onClick={() => handleClick(photo.urls.regular)}
                               >
-                                <Image
+                                {/* <Image
                                   src={photo.urls.regular}
                                   width={photo.width}
                                   height={photo.height}
                                   alt={photo.alt_description}
+                                /> */}
+                                <OptimizedImage
+                                  src={photo.urls.regular}
+                                  steps={[200]}
                                 />
                               </button>
                             );

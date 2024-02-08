@@ -18,24 +18,28 @@ export type GridProjectT = Prisma.ProjectGetPayload<{
 
 const ProjectGrid = async () => {
   const user = await getAuthUser();
-  const dbUser = await prisma.user.findUnique({
+  //select all projects where user is a member and sort by updatedAt desc
+  const projects = await prisma.project.findMany({
     where: {
-      id: user?.id,
-    },
-    select: {
-      memberProjects: {
-        select: {
-          id: true,
-          name: true,
-          cover: true,
-          createdAt: true,
-          updatedAt: true,
-          user: true,
+      members: {
+        some: {
+          id: user?.id,
         },
       },
     },
+    orderBy: {
+      updatedAt: 'desc',
+    },
+    select: {
+      id: true,
+      name: true,
+      cover: true,
+      createdAt: true,
+      updatedAt: true,
+      user: true,
+    },
   });
-  const projects = dbUser!.memberProjects;
+
   return (
     <div>
       {projects.length > 0 && (
