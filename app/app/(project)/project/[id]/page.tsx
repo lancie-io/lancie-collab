@@ -6,10 +6,11 @@ import BuilderSidebar from '@/components/project/BuilderSidebar';
 import DragOverlayWrapper from '@/components/project/DragOverlayWrapper';
 import { Conversation } from '@/components/project/comments/Conversation';
 import DndProvider from '@/components/providers/DndProvider';
+import { RoomProvider } from '@/components/providers/RoomProvider';
 import { getAuthUser } from '@/lib/auth';
 import prisma from '@/lib/prisma';
+import { cn } from '@/lib/utils';
 import { notFound, redirect } from 'next/navigation';
-import { RoomWrapper } from './Room';
 
 const ProjectPage = async ({ params }: { params: { id: string } }) => {
   const user = await getAuthUser();
@@ -35,25 +36,25 @@ const ProjectPage = async ({ params }: { params: { id: string } }) => {
   }
 
   return (
-    <RoomWrapper roomId={project.id}>
+    <RoomProvider roomId={params.id}>
       <DndProvider>
         <BuilderProvider
           elementsFromServer={project.content}
-          projectId={project.id}
+          projectId={params.id}
         >
           <div className="grow flex flex-col" style={{ height: '100dvh' }}>
-            <BuilderHeader project={project} />
-            <MobileToolbar project={project} />
+            <BuilderHeader projectId={params.id} />
+            <MobileToolbar projectId={params.id} />
             <div className="grow flex overflow-scroll no-scrollbar">
-              <BuilderSidebar className="hidden md:block" />
-              <BuilderArea project={project} />
+              <BuilderSidebar className={cn('hidden md:block')} />
+              <BuilderArea />
               <Conversation className="hidden md:block" />
             </div>
           </div>
           <DragOverlayWrapper />
         </BuilderProvider>
       </DndProvider>
-    </RoomWrapper>
+    </RoomProvider>
   );
 };
 

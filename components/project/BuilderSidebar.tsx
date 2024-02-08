@@ -7,7 +7,7 @@ import { BuilderElements } from './BuilderElements';
 
 interface BuilderSidebarProps extends React.HTMLAttributes<HTMLBaseElement> {}
 
-const BuilderSidebar = ({ className, ...props }: BuilderSidebarProps) => {
+const BuilderSidebar = ({ className }: BuilderSidebarProps) => {
   return (
     <aside
       className={cn('md:border-r overflow-scroll no-scrollbar', className)}

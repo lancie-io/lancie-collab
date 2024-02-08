@@ -18,14 +18,13 @@ import {
   SheetTitle,
   SheetTrigger,
 } from '@/components/ui/sheet';
-import { Prisma } from '@prisma/client';
 import { LayoutGrid, MessagesSquare } from 'lucide-react';
 
 interface MobileToolbarProps {
-  project: Prisma.ProjectGetPayload<{}>;
+  projectId: string;
 }
 
-const MobileToolbar = ({ project }: MobileToolbarProps) => {
+const MobileToolbar = ({ projectId }: MobileToolbarProps) => {
   return (
     <div className="h-12 w-full md:hidden border-b shrink-0">
       <Container className="h-full flex items-center gap-1.5">
@@ -57,7 +56,7 @@ const MobileToolbar = ({ project }: MobileToolbarProps) => {
         </Drawer>
 
         <AvatarStack className="ml-auto" />
-        <ShareButton projectId={project.id} size="s" />
+        <ShareButton projectId={projectId} size="s" />
       </Container>
     </div>
   );

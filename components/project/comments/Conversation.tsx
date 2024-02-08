@@ -1,5 +1,6 @@
 'use client';
 
+import { Skeleton } from '@/components/ui/skeleton';
 import { cn } from '@/lib/utils';
 import { useCreateThread, useThreads } from '@/liveblocks.config';
 import {
@@ -77,3 +78,19 @@ export function Conversation({ className, ...props }: ConversationProps) {
     </div>
   );
 }
+
+export const LoadingConversation = () => {
+  return (
+    <div
+      className={cn(
+        'w-full md:w-[300px] p-3 md:border-l bg-background overflow-scroll no-scrollbar shrink-0'
+      )}
+    >
+      <div className="space-y-3">
+        <Skeleton className="aspect-video w-full" />
+        <Skeleton className="aspect-video w-full" />
+        <Skeleton className="aspect-video w-full" />
+      </div>
+    </div>
+  );
+};

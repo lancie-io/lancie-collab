@@ -1,5 +1,6 @@
 import { cn } from '@/lib/utils';
 import { useDraggable, useDroppable } from '@dnd-kit/core';
+import ErrorBoundary from '../shared/ErrorBoundary';
 import BuilderElementContainer from './BuilderElementContainer';
 import { BuilderElementInstance } from './BuilderElements';
 
@@ -36,30 +37,32 @@ function BuilderElementWrapper({
 
   if (draggable.isDragging) return null;
   return (
-    <div
-      className="relative"
-      id={element.id}
-      // onClick={(e) => {
-      //   e.stopPropagation();
-      //   setSelectedElement(element);
-      // }}
-    >
+    <ErrorBoundary>
       <div
-        ref={topHalf.setNodeRef}
-        className={cn('absolute top-0 w-full h-1/2')}
-      />
-      <div
-        ref={bottomHalf.setNodeRef}
-        className="absolute bottom-0 w-full h-1/2"
-      />
-      {topHalf.isOver && (
-        <div className="absolute -top-5 w-full h-2 bg-foreground rounded-lg" />
-      )}
-      {bottomHalf.isOver && (
-        <div className="absolute -bottom-5 w-full h-2 bg-foreground rounded-lg" />
-      )}
-      <BuilderElementContainer draggable={draggable} element={element} />
-    </div>
+        className="relative"
+        id={element.id}
+        // onClick={(e) => {
+        //   e.stopPropagation();
+        //   setSelectedElement(element);
+        // }}
+      >
+        <div
+          ref={topHalf.setNodeRef}
+          className={cn('absolute top-0 w-full h-1/2')}
+        />
+        <div
+          ref={bottomHalf.setNodeRef}
+          className="absolute bottom-0 w-full h-1/2"
+        />
+        {topHalf.isOver && (
+          <div className="absolute -top-5 w-full h-2 bg-foreground rounded-lg" />
+        )}
+        {bottomHalf.isOver && (
+          <div className="absolute -bottom-5 w-full h-2 bg-foreground rounded-lg" />
+        )}
+        <BuilderElementContainer draggable={draggable} element={element} />
+      </div>
+    </ErrorBoundary>
   );
 }
 

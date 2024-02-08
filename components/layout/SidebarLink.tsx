@@ -20,7 +20,7 @@ const SidebarLink = ({ label, segment, href }: SidebarLinkProps) => {
       href={href}
       className={cn(
         buttonVariants({ variant: 'ghost' }),
-        'w-full justify-start -ml-3',
+        'w-full justify-start ',
         isActive && 'bg-foreground text-background hover:bg-foreground/90'
       )}
     >

@@ -7,16 +7,16 @@ import { Button } from '../ui/button';
 import { useBuilder } from './BuilderProvider';
 
 interface SaveButtonProps {
-  id: string;
+  projectId: string;
 }
 
-const SaveButton = ({ id }: SaveButtonProps) => {
+const SaveButton = ({ projectId }: SaveButtonProps) => {
   const { elements } = useBuilder();
   const [loading, setLoading] = useState(false);
   const handleClick = async () => {
     setLoading(true);
     const jsonElements = JSON.stringify(elements);
-    const res = await saveProject(id, jsonElements);
+    const res = await saveProject(projectId, jsonElements);
     if (res.success) {
       toast.success(res.message);
     } else {

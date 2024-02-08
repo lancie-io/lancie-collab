@@ -30,7 +30,8 @@
     "components/project/elements/table/TableModule.jsx",
     "components/project/elements/table/Badge.jsx",
     "components/project/elements/table/TableModule.jsx",
-    "components/project/elements/table/Table.jsx"
+    "components/project/elements/table/Table.jsx",
+    "components/shared/ErrorBoundary.tjx"
   ],
   "exclude": ["node_modules"]
 }

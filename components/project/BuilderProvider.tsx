@@ -62,7 +62,7 @@ const BuilderProvider = ({
     return () => {
       debouncedSave.cancel();
     };
-  }, []);
+  }, [elements]);
 
   useEventListener(({ event, user, connectionId }: any) => {
     //                       ^^^^ Will be Client A

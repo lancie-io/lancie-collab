@@ -1,8 +1,8 @@
-import { RoomWrapper } from '@/app/app/(project)/project/[id]/Room';
 import AccessButtons from '@/components/project/AccessButtons';
 import AvatarStack from '@/components/project/AvatarStack';
 import { BuilderElementInstance } from '@/components/project/BuilderElements';
 import { Conversation } from '@/components/project/comments/Conversation';
+import { RoomProvider } from '@/components/providers/RoomProvider';
 import { Button } from '@/components/ui/button';
 import prisma from '@/lib/prisma';
 import { Home, Link, MessageSquare } from 'lucide-react';
@@ -33,7 +33,7 @@ const PublicProjectPage = async ({ params }: { params: { id: string } }) => {
   );
 
   return (
-    <RoomWrapper roomId={`${project.id}-public`}>
+    <RoomProvider roomId={`${project.id}-public`}>
       <div
         className="bg-subtle grow flex flex-col"
         style={{ height: '100dvh' }}
@@ -57,7 +57,7 @@ const PublicProjectPage = async ({ params }: { params: { id: string } }) => {
           <Conversation />
         </div>
       </div>
-    </RoomWrapper>
+    </RoomProvider>
   );
 };
 

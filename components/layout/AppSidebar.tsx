@@ -4,17 +4,17 @@ import AvatarDropdown, {
   LoadingAvatarDropdown,
 } from '../shared/AvatarDropdown';
 import { Sheet, SheetContent, SheetTrigger } from '../ui/sheet';
-import SidebarLink from './SidebarLink';
+import SidebarMenu from './SidebarMenu';
 
 const AppSidebar = () => {
   return (
-    <aside className="p-0 md:p-6">
+    <aside className="p-3 md:p-6">
       <div className="mb-4">
         <Suspense fallback={<LoadingAvatarDropdown />}>
           <AvatarDropdown inApp={true} showName={true} />
         </Suspense>
       </div>
-      <SidebarLink label="Projects" segment="/" href={`/app`} />
+      <SidebarMenu />
     </aside>
   );
 };

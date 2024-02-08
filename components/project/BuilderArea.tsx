@@ -2,42 +2,14 @@
 
 import { cn, idGenerator } from '@/lib/utils';
 import { DragEndEvent, useDndMonitor, useDroppable } from '@dnd-kit/core';
-import { Prisma } from '@prisma/client';
 import { Icons } from '../shared/Icons';
 import BuilderElementWrapper from './BuilderElementWrapper';
 import { BuilderElements, ElementType } from './BuilderElements';
 import { useBuilder } from './BuilderProvider';
 
-interface BuilderAreaProps extends React.HTMLAttributes<HTMLDivElement> {
-  project: Prisma.ProjectGetPayload<{}>;
-}
-
-const BuilderArea = ({ children }: BuilderAreaProps) => {
+const BuilderArea = () => {
   const { elements, addElement, removeElement } = useBuilder();
 
-  // useEffect(() => {
-  //   console.log('elements changed');
-  //   // broadcast({ type: 'elements', data: elements });
-  //   // debouncedSave(project.id, JSON.stringify(elements));
-  //   // return () => {
-  //   //   debouncedSave.cancel();
-  //   // };
-  // }, [elements]);
-
-  // useEventListener(({ event, user, connectionId }: any) => {
-  //   //                       ^^^^ Will be Client A
-  //   // Do something
-  //   const newElements = event.data;
-  //   if (!isEqual(elements, newElements)) {
-  //     setElements(newElements);
-  //   }
-  // });
-
-  // useEffect(() => {
-  //   const elementsFromServer = JSON.parse(project.content as string);
-
-  //   setElements(elementsFromServer || []);
-  // }, [project]);
   const droppable = useDroppable({
     id: 'builder-area',
     data: {
@@ -119,18 +91,11 @@ const BuilderArea = ({ children }: BuilderAreaProps) => {
   });
 
   return (
-    <div
-      className="grow p-1.5 md:p-4 lg:p-6 xl:p-8 bg-subtle overflow-scroll no-scrollbar flex flex-col"
-      // onClick={(e) => {
-      //   console.log('area clicked');
-      //   e.stopPropagation();
-      //   if (selectedElement) setSelectedElement(null);
-      // }}
-    >
+    <div className="grow p-3 md:p-4 lg:p-6 xl:p-8 bg-subtle overflow-scroll no-scrollbar flex flex-col">
       <div
         ref={droppable.setNodeRef}
         className={cn(
-          'bg-subtle border grow p-1.5 md:p-8 rounded-xl flex flex-col',
+          'bg-subtle md:border grow md:p-4 lg:p-6 xl:p-8 rounded-xl flex flex-col',
           droppable.isOver && 'ring-2 ring-ring'
         )}
       >
@@ -151,8 +116,6 @@ const BuilderArea = ({ children }: BuilderAreaProps) => {
             ))}
           </div>
         )}
-
-        {children}
       </div>
     </div>
   );

@@ -1,4 +1,5 @@
 import AuthProvider from '@/components/providers/AuthProvider';
+import LoadingProvider from '@/components/providers/LoadingProvider';
 import QueryProvider from '@/components/providers/QueryProvider';
 import ToasterProvider from '@/components/providers/ToasterProvider';
 import { ModalProvider } from '@/components/shared/modal';
@@ -30,8 +31,10 @@ export default function RootLayout({
             <ToasterProvider>
               <QueryProvider>
                 <ModalProvider>
-                  {children}
-                  {modal}
+                  <LoadingProvider>
+                    {children}
+                    {modal}
+                  </LoadingProvider>
                 </ModalProvider>
               </QueryProvider>
             </ToasterProvider>

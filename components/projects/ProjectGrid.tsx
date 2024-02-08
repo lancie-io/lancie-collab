@@ -25,9 +25,9 @@ const ProjectGrid = async () => {
       )}
       {projects.length < 1 && (
         <div className="flex flex-col items-center py-16 px-4 w-full border rounded-lg">
-          <Icons.camStars className="w-6 h-6 fill-primary" />
-          <p className="font-semibold text-lg mt-1">No projects</p>
-          <p className="text-muted-foreground text-sm">
+          <Icons.camStars className="w-10 h-10 fill-foreground text-center" />
+          <p className="font-semibold text-lg mt-2">No projects</p>
+          <p className="text-muted-foreground text-sm text-center mt-1">
             You have not created any projects yet. Create one.
           </p>
         </div>
