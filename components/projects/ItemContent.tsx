@@ -18,7 +18,16 @@ const ItemContent = ({ project }: ItemContentProps) => {
     >
       {project.cover && (
         // <Image src={project.cover} alt="cover" fill objectFit="cover" />
-        <OptimizedImage src={project.cover} steps={[500]} />
+        // <OptimizedImage src={project.cover} steps={[500]} />
+        <OptimizedImage src={project.cover} steps={[500]} fill />
+        // <img
+        //   src={project.cover}
+        //   className="w-full h-full absolute left-0 top-0"
+        //   alt=""
+        //   style={{
+        //     objectFit: 'cover',
+        //   }}
+        // />
       )}
       {isUploading && <Loader2 className="animate-spin w-16 h-16 absolute" />}
       {!project.cover && !isUploading && (

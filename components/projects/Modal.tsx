@@ -114,15 +114,15 @@ export const ModalContent = ({ children, className }: ModalContentProps) => {
   return <DrawerContent className={className}>{children}</DrawerContent>;
 };
 
-interface ModalHeaderProps {
+interface ModalHeaderProps extends React.HTMLAttributes<HTMLDivElement> {
   children: React.ReactNode;
 }
 
-export const ModalHeader = ({ children }: ModalHeaderProps) => {
+export const ModalHeader = ({ children, ...props }: ModalHeaderProps) => {
   const isDesktop = useMediaQuery('(min-width: 768px)');
 
   if (isDesktop) {
-    return <DialogHeader>{children}</DialogHeader>;
+    return <DialogHeader {...props}>{children}</DialogHeader>;
   }
 
   return <DrawerHeader>{children}</DrawerHeader>;

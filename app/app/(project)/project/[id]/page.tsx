@@ -6,6 +6,7 @@ import BuilderSidebar from '@/components/project/BuilderSidebar';
 import DragOverlayWrapper from '@/components/project/DragOverlayWrapper';
 import { Conversation } from '@/components/project/comments/Conversation';
 import DndProvider from '@/components/providers/DndProvider';
+import ProjectProvider from '@/components/providers/ProjectProvider';
 import { RoomProvider } from '@/components/providers/RoomProvider';
 import { getAuthUser } from '@/lib/auth';
 import prisma from '@/lib/prisma';
@@ -38,21 +39,23 @@ const ProjectPage = async ({ params }: { params: { id: string } }) => {
   return (
     <RoomProvider roomId={params.id}>
       <DndProvider>
-        <BuilderProvider
-          elementsFromServer={project.content}
-          projectId={params.id}
-        >
-          <div className="grow flex flex-col" style={{ height: '100dvh' }}>
-            <BuilderHeader projectId={params.id} />
-            <MobileToolbar projectId={params.id} />
-            <div className="grow flex overflow-scroll no-scrollbar">
-              <BuilderSidebar className={cn('hidden md:block')} />
-              <BuilderArea />
-              <Conversation className="hidden md:block" />
+        <ProjectProvider initProjectId={params.id}>
+          <BuilderProvider
+            elementsFromServer={project.content}
+            projectId={params.id}
+          >
+            <div className="grow flex flex-col" style={{ height: '100dvh' }}>
+              <BuilderHeader projectId={params.id} />
+              <MobileToolbar projectId={params.id} />
+              <div className="grow flex overflow-scroll no-scrollbar">
+                <BuilderSidebar className={cn('hidden md:block')} />
+                <BuilderArea />
+                <Conversation className="hidden md:block" />
+              </div>
             </div>
-          </div>
-          <DragOverlayWrapper />
-        </BuilderProvider>
+            <DragOverlayWrapper />
+          </BuilderProvider>
+        </ProjectProvider>
       </DndProvider>
     </RoomProvider>
   );

@@ -38,14 +38,7 @@ function BuilderElementWrapper({
   if (draggable.isDragging) return null;
   return (
     <ErrorBoundary>
-      <div
-        className="relative"
-        id={element.id}
-        // onClick={(e) => {
-        //   e.stopPropagation();
-        //   setSelectedElement(element);
-        // }}
-      >
+      <div className="relative" id={element.id}>
         <div
           ref={topHalf.setNodeRef}
           className={cn('absolute top-0 w-full h-1/2')}

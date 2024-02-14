@@ -95,7 +95,7 @@ const BuilderArea = () => {
       <div
         ref={droppable.setNodeRef}
         className={cn(
-          'bg-subtle md:border grow md:p-4 lg:p-6 xl:p-8 rounded-xl flex flex-col',
+          'bg-subtle md:border grow md:p-4 lg:p-6 xl:p-8 rounded-xl flex flex-col w-full max-w-[1200px] mx-auto',
           droppable.isOver && 'ring-2 ring-ring'
         )}
       >

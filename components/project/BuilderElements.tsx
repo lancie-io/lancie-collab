@@ -1,10 +1,12 @@
 import { icons } from 'lucide-react';
+import { CanvasBuilderElement } from './elements/canvas/CanvasBuilderElement';
 import { DeliverablesBuilderElement } from './elements/deliverables/DeliverablesBuilderElement';
 import { FilesBuilderElement } from './elements/files/FilesBuilderElement';
 import { FinancialsBuilderElement } from './elements/financials/FinancialsBuilderElement';
 import { LocationsBuilderElement } from './elements/map/LocationsBuilderElement';
 import { MoodboardBuilderElement } from './elements/moodboard/MoodboardBuilderElement';
 import { PersonsBuilderElement } from './elements/persons/PersonsBuilderElement';
+import { RichtextBuilderElement } from './elements/richtext/RichtextBuilderElement';
 import { SummaryBuilderElement } from './elements/summary/SummaryBuilderElement';
 import { VideosBuilderElement } from './elements/videos/VideosBuilderElement';
 
@@ -14,6 +16,8 @@ export type ExtraAttributes<T = Record<string, any>> = {
 } & T;
 
 export type ElementType =
+  | 'canvas'
+  | 'richtext'
   | 'summary'
   | 'locations'
   | 'moodboard'
@@ -53,6 +57,8 @@ type BuilderElementType = {
 };
 
 export const BuilderElements: BuilderElementType = {
+  canvas: CanvasBuilderElement,
+  richtext: RichtextBuilderElement,
   summary: SummaryBuilderElement,
   moodboard: MoodboardBuilderElement,
   locations: LocationsBuilderElement,

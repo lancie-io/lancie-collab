@@ -6,6 +6,18 @@ import { getAuthUser } from './auth';
 import prisma from './prisma';
 import { sendInviteEmail } from './sendgrid';
 
+export async function getProjectCover(id?: string) {
+  const project = await prisma.project.findUnique({
+    where: {
+      id,
+    },
+    select: {
+      cover: true,
+    },
+  });
+  return project?.cover;
+}
+
 export async function updateUser(data: Prisma.UserUpdateInput) {
   const user = await getAuthUser();
   if (!user) {

@@ -1,5 +1,6 @@
 import { PanelLeft } from 'lucide-react';
 import { Suspense } from 'react';
+import FeedbackButton from '../FeedbackButton';
 import AvatarDropdown, {
   LoadingAvatarDropdown,
 } from '../shared/AvatarDropdown';
@@ -8,13 +9,14 @@ import SidebarMenu from './SidebarMenu';
 
 const AppSidebar = () => {
   return (
-    <aside className="p-3 md:p-6">
-      <div className="mb-4">
+    <aside className="p-3 md:p-6 h-full flex flex-col">
+      <div className="mb-auto">
         <Suspense fallback={<LoadingAvatarDropdown />}>
           <AvatarDropdown inApp={true} showName={true} />
         </Suspense>
+        <SidebarMenu />
       </div>
-      <SidebarMenu />
+      <FeedbackButton className="w-full" />
     </aside>
   );
 };

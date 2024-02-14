@@ -34,7 +34,7 @@ const GenerateLinkButton = ({ projectId }: { projectId: string }) => {
     }
   };
   return (
-    <div className="w-full">
+    <div className="w-full space-y-2">
       <Button
         variant="secondary"
         onClick={handleClick}
@@ -46,15 +46,21 @@ const GenerateLinkButton = ({ projectId }: { projectId: string }) => {
         {inviteId ? 'Link generated' : 'Generate Invite Link'}
       </Button>
       {inviteId && (
-        <div className="flex gap-2 mt-2">
-          <Input
-            value={process.env.NEXT_PUBLIC_HOST_URL + '/invite/' + inviteId}
-            readOnly
-          />
-          <Button variant="secondary" onClick={copyToClipboard}>
-            <Copy className="w-4 h-4" />
-            Copy
-          </Button>
+        <div>
+          <div className="flex gap-2">
+            <Input
+              value={process.env.NEXT_PUBLIC_HOST_URL + '/invite/' + inviteId}
+              readOnly
+            />
+            <Button variant="secondary" onClick={copyToClipboard}>
+              <Copy className="w-4 h-4" />
+              Copy
+            </Button>
+          </div>
+          <p className="text-green-500 text-xs mt-1">
+            Everyone with this link will be able to join your project as an
+            editor.
+          </p>
         </div>
       )}
     </div>

@@ -8,6 +8,7 @@ interface OptimizedImageProps {
   steps?: number[];
   objectFit?: 'cover' | 'contain';
   style?: any;
+  fill?: boolean;
 }
 
 const OptimizedImage: FC<OptimizedImageProps> = ({
@@ -15,12 +16,22 @@ const OptimizedImage: FC<OptimizedImageProps> = ({
   steps,
   objectFit = 'cover',
   style,
+  fill = false,
 }) => {
+  const fillStyle = fill
+    ? { width: '100%', height: '100%', position: 'absolute', left: 0, top: 0 }
+    : {};
   return (
     <AdvancedImage
-      style={{ objectFit: objectFit, width: '100%', height: '100%', ...style }}
+      style={{
+        objectFit: objectFit,
+        ...fillStyle,
+        ...style,
+      }}
       cldImg={getCloudinaryImage(src)}
       plugins={[responsive({ steps })]}
+      width="100%"
+      height="100%"
     />
   );
 };

@@ -1,4 +1,3 @@
-import { Icons } from '@/components/shared/Icons';
 import OptimizedImage from '@/components/shared/OptimizedImage';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -9,7 +8,7 @@ import {
 } from '@/components/ui/popover';
 import { useQuery } from '@tanstack/react-query';
 import { useDebounce } from '@uidotdev/usehooks';
-import { HeartCrack, Image as ImageIcon, Loader2 } from 'lucide-react';
+import { HeartCrack, Image as ImageIcon, Loader2, Search } from 'lucide-react';
 import { useState } from 'react';
 import { useBuilder } from '../../BuilderProvider';
 import { MoodboardElement } from './MoodboardBuilderElement';
@@ -62,8 +61,8 @@ const UnsplashButton = ({ element }: UnsplashButtonProps) => {
       <Popover open={open} onOpenChange={setOpen}>
         <PopoverTrigger asChild>
           <Button size="s" variant="outline">
-            <Icons.unsplash className="w-2.5 h-2.5 text-foreground fill-foreground" />
-            Unsplash
+            <Search className="w-3 h-3" />
+            Search
           </Button>
         </PopoverTrigger>
         <PopoverContent className="w-auto">

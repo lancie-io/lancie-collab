@@ -1,9 +1,6 @@
-import FeedbackButton from '../FeedbackButton';
 import BuilderHeaderTitle from '../builder/BuilderHeaderTitle';
 import HomeLink from '../builder/HomeLink';
-import LucideIcon from '../shared/LucideIcon';
 import AvatarStack from './AvatarStack';
-import SaveButton from './SaveButton';
 import ShareButton from './sharebutton/ShareButton';
 
 interface BuilderHeaderProps {
@@ -17,14 +14,7 @@ const BuilderHeader = ({ projectId }: BuilderHeaderProps) => {
         <BuilderHeaderTitle projectId={projectId} />
       </div>
       <div className="flex items-center gap-3">
-        <SaveButton projectId={projectId} />
-        <FeedbackButton className="hidden md:inline-flex" />
         <AvatarStack className="hidden md:flex" />
-        <div className="md:hidden">
-          <FeedbackButton size="iconSmall">
-            <LucideIcon name="MessageCircleHeart" className="w-4 h-4" />
-          </FeedbackButton>
-        </div>
         <ShareButton className="hidden md:inline-flex" projectId={projectId} />
       </div>
     </div>

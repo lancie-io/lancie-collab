@@ -25,7 +25,7 @@ const BuilderElementContainer = ({
     <motion.div
       layoutId={isDragging ? undefined : element.id}
       className={cn(
-        'border bg-background rounded-lg overflow-hidden relative ',
+        'border bg-background rounded-lg overflow-hidden relative',
         className
       )}
     >

@@ -12,13 +12,13 @@ import {
   ElementType,
 } from '../../BuilderElements';
 import { useBuilder } from '../../BuilderProvider';
-import Summary from './Summary';
+import Tiptap from './TipTap';
 
-const type: ElementType = 'summary';
+const type: ElementType = 'richtext';
 
 const extraAttributes = {
-  label: 'Summary',
-  helperText: 'This is a summary element',
+  label: 'Rich Text',
+  helperText: 'This is a richtext element',
   required: false,
   placeholder: 'Enter text here',
   content: '',
@@ -28,7 +28,7 @@ const propertiesSchema = z.object({
   label: z.string().min(2).max(50),
 });
 
-export const SummaryBuilderElement: BuilderElement = {
+export const RichtextBuilderElement: BuilderElement = {
   type,
   construct: (id: string) => ({
     id,
@@ -36,8 +36,8 @@ export const SummaryBuilderElement: BuilderElement = {
     extraAttributes,
   }),
   buttonComponent: {
-    icon: 'Sparkle',
-    label: 'Summary',
+    icon: 'Pen',
+    label: 'Rich Text',
   },
 
   builderComponent: BuilderComponent,
@@ -118,7 +118,11 @@ function BuilderComponent({
   isPreview?: boolean;
 }) {
   const element = elementInstance as CustomInstance;
-  return <Summary />;
+  return (
+    <div className="w-full min-h-[120px]">
+      <Tiptap elementInstance={element} isPreview={isPreview} />
+    </div>
+  );
 }
 
 export function PreviewComponent({

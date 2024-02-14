@@ -19,7 +19,7 @@ const FeedbackButton = ({
   };
   return (
     <Popover open={open} onOpenChange={setOpen}>
-      <PopoverTrigger>
+      <PopoverTrigger asChild>
         <Button
           className={cn(className)}
           size="sm"
