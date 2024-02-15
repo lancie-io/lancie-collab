@@ -3,6 +3,7 @@ import LoadingProvider from '@/components/providers/LoadingProvider';
 import QueryProvider from '@/components/providers/QueryProvider';
 import ToasterProvider from '@/components/providers/ToasterProvider';
 import { ModalProvider } from '@/components/shared/modal';
+import { EdgeStoreProvider } from '@/lib/edgestore';
 import { inter } from '@/lib/fonts';
 import '@liveblocks/react-comments/styles.css';
 import '@liveblocks/react-comments/styles/dark/attributes.css';
@@ -29,14 +30,16 @@ export default function RootLayout({
         <main className="flex min-h-screen flex-col">
           <AuthProvider>
             <ToasterProvider>
-              <QueryProvider>
-                <ModalProvider>
-                  <LoadingProvider>
-                    {children}
-                    {modal}
-                  </LoadingProvider>
-                </ModalProvider>
-              </QueryProvider>
+              <EdgeStoreProvider>
+                <QueryProvider>
+                  <ModalProvider>
+                    <LoadingProvider>
+                      {children}
+                      {modal}
+                    </LoadingProvider>
+                  </ModalProvider>
+                </QueryProvider>
+              </EdgeStoreProvider>
             </ToasterProvider>
           </AuthProvider>
         </main>

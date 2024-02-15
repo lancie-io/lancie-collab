@@ -67,6 +67,9 @@ const BuilderProvider = ({
   useEventListener(({ event, user, connectionId }: any) => {
     //                       ^^^^ Will be Client A
     // Do something
+    if (event.type !== 'elements') {
+      return;
+    }
     const newElements = event.data;
     if (!isEqual(elements, newElements)) {
       setElements(newElements);

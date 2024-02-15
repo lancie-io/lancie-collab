@@ -133,7 +133,7 @@ const VideoItem = ({ video, element }: VideoItemProps) => {
         <div className="w-full h-full overflow-scroll no-scrollbar">
           <Editor
             onUpdate={updateVideoNotes}
-            content={video.notes}
+            json={video.notes}
             placeholder="Take notes about the video..."
           />
         </div>

@@ -24,10 +24,7 @@ const BuilderElementContainer = ({
   return (
     <motion.div
       layoutId={isDragging ? undefined : element.id}
-      className={cn(
-        'border bg-background rounded-lg overflow-hidden relative',
-        className
-      )}
+      className={cn('border bg-background rounded-lg relative', className)}
     >
       <ModuleBar
         isDragging={isDragging}

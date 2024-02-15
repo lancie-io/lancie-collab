@@ -29,6 +29,7 @@ model User {
   invites       Invite[] @relation("fromUser")
   receiveComments   Boolean @default(true)
   receiveMarketing  Boolean @default(true)
+  files         File[]
 }
 
 model Invite {
@@ -56,6 +57,7 @@ model Project {
   members       User[]    @relation("ProjectMembers")
   cover         String?
   invites       Invite[] @relation("project")
+  files         File[]
 }
 
 model Comment {
@@ -115,5 +117,21 @@ model Feedback {
   type      String?
 }
 
+
+model File {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt @default(now())
+  name      String?
+  label     String?
+  emoji     String?   @default("File")
+  url       String
+  size      Int?
+  user      User?     @relation(fields: [userId], references: [id])
+  userId    String?
+  project   Project?  @relation(fields: [projectId], references: [id])
+  projectId String?
+  moduleId  String?
+}
 
 

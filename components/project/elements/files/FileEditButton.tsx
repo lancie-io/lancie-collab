@@ -1,3 +1,4 @@
+import { useProjectId } from '@/components/providers/ProjectProvider';
 import { Button, ButtonProps } from '@/components/ui/button';
 import {
   DropdownMenu,
@@ -5,27 +6,22 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
+import { Prisma } from '@prisma/client';
+import { useQueryClient } from '@tanstack/react-query';
 import { Image, MoreVertical, PencilLine, Trash } from 'lucide-react';
-import { useBuilder } from '../../BuilderProvider';
-import { File, FilesElement } from './FilesBuilderElement';
+import { deleteFile } from './actions';
 
-interface EditButtonProps extends ButtonProps {
-  file: File;
-  element: FilesElement;
+interface FileEditButtonProps extends ButtonProps {
+  file: Prisma.FileGetPayload<{}>;
 }
 
-const EditButton = ({ file, element, className }: EditButtonProps) => {
-  const { updateElement } = useBuilder();
-  function removeFile(fileUrl: string) {
-    updateElement(element.id, {
-      ...element,
-      extraAttributes: {
-        ...element.extraAttributes,
-        files: element.extraAttributes.files.filter(
-          (file: File) => file.url !== fileUrl
-        ),
-      },
-    });
+const FileEditButton = ({ file, className }: FileEditButtonProps) => {
+  const queryClient = useQueryClient();
+  const projectId = useProjectId();
+
+  function handleFileDelete() {
+    deleteFile(file.id);
+    queryClient.invalidateQueries({ queryKey: ['files', projectId] });
   }
   return (
     <DropdownMenu>
@@ -44,7 +40,7 @@ const EditButton = ({ file, element, className }: EditButtonProps) => {
           <span>Rename</span>
         </DropdownMenuItem>
 
-        <DropdownMenuItem onClick={() => removeFile(file.url)}>
+        <DropdownMenuItem onClick={handleFileDelete}>
           <Trash className="mr-2 w-4 h-4" />
           <span>Delete</span>
         </DropdownMenuItem>
@@ -53,4 +49,4 @@ const EditButton = ({ file, element, className }: EditButtonProps) => {
   );
 };
 
-export default EditButton;
+export default FileEditButton;

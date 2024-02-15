@@ -23,7 +23,7 @@ const buttonVariants = cva(
         link: 'text-primary underline-offset-4 hover:underline',
         silent: 'bg-transparent text-muted-foreground hover:text-foreground',
         list: 'bg-transparent text-muted-foreground hover:text-foreground',
-        none: 'bg-transparent border-none',
+        none: 'bg-transparent',
       },
       size: {
         default: 'h-10 px-4 py-2',

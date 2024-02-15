@@ -71,10 +71,8 @@ function BuilderComponent({
     });
   }
   return (
-    <div className="w-full bg-background">
-      <UploadProvider onFileChange={addFile}>
-        <FilesManager element={element} />
-      </UploadProvider>
-    </div>
+    <UploadProvider onFileChange={addFile}>
+      <FilesManager element={element} />
+    </UploadProvider>
   );
 }

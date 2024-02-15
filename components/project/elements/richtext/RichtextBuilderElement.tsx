@@ -118,11 +118,7 @@ function BuilderComponent({
   isPreview?: boolean;
 }) {
   const element = elementInstance as CustomInstance;
-  return (
-    <div className="w-full min-h-[120px]">
-      <Tiptap elementInstance={element} isPreview={isPreview} />
-    </div>
-  );
+  return <Tiptap elementInstance={element} isPreview={isPreview} />;
 }
 
 export function PreviewComponent({

@@ -22,7 +22,7 @@ const BuilderSidebar = ({ className }: BuilderSidebarProps) => {
         }}
       >
         <ModuleButton builderElement={BuilderElements.canvas} disabled />
-        <ModuleButton builderElement={BuilderElements.summary} />
+        <ModuleButton builderElement={BuilderElements.summary} disabled />
         <ModuleButton builderElement={BuilderElements.richtext} />
         <ModuleButton builderElement={BuilderElements.moodboard} />
         <ModuleButton builderElement={BuilderElements.locations} disabled />

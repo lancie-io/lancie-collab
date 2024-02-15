@@ -32,8 +32,13 @@ export function ToolbarHeadings({ editor }: ToolbarHeadingsProps) {
     onHeadingChange(value);
   }, [value]);
 
+  React.useEffect(() => {
+    setValue(getCurrentHeading(editor));
+  }, [getCurrentHeading(editor)]);
+
   const onHeadingChange = React.useCallback(
     (value: string) => {
+      console.log('on head');
       if (!editor) {
         return;
       }
@@ -71,7 +76,6 @@ export function ToolbarHeadings({ editor }: ToolbarHeadingsProps) {
     if (editor.isActive('heading', { level: 3 })) {
       return 'h3';
     }
-
     return 'p';
   }
 
@@ -80,14 +84,12 @@ export function ToolbarHeadings({ editor }: ToolbarHeadingsProps) {
       <PopoverTrigger asChild>
         <Button
           size="sm"
-          variant="outline"
+          variant="none"
           role="combobox"
           aria-expanded={open}
-          className="w-[200px] justify-between h-8"
+          className="w-[200px] justify-between h-8 rounded-none"
         >
-          {value
-            ? headings.find((heading) => heading.value === value)?.label
-            : 'Select text type...'}
+          {headings.find((heading) => heading.value === value)?.label}
           <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
         </Button>
       </PopoverTrigger>

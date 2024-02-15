@@ -1,91 +1,85 @@
-import { FileUploadTrigger } from '@/components/shared/upload/FileUpload';
+import { useProjectId } from '@/components/providers/ProjectProvider';
 import { useUpload } from '@/components/shared/upload/UploadProvider';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
 import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from '@/components/ui/popover';
-import { Link, Loader2, Upload } from 'lucide-react';
+  DropzoneFile,
+  MultiFileDropzoneUsage,
+} from '@/components/upload/MultiFileDropzoneUsage';
+import { useAuthUser } from '@/lib/auth';
+import { useEdgeStore } from '@/lib/edgestore';
+import { useBroadcastEvent, useEventListener } from '@/liveblocks.config';
+import { Prisma } from '@prisma/client';
+import { useQuery } from '@tanstack/react-query';
+import { AnimatePresence, motion } from 'framer-motion';
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
-import ElementBar from '../shared/ElementBar';
-import EmptyState from '../shared/EmptyState';
+import FileEmbedButton from './FileEmbedButton';
 import FileItem from './FileItem';
-import { File, FilesElement } from './FilesBuilderElement';
+import { FilesElement } from './FilesBuilderElement';
+import { addFile, getFiles } from './actions';
 
 interface FilesManagerProps {
   element: FilesElement;
 }
 
 const FilesManager = ({ element }: FilesManagerProps) => {
+  const projectId = useProjectId();
+  const router = useRouter();
+  const user = useAuthUser();
   const { extraAttributes } = element;
-  const { files } = extraAttributes;
   const [value, setValue] = useState();
   const { isUploading } = useUpload();
-  return (
-    <div className="min-h-[240px]">
-      <ElementBar>
-        <FileUploadTrigger>
-          <Button size="s" variant="outline" disabled={isUploading}>
-            {isUploading ? (
-              <Loader2 className="animate-spin w-3 h-3" />
-            ) : (
-              <Upload className="w-3 h-3" />
-            )}
-            Upload
-          </Button>
-        </FileUploadTrigger>
+  const { data, isLoading, refetch, isRefetching, isFetched, isFetching } =
+    useQuery({
+      queryKey: ['files', projectId],
+      queryFn: async () => getFiles({ projectId: projectId }),
+    });
+  const files = data?.data;
 
-        <Popover>
-          <PopoverTrigger>
-            <Button variant="outline" size="s">
-              <Link className="w-3 h-3" />
-              File URL
-            </Button>
-          </PopoverTrigger>
-          <PopoverContent className="flex items-center space-x-2">
-            <Input placeholder="Enter file URL..." />
-            <Button>Add</Button>
-          </PopoverContent>
-        </Popover>
-      </ElementBar>
-      <div className="flex flex-wrap p-4 gap-4">
-        {isUploading && (
-          <div className="aspect-[5/4] rounded-lg border-2 w-[160px] flex items-center justify-center flex-col gap-2 opacity-50">
-            <Loader2 className="animate-spin" />
-            <p className="text-sm">Uploading...</p>
-          </div>
-        )}
-        {files?.map((file: File) => (
-          <FileItem element={element} file={file} key={file.url} />
-        ))}
+  function onFileAdded(file: DropzoneFile) {
+    addFile(file, projectId);
+  }
+  const { reset } = useEdgeStore();
+  const broadcast = useBroadcastEvent();
+  const onComplete = async () => {
+    await refetch();
+    // console.log('refetched');
+    broadcast({
+      type: 'refetch',
+      data: {
+        key: ['files', projectId],
+      },
+    });
+  };
+
+  useEventListener(({ event, user, connectionId }: any) => {
+    //                       ^^^^ Will be Client A
+    // Do something
+    if (event.type === 'refetch') {
+      refetch();
+    }
+  });
+
+  return (
+    <div className="min-h-[240px] flex flex-col overflow-hidden">
+      <div className="border-b h-12 px-2 gap-2 flex items-center shrink-0">
+        <FileEmbedButton />
       </div>
-      {files?.length < 1 && (
-        <EmptyState
-          title="Add Files"
-          description="Add anything that is relevant to the production"
-          icon="FileText"
+      <div className="flex flex-wrap gap-3 p-3">
+        <MultiFileDropzoneUsage
+          isRefetching={isRefetching}
+          onFileAdded={onFileAdded}
+          onComplete={onComplete}
         />
-      )}
+        <AnimatePresence>
+          {files?.map((file: Prisma.FileGetPayload<{}>) => (
+            <motion.div exit={{ scale: 0.5, opacity: 0 }} key={file.id}>
+              <FileItem file={file} element={element} key={file.id} />
+            </motion.div>
+          ))}
+        </AnimatePresence>
+      </div>
     </div>
   );
 };
 
 export default FilesManager;
-
-interface NewFileItemProps extends React.HTMLAttributes<HTMLButtonElement> {}
-
-const NewFileItem = (props: NewFileItemProps) => {
-  const { file, isUploading } = useUpload();
-  return (
-    <button
-      {...props}
-      disabled={isUploading}
-      className="shrink-0 rounded-lg aspect-[5/4] flex flex-col items-center justify-center gap-2 border-2 border-dashed w-[160px] text-muted-foreground hover:bg-muted"
-    >
-      {isUploading ? <Loader2 className="animate-spin" /> : <Upload />}
-      <p className="text-sm">Upload new file</p>
-    </button>
-  );
-};
