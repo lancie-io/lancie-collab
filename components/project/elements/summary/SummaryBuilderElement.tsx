@@ -22,6 +22,16 @@ const extraAttributes = {
   required: false,
   placeholder: 'Enter text here',
   content: '',
+  settings: {
+    title: true,
+    description: true,
+    cover: true,
+    production: true,
+    publishing: true,
+  },
+  description: '',
+  production: undefined,
+  publishing: undefined,
 };
 
 const propertiesSchema = z.object({
@@ -45,7 +55,7 @@ export const SummaryBuilderElement: BuilderElement = {
   propertiesComponent: PropertiesComponent,
 };
 
-export type CustomInstance = BuilderElementInstance & {
+export type SettingsCustomInstance = BuilderElementInstance & {
   extraAttributes: typeof extraAttributes;
 };
 
@@ -54,7 +64,7 @@ function PropertiesComponent({
 }: {
   elementInstance: BuilderElementInstance;
 }) {
-  const element = elementInstance as CustomInstance;
+  const element = elementInstance as SettingsCustomInstance;
   const { updateElement } = useBuilder();
   const form = useForm<z.infer<typeof propertiesSchema>>({
     resolver: zodResolver(propertiesSchema),
@@ -117,8 +127,8 @@ function BuilderComponent({
   elementInstance: BuilderElementInstance;
   isPreview?: boolean;
 }) {
-  const element = elementInstance as CustomInstance;
-  return <Summary />;
+  const element = elementInstance as SettingsCustomInstance;
+  return <Summary element={element} />;
 }
 
 export function PreviewComponent({
@@ -126,6 +136,6 @@ export function PreviewComponent({
 }: {
   elementInstance: BuilderElementInstance;
 }) {
-  const element = elementInstance as CustomInstance;
+  const element = elementInstance as SettingsCustomInstance;
   return <BuilderComponent elementInstance={element} isPreview={true} />;
 }

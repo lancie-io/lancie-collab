@@ -62,12 +62,12 @@ const FileEmbedButton = () => {
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger>
         <Button size="sm" variant="outline">
-          <Link className="w-4 h-4" /> Add File URL
+          <Link className="w-4 h-4" /> Add URL
         </Button>
       </PopoverTrigger>
       <PopoverContent>
         <Form {...form}>
-          <p className="text-sm mb-2 font-medium">Add File URL</p>
+          <p className="text-sm mb-2 font-medium">Add URL</p>
           <form
             onSubmit={form.handleSubmit(onSubmit)}
             className="flex items-start gap-2"
@@ -79,7 +79,7 @@ const FileEmbedButton = () => {
                 <FormItem className="w-full">
                   <Input
                     className="h-9"
-                    placeholder="Enter file url..."
+                    placeholder="Enter url..."
                     {...field}
                   />
                   <FormMessage />

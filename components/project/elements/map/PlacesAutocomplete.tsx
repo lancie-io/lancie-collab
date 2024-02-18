@@ -6,6 +6,9 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from '@/components/ui/popover';
+import { cn, idGenerator } from '@/lib/utils';
+import { JSONContent } from '@tiptap/react';
+import { AnimatePresence, motion } from 'framer-motion';
 import { Trash } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import usePlacesAutocomplete, {
@@ -13,7 +16,9 @@ import usePlacesAutocomplete, {
   getLatLng,
 } from 'use-places-autocomplete';
 import { useBuilder } from '../../BuilderProvider';
+import { useLocation } from './Locations';
 import { LocationsElement } from './LocationsBuilderElement';
+import { getPlacePhotos } from './actions';
 
 interface PlacesAutocompleteProps {
   element: LocationsElement;
@@ -21,6 +26,7 @@ interface PlacesAutocompleteProps {
 }
 
 export type GoogleLocation = {
+  id: string;
   placeId: string;
   description: string;
   formatted: {
@@ -31,6 +37,11 @@ export type GoogleLocation = {
     lat: number;
     lng: number;
   };
+  photos: {
+    reference?: string;
+    url?: string;
+  }[];
+  notes?: JSONContent;
 };
 
 const PlacesAutocomplete = ({
@@ -74,16 +85,23 @@ const PlacesAutocomplete = ({
   }, [data]);
 
   const handleSelect = async (
-    location: Omit<GoogleLocation, 'coordinates'>
+    location: Omit<GoogleLocation, 'coordinates' | 'photos' | 'id'>
   ) => {
     setValue('', false);
     clearSuggestions();
     const results = await getGeocode({ placeId: location.placeId });
+    const placePhotos = await getPlacePhotos(location.placeId);
     const { lat, lng } = getLatLng(results[0]);
+    const photos = placePhotos.map((photo: string) => ({
+      reference: photo,
+      url: null,
+    }));
     const newLocation: GoogleLocation = {
       placeId: location.placeId,
+      id: idGenerator(),
       description: location.description,
       formatted: location.formatted,
+      photos,
       coordinates: { lat, lng },
     };
     addLocation(newLocation);
@@ -136,14 +154,17 @@ const PlacesAutocomplete = ({
         </Popover>
       )}
 
-      <div className="space-y-2 overflow-scroll no-scrollbar">
-        {locations.map((location: GoogleLocation) => (
-          <LocationCard
-            element={element}
-            location={location}
-            key={location.placeId}
-          />
-        ))}
+      <div className="space-y-2 overflow-scroll no-scrollbar grow max-h-[120px] lg:max-h-none">
+        <AnimatePresence>
+          {locations.map((location: GoogleLocation, idx: number) => (
+            <LocationCard
+              element={element}
+              location={location}
+              key={location.id}
+              idx={idx}
+            />
+          ))}
+        </AnimatePresence>
       </div>
     </div>
   );
@@ -154,23 +175,39 @@ export default PlacesAutocomplete;
 interface LocationCardProps {
   location: GoogleLocation;
   element: LocationsElement;
+  idx: number;
 }
 
-const LocationCard = ({ location, element }: LocationCardProps) => {
+const LocationCard = ({ location, element, idx }: LocationCardProps) => {
   const { updateElement } = useBuilder();
+  const { selectedLocationId, setSelectedLocationId } = useLocation();
+
   function removeLocation(locationId: string) {
     updateElement(element.id, {
       ...element,
       extraAttributes: {
         ...element.extraAttributes,
         locations: element.extraAttributes.locations.filter(
-          (location: any) => location.placeId !== locationId
+          (location: any) => location.id !== locationId
         ),
       },
     });
   }
+  const isActive = selectedLocationId === idx;
   return (
-    <div className="relative rounded-md p-3 border bg-muted">
+    <motion.div
+      className={cn(
+        'relative rounded-md p-3 border bg-muted cursor-pointer hover:bg-accent transition-colors duration-150',
+        isActive && 'border-ring bg-accent'
+      )}
+      onClick={() => setSelectedLocationId(idx)}
+      initial={{ opacity: 0, scale: 1, y: 10 }}
+      animate={{ opacity: 1, scale: 1, y: 0 }}
+      exit={{ opacity: 0, scale: 1, y: 10 }}
+      transition={{ ease: 'easeInOut', duration: 0.2 }}
+      key={location.id}
+      layoutId={location.id}
+    >
       <Title className="text-base">{location.formatted.main}</Title>
       <p className="text-sm text-muted-foreground">
         {location.formatted.secondary}
@@ -179,10 +216,10 @@ const LocationCard = ({ location, element }: LocationCardProps) => {
         variant="ghost"
         size="iconXS"
         className="absolute top-2 right-2"
-        onClick={() => removeLocation(location.placeId)}
+        onClick={() => removeLocation(location.id)}
       >
         <Trash className="w-3 h-3" />
       </Button>
-    </div>
+    </motion.div>
   );
 };

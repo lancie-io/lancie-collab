@@ -27,10 +27,10 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "components/project/elements/table/TableModule.jsx",
+    "components/project/elements/table/TableModule.tsx",
     "components/project/elements/table/Badge.jsx",
-    "components/project/elements/table/TableModule.jsx",
-    "components/project/elements/table/Table.jsx",
+    "components/project/elements/table/TableModule.tsx",
+    "components/project/elements/table/Table.tsx",
     "components/shared/ErrorBoundary.tjx"
   ],
   "exclude": ["node_modules"]

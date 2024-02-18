@@ -1,0 +1,11 @@
+.min-aspect:before {
+  padding-bottom: 50%; /* Minimum aspect ratio */
+  content: '';
+  float: left;
+}
+
+.min-aspect:after {
+  display: table;
+  content: '';
+  clear: both;
+}

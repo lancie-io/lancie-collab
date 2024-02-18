@@ -33,10 +33,10 @@ export default function Table({
   dispatch: dataDispatch,
   skipReset,
   isPreview,
-}) {
+}: any) {
   const sortTypes = useMemo(
     () => ({
-      alphanumericFalsyLast(rowA, rowB, columnId, desc) {
+      alphanumericFalsyLast(rowA: any, rowB: any, columnId: any, desc: any) {
         if (!rowA.values[columnId] && !rowB.values[columnId]) {
           return 0;
         }
@@ -74,33 +74,29 @@ export default function Table({
       autoResetFilters: !skipReset,
       autoResetRowState: !skipReset,
       sortTypes,
-    },
+    } as any,
     useBlockLayout,
     useResizeColumns,
     useSortBy
   );
 
   const renderRows = React.useCallback(() => {
-    return rows.map((row) => {
+    return rows.map((row: any) => {
       prepareRow(row);
       return (
         <TableRow
-          key={JSON.stringify(row)}
+          key={row.id}
           {...row.getRowProps()}
           style={{
             minWidth: '100%',
           }}
         >
-          {row.cells.map((cell, index) => {
+          {row.cells.map((cell: any, index: number) => {
             if (index == row.cells.length - 1 && isPreview) {
               return;
             }
             return (
-              <TableCell
-                key={JSON.stringify(cell)}
-                className="p-0"
-                {...cell.getCellProps()}
-              >
+              <TableCell key={cell.id} className="p-0" {...cell.getCellProps()}>
                 {cell.render('Cell')}
               </TableCell>
             );
@@ -111,7 +107,7 @@ export default function Table({
   }, [prepareRow, rows]);
 
   function isTableResizing() {
-    for (let headerGroup of headerGroups) {
+    for (let headerGroup of headerGroups as any) {
       for (let column of headerGroup.headers) {
         if (column.isResizing) {
           return true;
@@ -129,7 +125,7 @@ export default function Table({
         className={clsx(isTableResizing() && 'noselect')}
       >
         <TableHeader>
-          {headerGroups.map((headerGroup, idx) => (
+          {headerGroups.map((headerGroup: any, idx: number) => (
             <TableRow
               key={idx}
               style={{
@@ -138,7 +134,7 @@ export default function Table({
               {...headerGroup.getHeaderGroupProps()}
               className="border-b-0"
             >
-              {headerGroup.headers.map((column, index) => {
+              {headerGroup.headers.map((column: any, index: number) => {
                 if (index == headerGroup.headers.length - 1 && isPreview) {
                   return;
                 }

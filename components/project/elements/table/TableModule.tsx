@@ -3,13 +3,13 @@ import { useEffect, useReducer } from 'react';
 import { useBuilder } from '../../BuilderProvider';
 import Table from './Table';
 import './style.css';
-import { ActionTypes, DataTypes, randomColor } from './utils';
+import { ActionTypes, DataTypes, randomColor, shortId } from './utils';
 
-function reducer(state, action) {
+function reducer(state: any, action: any) {
   const columnIndex = state.columns.findIndex(
-    (column) => column.id === action.columnId
+    (column: any) => column.id === action.columnId
   );
-  const shortId = shortId();
+  const sId = shortId();
   switch (action.type) {
     case ActionTypes.ADD_OPTION_TO_COLUMN:
       return update(state, {
@@ -44,8 +44,8 @@ function reducer(state, action) {
                 [columnIndex]: { dataType: { $set: action.dataType } },
               },
               data: {
-                $apply: (data) =>
-                  data.map((row) => ({
+                $apply: (data: any) =>
+                  data.map((row: any) => ({
                     ...row,
                     [action.columnId]: isNaN(row[action.columnId])
                       ? ''
@@ -58,8 +58,8 @@ function reducer(state, action) {
           if (state.columns[columnIndex].dataType === DataTypes.SELECT) {
             return state;
           } else {
-            let options = [];
-            state.data.forEach((row) => {
+            let options: any[] = [];
+            state.data.forEach((row: any) => {
               if (row[action.columnId]) {
                 options.push({
                   label: row[action.columnId],
@@ -94,8 +94,8 @@ function reducer(state, action) {
                 [columnIndex]: { dataType: { $set: action.dataType } },
               },
               data: {
-                $apply: (data) =>
-                  data.map((row) => ({
+                $apply: (data: any) =>
+                  data.map((row: any) => ({
                     ...row,
                     [action.columnId]: row[action.columnId] + '',
                   })),
@@ -126,9 +126,9 @@ function reducer(state, action) {
               columnIndex,
               0,
               {
-                id: shortId,
+                id: sId,
                 label: 'Column',
-                accessor: shortId,
+                accessor: sId,
                 dataType: DataTypes.TEXT,
                 created: action.focus && true,
                 options: [],
@@ -146,9 +146,9 @@ function reducer(state, action) {
               columnIndex + 1,
               0,
               {
-                id: shortId,
+                id: sId,
                 label: 'Column',
-                accessor: shortId,
+                accessor: sId,
                 dataType: DataTypes.TEXT,
                 created: action.focus && true,
                 options: [],
@@ -175,14 +175,14 @@ function reducer(state, action) {
   }
 }
 
-function TableModule({ columns, element, isPreview }) {
+function TableModule({ columns, element, isPreview }: any) {
   const [state, dispatch] = useReducer(reducer, {
     columns: columns,
     data: element.extraAttributes.state.data,
   });
   const { id } = element;
   const { updateElement } = useBuilder();
-  function updateTableState(tableState) {
+  function updateTableState(tableState: any) {
     updateElement(id, {
       ...element,
       extraAttributes: {

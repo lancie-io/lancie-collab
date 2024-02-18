@@ -8,7 +8,7 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { Prisma } from '@prisma/client';
 import { useQueryClient } from '@tanstack/react-query';
-import { Image, MoreVertical, PencilLine, Trash } from 'lucide-react';
+import { MoreVertical, Trash } from 'lucide-react';
 import { deleteFile } from './actions';
 
 interface FileEditButtonProps extends ButtonProps {
@@ -31,14 +31,14 @@ const FileEditButton = ({ file, className }: FileEditButtonProps) => {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent>
-        <DropdownMenuItem>
+        {/* <DropdownMenuItem>
           <Image className="mr-2 w-4 h-4" />
           <span>Change icon</span>
         </DropdownMenuItem>
         <DropdownMenuItem>
           <PencilLine className="mr-2 w-4 h-4" />
           <span>Rename</span>
-        </DropdownMenuItem>
+        </DropdownMenuItem> */}
 
         <DropdownMenuItem onClick={handleFileDelete}>
           <Trash className="mr-2 w-4 h-4" />

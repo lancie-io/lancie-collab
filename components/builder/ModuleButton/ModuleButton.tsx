@@ -13,9 +13,14 @@ import ModuleButtonBase from './ModuleButtonBase';
 interface ModuleButtonProps {
   builderElement: BuilderElement;
   disabled?: boolean;
+  single?: boolean;
 }
 
-const ModuleButton = ({ builderElement, disabled }: ModuleButtonProps) => {
+const ModuleButton = ({
+  builderElement,
+  disabled,
+  single,
+}: ModuleButtonProps) => {
   const { label, icon } = builderElement.buttonComponent;
   const draggable = useDraggable({
     id: `module-btn-${builderElement.type}`,
@@ -29,6 +34,10 @@ const ModuleButton = ({ builderElement, disabled }: ModuleButtonProps) => {
 
   const type = builderElement.type as ElementType;
 
+  const { elements } = useBuilder();
+  const isAlreadyInUse =
+    elements.some((element) => element.type === builderElement.type) && single;
+
   const handleAdd = () => {
     const newElement = BuilderElements[type as ElementType].construct(
       idGenerator()
@@ -38,7 +47,8 @@ const ModuleButton = ({ builderElement, disabled }: ModuleButtonProps) => {
   return (
     <>
       <ModuleButtonBase
-        disabled={disabled}
+        isAlreadyInUse={isAlreadyInUse}
+        disabled={disabled || isAlreadyInUse}
         className={draggable.isDragging ? 'border-ring' : ''}
         ref={draggable.setNodeRef}
         {...draggable.attributes}

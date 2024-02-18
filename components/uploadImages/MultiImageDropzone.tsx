@@ -4,12 +4,12 @@ import { cn } from '@/lib/utils';
 import * as React from 'react';
 import { useDropzone, type DropzoneOptions } from 'react-dropzone';
 import { twMerge } from 'tailwind-merge';
-import { LoadingFileItem } from '../project/elements/files/FileItem';
 import LucideIcon from '../shared/LucideIcon';
+import { LoadingImageItem } from './LoadingImageItem';
 import { formatFileSize } from './utils';
 
 const variants = {
-  base: 'rounded-md cursor-pointer border border-dashed transition-colors duration-200 ease-in-out',
+  base: 'rounded-md cursor-pointer border-2 border-dashed transition-colors duration-200 ease-in-out',
   active: '',
   disabled: 'cursor-default pointer-events-none opacity-20',
   accept: 'border border-blue-500 bg-blue-500 bg-opacity-10',
@@ -48,7 +48,7 @@ const ERROR_MESSAGES = {
   },
 };
 
-const MultiFileDropzone = React.forwardRef<HTMLInputElement, InputProps>(
+const MultiImageDropzone = React.forwardRef<HTMLInputElement, InputProps>(
   (
     { dropzoneOptions, value, className, disabled, onFilesAdded, onChange },
     ref
@@ -136,7 +136,7 @@ const MultiFileDropzone = React.forwardRef<HTMLInputElement, InputProps>(
             {...getRootProps({
               className: cn(
                 dropZoneClassName,
-                'relative w-[160px] aspect-[5/4] rounded-md flex flex-col gap-2 items-center justify-center px-3 hover:border-ring/50 hover:bg-accent'
+                'relative w-full aspect-[5/5] rounded-md flex flex-col gap-2 items-center justify-center px-3 hover:border-ring/50 hover:bg-accent'
               ),
             })}
           >
@@ -155,12 +155,12 @@ const MultiFileDropzone = React.forwardRef<HTMLInputElement, InputProps>(
 
         {/* Selected Files */}
         {value?.map(({ file, progress }, i) => (
-          <LoadingFileItem key={i} file={file} progress={progress} />
+          <LoadingImageItem key={i} file={file} progress={progress} />
         ))}
       </>
     );
   }
 );
-MultiFileDropzone.displayName = 'MultiFileDropzone';
+MultiImageDropzone.displayName = 'MultiImageDropzone';
 
-export { MultiFileDropzone };
+export { MultiImageDropzone };

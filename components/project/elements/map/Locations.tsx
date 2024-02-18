@@ -1,8 +1,8 @@
 import { useLoadScript } from '@react-google-maps/api';
-import React from 'react';
-import GMap from './GMap';
+import React, { useEffect } from 'react';
+import LocationDetails from './LocationDetails';
 import { LocationsElement } from './LocationsBuilderElement';
-import PlacesAutocomplete from './PlacesAutocomplete';
+import PlacesAutocomplete, { GoogleLocation } from './PlacesAutocomplete';
 
 const containerStyle = {
   width: '100%',
@@ -27,15 +27,65 @@ function Locations({ element, isPreview }: LocationsProps) {
   if (!isLoaded) return <div>Loading...</div>;
 
   return (
-    <div className="grid grid-cols-12 aspect-[3/1]">
-      <div className="col-span-5 p-2 flex flex-col overflow-hidden">
-        <PlacesAutocomplete element={element} isPreview={isPreview} />
+    <LocationProvider
+      initValue={0}
+      locations={element.extraAttributes.locations}
+    >
+      <div className="grid grid-cols-12 lg:aspect-[3/1] divide-y lg:divide-x">
+        <div className="col-span-12 lg:col-span-4 p-2 flex flex-col overflow-hidden">
+          <PlacesAutocomplete element={element} isPreview={isPreview} />
+        </div>
+        <div className="col-span-12 lg:col-span-8 p-3 flex flex-col">
+          <LocationDetails element={element} />
+        </div>
       </div>
-      <div className="col-span-7 p-3 flex flex-col">
-        <GMap element={element} />
-      </div>
-    </div>
+    </LocationProvider>
   );
 }
 
 export default React.memo(Locations);
+
+type LocationContextType = {
+  selectedLocationId: number;
+  setSelectedLocationId: React.Dispatch<React.SetStateAction<any>>;
+};
+
+const LocationContext = React.createContext<LocationContextType>({
+  selectedLocationId: 0,
+  setSelectedLocationId: () => {},
+});
+
+const LocationProvider = ({
+  children,
+  initValue,
+  locations,
+}: {
+  children: React.ReactNode;
+  initValue: any;
+  locations: GoogleLocation[];
+}) => {
+  const [selectedLocationId, setSelectedLocationId] = React.useState(initValue);
+  const value = {
+    selectedLocationId,
+    setSelectedLocationId,
+  };
+  useEffect(() => {
+    console.log('locations changed');
+    if (!locations[selectedLocationId]) {
+      setSelectedLocationId(0);
+    }
+  }, [locations.length]);
+  return (
+    <LocationContext.Provider value={value}>
+      {children}
+    </LocationContext.Provider>
+  );
+};
+
+export const useLocation = () => {
+  const context = React.useContext(LocationContext);
+  if (context === undefined) {
+    throw new Error('useLocation must be used within a LocationProvider');
+  }
+  return context;
+};

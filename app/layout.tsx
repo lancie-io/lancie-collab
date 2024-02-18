@@ -8,6 +8,7 @@ import { inter } from '@/lib/fonts';
 import '@liveblocks/react-comments/styles.css';
 import '@liveblocks/react-comments/styles/dark/attributes.css';
 import type { Metadata } from 'next';
+import '../styles/custom.css';
 import '../styles/globals.css';
 import '../styles/liveblocks.css';
 import '../styles/prose.css';

@@ -9,7 +9,7 @@ interface PersonsProps {
 
 const Persons = ({ element, isPreview }: PersonsProps) => {
   return (
-    <div className="w-full bg-background overflow-scroll">
+    <div className="overflow-scroll rounded-b-md max-h-[800px]">
       <TableModule
         columns={element.extraAttributes.state.columns}
         element={element}

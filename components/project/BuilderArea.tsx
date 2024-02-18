@@ -18,6 +18,12 @@ const BuilderArea = () => {
   });
   useDndMonitor({
     onDragEnd: (event: DragEndEvent) => {
+      const isAlreadyInUse = elements.some(
+        (element) => `module-btn-${element.type}` === event.active.id
+      );
+      if (isAlreadyInUse) {
+        return;
+      }
       const { active, over } = event;
       if (!active || !over) return;
       const isModuleButton = active.data?.current?.isModuleButton;

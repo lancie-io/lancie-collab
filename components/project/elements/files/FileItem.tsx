@@ -3,6 +3,7 @@ import { Progress } from '@/components/upload/MultiFileDropzone';
 import { cn } from '@/lib/utils';
 import { Prisma } from '@prisma/client';
 import { File, FileWarning, icons } from 'lucide-react';
+import Link from 'next/link';
 import FileEditButton from './FileEditButton';
 import { FilesElement } from './FilesBuilderElement';
 
@@ -20,6 +21,11 @@ const FileItem = ({ file }: FileItemProps) => {
       <p className="text-sm whitespace-nowrap w-full overflow-hidden text-center text-ellipsis">
         {label || name || url}
       </p>
+      <Link
+        className="absolute top-0 left-0 w-full h-full "
+        href={file.url}
+        target="_blank"
+      />
       <FileEditButton
         file={file}
         className="absolute top-1 right-1 md:opacity-0 md:group-hover:opacity-100"

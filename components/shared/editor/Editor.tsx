@@ -4,7 +4,8 @@ import Placeholder from '@tiptap/extension-placeholder';
 import { EditorContent, JSONContent, useEditor } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
 import { AnimatePresence } from 'framer-motion';
-import { FocusEvent, useState } from 'react';
+import debounce from 'lodash.debounce';
+import { FocusEvent, useCallback, useEffect, useState } from 'react';
 import Toolbar from './Toolbar';
 
 interface EditorProps extends React.HTMLAttributes<HTMLDivElement> {
@@ -16,10 +17,18 @@ interface EditorProps extends React.HTMLAttributes<HTMLDivElement> {
 
 const Editor = ({
   placeholder,
-  content,
+  json,
   onUpdate,
   editable = true,
 }: EditorProps) => {
+  const debouncedCallback = useCallback(
+    //ChatGPT: Please fix my debunce here
+    debounce((json: JSONContent) => {
+      console.log('updated');
+      onUpdate?.(json);
+    }, 2000),
+    [onUpdate]
+  );
   const editor = useEditor({
     extensions: [
       StarterKit.configure({
@@ -50,10 +59,13 @@ const Editor = ({
 
       editable: () => editable,
     },
-    content: content,
+
+    content: json,
     onUpdate: ({ editor }) => {
       const json = editor.getJSON();
-      onUpdate?.(json);
+      //ChatGPT instead of this
+      //do this
+      debouncedCallback(json);
       // send the content to an API here
     },
   });
@@ -64,7 +76,11 @@ const Editor = ({
       setIsActive(false);
     }
   };
-
+  useEffect(() => {
+    if (json) {
+      editor?.commands.setContent(json);
+    }
+  }, [json]);
   return (
     <>
       {editor && (

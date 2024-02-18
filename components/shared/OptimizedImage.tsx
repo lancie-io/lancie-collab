@@ -1,13 +1,13 @@
 'use client';
 import { getCloudinaryImage } from '@/lib/cloudinary';
 import { AdvancedImage, responsive } from '@cloudinary/react';
-import { FC } from 'react';
+import { CSSProperties, FC } from 'react';
 
 interface OptimizedImageProps {
   src: string;
   steps?: number[];
   objectFit?: 'cover' | 'contain';
-  style?: any;
+  style?: CSSProperties;
   fill?: boolean;
 }
 

@@ -6,28 +6,48 @@ import { forwardRef } from 'react';
 
 interface ModuleButtonBaseProps extends ButtonProps {
   builderElement: BuilderElement;
+  isAlreadyInUse?: boolean;
 }
 
 export const ModuleButtonBase = forwardRef<
   HTMLButtonElement,
   ModuleButtonBaseProps
->(({ builderElement, className, ...props }: ModuleButtonBaseProps, ref) => {
-  const { label, icon } = builderElement.buttonComponent;
-  return (
-    <Button
-      variant="muted"
-      className={cn(
-        'transition duration-150 w-24 md:w-32 h-24 md:h-32 aspect-square border-2 shadow-sm rounded-xl flex flex-col items-center justify-center gap-2 hover:border-ring hover:shadow-lg cursor-grab bg-gradient-to-b from-accent to-muted',
-        className
-      )}
-      ref={ref}
-      {...props}
-    >
-      <LucideIcon name={icon} className="h-6 md:h-8 w-6 md:w-8" />
-      <p className="text-xs md:text-sm font-medium">{label}</p>
-    </Button>
-  );
-});
+>(
+  (
+    {
+      builderElement,
+      className,
+      isAlreadyInUse,
+      ...props
+    }: ModuleButtonBaseProps,
+    ref
+  ) => {
+    const { label, icon } = builderElement.buttonComponent;
+
+    return (
+      <Button
+        variant="muted"
+        className={cn(
+          'transition duration-150 w-24 md:w-32 h-24 md:h-32 aspect-square border-2 shadow-sm rounded-xl flex flex-col items-center justify-center gap-2 hover:border-ring hover:shadow-lg cursor-grab bg-gradient-to-b from-accent to-muted',
+          className
+        )}
+        ref={ref}
+        disabled={props.disabled || isAlreadyInUse}
+        {...props}
+      >
+        <LucideIcon name={icon} className="h-6 md:h-8 w-6 md:w-8" />
+        <p className="text-xs md:text-sm font-medium">{label}</p>
+        {isAlreadyInUse && (
+          <div className="relative">
+            <p className="absolute -translate-x-1/2 mt-0.5 text-2xs">
+              max 1 use
+            </p>
+          </div>
+        )}
+      </Button>
+    );
+  }
+);
 
 export default ModuleButtonBase;
 

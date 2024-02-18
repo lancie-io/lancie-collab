@@ -1,17 +1,15 @@
 import OptimizedImage from '@/components/shared/OptimizedImage';
-import UploadProvider, {
-  UploadedFile,
-} from '@/components/shared/upload/UploadProvider';
+import { UploadedFile } from '@/components/shared/upload/UploadProvider';
 import { Button } from '@/components/ui/button';
+import { MultiImageDropzoneUsage } from '@/components/uploadImages/MultiImageDropzoneUsage';
+import { idGenerator } from '@/lib/utils';
 import { Trash } from 'lucide-react';
+import { useEffect } from 'react';
 import { toast } from 'sonner';
 import { useBuilder } from '../../BuilderProvider';
 import ElementBar from '../shared/ElementBar';
-import EmptyState from '../shared/EmptyState';
-import EmbedImageButton from './EmbedImageButton';
 import { MoodboardElement, TImage } from './MoodboardBuilderElement';
 import UnsplashButton from './UnsplashButton';
-import UploadButton from './UploadButton';
 
 interface MoodboardProps {
   element: MoodboardElement;
@@ -23,24 +21,32 @@ const Moodboard = ({ element, isPreview }: MoodboardProps) => {
   const { updateElement } = useBuilder();
 
   function addImage(file: UploadedFile) {
+    console.log('added', file);
     updateElement(element.id, {
       ...element,
       extraAttributes: {
         ...element.extraAttributes,
-        images: [{ url: file.url }, ...element.extraAttributes.images],
+        images: [
+          { url: file.url, id: idGenerator() },
+          ...element.extraAttributes.images,
+        ],
       },
     });
     toast.success('Image added');
   }
 
-  function removeImage(url: string) {
+  useEffect(() => {
+    console.log('Moodboard element changed', element.extraAttributes.images);
+  }, [element]);
+
+  function removeImage(id: string) {
     updateElement(element.id, {
       ...element,
       extraAttributes: {
         ...element.extraAttributes,
         images: [
           ...element.extraAttributes.images.filter(
-            (image: TImage) => image.url !== url
+            (image: TImage) => image.id !== id
           ),
         ],
       },
@@ -51,15 +57,39 @@ const Moodboard = ({ element, isPreview }: MoodboardProps) => {
     <div className="aspect-[2/1] overflow-hidden w-full flex flex-col">
       {!isPreview && (
         <ElementBar>
-          <EmbedImageButton element={element} />
           <UnsplashButton element={element} />
-          <UploadProvider onFileChange={addImage}>
+          {/* <UploadProvider onFileChange={addImage}>
             <UploadButton element={element} />
-          </UploadProvider>
+          </UploadProvider> */}
         </ElementBar>
       )}
-      <div className="grow overflow-scroll flex flex-col no-scrollbar">
-        {/* <pre>{JSON.stringify(element, null, 2)}</pre> */}
+
+      <div className="grow overflow-scroll no-scrollbar grid grid-cols-3 p-4 gap-4 items-start">
+        <MultiImageDropzoneUsage
+          onComplete={() => {}}
+          onFileAdded={addImage}
+          element={element}
+        />
+        {images.map((image: TImage) => {
+          return (
+            <div
+              className="relative border rounded-md overflow-hidden min-h-32 bg-accent group"
+              key={image.id}
+            >
+              <OptimizedImage src={image.url} />
+              <Button
+                onClick={() => removeImage(image.id)}
+                variant="ghost"
+                size="iconSmall"
+                className="transition duration-100 opacity-0 group-hover:opacity-100 absolute top-2 right-2"
+              >
+                <Trash className="w-4 h-4" />
+              </Button>
+            </div>
+          );
+        })}
+      </div>
+      {/* <div className="grow overflow-scroll flex flex-col no-scrollbar">
         {images?.length == 0 && (
           <EmptyState
             className="w-full h-full "
@@ -90,7 +120,7 @@ const Moodboard = ({ element, isPreview }: MoodboardProps) => {
             ))}
           </div>
         )}
-      </div>
+      </div> */}
     </div>
   );
 };

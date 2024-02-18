@@ -12,6 +12,7 @@ const type: ElementType = 'moodboard';
 
 export type TImage = {
   url: string;
+  id: string;
 };
 
 export type MoodboardAttributes = {

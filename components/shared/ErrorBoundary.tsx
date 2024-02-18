@@ -1,4 +1,6 @@
+import { AlertCircle } from 'lucide-react';
 import React, { ReactNode } from 'react';
+import { Alert, AlertDescription, AlertTitle } from '../ui/alert';
 
 interface ErrorBoundaryProps {
   children: ReactNode;
@@ -34,15 +36,14 @@ class ErrorBoundary extends React.Component<
     if (this.state.hasError) {
       // You can render any custom fallback UI
       return (
-        <div>
-          <h2>Oops, there is an error!</h2>
-          <button
-            type="button"
-            onClick={() => this.setState({ hasError: false })}
-          >
-            Try again?
-          </button>
-        </div>
+        <Alert variant="destructive" className="w-full bg-red-500/20">
+          <AlertCircle className="h-4 w-4" />
+          <AlertTitle>Error</AlertTitle>
+          <AlertDescription>
+            An error occurred. The Lancie developer team has been notified. We
+            are working on it.
+          </AlertDescription>
+        </Alert>
       );
     }
 

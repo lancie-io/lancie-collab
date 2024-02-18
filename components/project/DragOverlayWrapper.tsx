@@ -1,6 +1,7 @@
 'use client';
 import { Active, DragOverlay, useDndMonitor } from '@dnd-kit/core';
 import { useState } from 'react';
+import { toast } from 'sonner';
 import ModuleButtonBase from '../builder/ModuleButton/ModuleButtonBase';
 import BuilderElementContainer from './BuilderElementContainer';
 import { BuilderElements, ElementType } from './BuilderElements';
@@ -9,9 +10,18 @@ import { useBuilder } from './BuilderProvider';
 const DragOverlayWrapper = () => {
   const { elements } = useBuilder();
   const [draggedItem, setDraggedItem] = useState<Active | null>(null);
+
   useDndMonitor({
     onDragStart: (event) => {
       document.body.style.cursor = 'grabbing';
+      const isAlreadyInUse = elements.some(
+        (element) => `module-btn-${element.type}` === event.active.id
+      );
+      if (isAlreadyInUse) {
+        toast.info('You can only use this module once.');
+        setDraggedItem(null);
+        return;
+      }
       setDraggedItem(event.active);
       console.log('onDragStart');
     },
