@@ -8,6 +8,7 @@ import {
   ComposerSubmitComment,
   Thread,
 } from '@liveblocks/react-comments';
+import { AnimatePresence, motion } from 'framer-motion';
 import React, { FormEvent, useCallback, useMemo } from 'react';
 
 interface ConversationProps extends React.HTMLAttributes<HTMLDivElement> {}
@@ -65,15 +66,41 @@ export function Conversation({ className, ...props }: ConversationProps) {
     >
       <div className="space-y-3">
         <Composer onComposerSubmit={handleSubmit} />
-        {sortedThreads.map((thread) => {
-          return (
-            <Thread
-              thread={thread}
-              key={thread.id}
-              onClick={() => handleThreadClick(thread.metadata.id)}
-            />
-          );
-        })}
+        <AnimatePresence>
+          {sortedThreads.map((thread) => {
+            return (
+              <motion.div
+                initial={{
+                  opacity: 0,
+                  y: -40,
+                  scale: 0.9,
+                }}
+                animate={{
+                  opacity: 1,
+                  y: 0,
+                  scale: 1,
+                }}
+                exit={{
+                  opacity: 0,
+                  y: -40,
+                  scale: 0.9,
+                }}
+                key={thread.id}
+                layoutId={thread.id}
+                transition={{
+                  ease: 'easeOut',
+                  duration: 0.3,
+                }}
+              >
+                <Thread
+                  thread={thread}
+                  key={thread.id}
+                  onClick={() => handleThreadClick(thread.metadata.id)}
+                />
+              </motion.div>
+            );
+          })}
+        </AnimatePresence>
       </div>
     </div>
   );

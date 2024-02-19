@@ -1,5 +1,5 @@
 'use client';
-import Editor from '@/components/shared/editor';
+import LiveEditor from '@/components/shared/editor/LiveEditor';
 import { Button, buttonVariants } from '@/components/ui/button';
 import { useLiveblocks } from '@/lib/liveblocks';
 import { JSONContent } from '@tiptap/react';
@@ -131,10 +131,9 @@ const VideoItem = ({ video, element }: VideoItemProps) => {
       </div>
       <div className="col-span-12 border-t relative group min-h-[200px] max-h-[300px]">
         <div className="w-full h-full overflow-scroll no-scrollbar">
-          <Editor
-            onUpdate={updateVideoNotes}
-            json={video.notes}
-            placeholder="Take notes about the video..."
+          <LiveEditor
+            id={video.id}
+            placeholder="Take notes about this video..."
           />
         </div>
         <Button

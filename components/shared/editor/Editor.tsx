@@ -1,106 +1,39 @@
-import Highlight from '@tiptap/extension-highlight';
-import Link from '@tiptap/extension-link';
-import Placeholder from '@tiptap/extension-placeholder';
-import { EditorContent, JSONContent, useEditor } from '@tiptap/react';
-import StarterKit from '@tiptap/starter-kit';
-import { AnimatePresence } from 'framer-motion';
-import debounce from 'lodash.debounce';
-import { FocusEvent, useCallback, useEffect, useState } from 'react';
-import Toolbar from './Toolbar';
+import { useRoom } from '@/liveblocks.config';
+import LiveblocksProvider from '@liveblocks/yjs';
+import { useEffect, useState } from 'react';
+import * as Y from 'yjs';
 
-interface EditorProps extends React.HTMLAttributes<HTMLDivElement> {
+import { TiptapEditor } from './TipTapEditor';
+
+interface EditorProps {
   placeholder?: string;
-  json?: JSONContent;
-  onUpdate?: (content: JSONContent) => void;
   editable?: boolean;
 }
 
-const Editor = ({
-  placeholder,
-  json,
-  onUpdate,
-  editable = true,
-}: EditorProps) => {
-  const debouncedCallback = useCallback(
-    //ChatGPT: Please fix my debunce here
-    debounce((json: JSONContent) => {
-      console.log('updated');
-      onUpdate?.(json);
-    }, 2000),
-    [onUpdate]
-  );
-  const editor = useEditor({
-    extensions: [
-      StarterKit.configure({
-        heading: {
-          levels: [1, 2, 3],
-        },
-      }),
-      Link.configure({
-        HTMLAttributes: {
-          class: 'text-primary underline cursor-pointer',
-        },
-      }),
-      Highlight.configure({
-        HTMLAttributes: {
-          class: 'bg-yellow-400/30 text-foreground',
-        },
-      }),
-      Placeholder.configure({
-        placeholder: placeholder || 'Start writing…',
-        emptyEditorClass:
-          'tiptap-empty:first-child before:text-muted-foreground before:content-[attr(data-placeholder)] before:float-left before:h-0 before:pointer-events-none',
-      }),
-    ],
-    editorProps: {
-      attributes: {
-        class: 'prose dark:prose-invert focus:outline-none p-5 w-full h-full',
-      },
+const Editor = ({ placeholder, editable = true }: EditorProps) => {
+  const room = useRoom();
+  const [doc, setDoc] = useState<Y.Doc>();
+  const [provider, setProvider] = useState<any>();
 
-      editable: () => editable,
-    },
-
-    content: json,
-    onUpdate: ({ editor }) => {
-      const json = editor.getJSON();
-      //ChatGPT instead of this
-      //do this
-      debouncedCallback(json);
-      // send the content to an API here
-    },
-  });
-  const [isActive, setIsActive] = useState(false);
-
-  const handleBlur = (e: FocusEvent<HTMLInputElement>) => {
-    if (!e.currentTarget.contains(e.relatedTarget)) {
-      setIsActive(false);
-    }
-  };
   useEffect(() => {
-    if (json) {
-      editor?.commands.setContent(json);
-    }
-  }, [json]);
+    const yDoc = new Y.Doc();
+    const yProvider = new LiveblocksProvider(room, yDoc);
+    setDoc(yDoc);
+    setProvider(yProvider);
+    return () => {
+      yDoc?.destroy();
+      yProvider?.destroy();
+    };
+  }, [room]);
+  if (!doc || !provider) return null;
+
   return (
-    <>
-      {editor && (
-        <div onFocus={() => setIsActive(true)} onBlur={handleBlur} id="parent">
-          <AnimatePresence>
-            {isActive && (
-              <div className="absolute -translate-y-[75%] left-1/2 -translate-x-1/2">
-                <Toolbar
-                  className="bg-background shadow-2xl border rounded-md overflow-hidden"
-                  editor={editor}
-                  tabIndex={0}
-                  key="toolbar"
-                />
-              </div>
-            )}
-          </AnimatePresence>
-          <EditorContent className="w-full h-full relative" editor={editor} />
-        </div>
-      )}
-    </>
+    <TiptapEditor
+      placeholder={placeholder}
+      editable={editable}
+      doc={doc}
+      provider={provider}
+    />
   );
 };
 

@@ -19,6 +19,7 @@ export async function POST(request: Request) {
       userInfo: {
         name: user.name as string | undefined,
         avatar: user.image as string | undefined,
+        color: '#ff0000',
       },
     } // Optional
   );

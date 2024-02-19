@@ -38,6 +38,7 @@ type UserMeta = {
   info: {
     name: string;
     avatar: string;
+    color: string;
   };
   // id?: string,  // Accessible through `user.id`
   // info?: Json,  // Accessible through `user.info`
@@ -110,12 +111,12 @@ export const {
       //   name: userData.name,
       //   avatar: userData.avatar.src,
       // }));
-
       const usersData = await getLiveBlockUsersByUserIDs(userIds);
       return [
         ...usersData.map((userData) => ({
           name: userData.name as string,
           avatar: userData.image as string,
+          color: '#ff0000',
         })),
       ];
     },

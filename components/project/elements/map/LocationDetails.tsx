@@ -1,5 +1,5 @@
 import Title from '@/components/shared/Title';
-import Editor from '@/components/shared/editor';
+import LiveEditor from '@/components/shared/editor/LiveEditor';
 import { useLiveblocks } from '@/lib/liveblocks';
 import { JSONContent } from '@tiptap/react';
 import EmptyState from '../shared/EmptyState';
@@ -73,9 +73,8 @@ const LocationDetails = ({ element }: LocationDetailsProps) => {
 
       <div className="grid grid-cols-2 mt-4 gap-4">
         <div className="bg-muted border rounded-md">
-          <Editor
-            onUpdate={updateLocationNotes}
-            json={location.notes}
+          <LiveEditor
+            id={location.id}
             placeholder="Take notes about this location..."
           />
         </div>
