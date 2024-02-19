@@ -99,6 +99,7 @@ const WelcomeModal = () => {
               const isActive = step.id === currentStepId;
               return (
                 <li
+                  key={step.id}
                   className="py-2 pr-12 relative flex items-center cursor-pointer"
                   onClick={() => setCurrentStepId(step.id)}
                 >

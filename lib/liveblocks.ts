@@ -48,12 +48,10 @@ export function useLiveblocks() {
   }, []);
 
   const isFirst = (id: string) => {
-    const elements = useStorage((root) => root.elements);
     return elements[0].id === id;
   };
 
   const isLast = (id: string) => {
-    const elements = useStorage((root) => root.elements);
     return elements[elements.length - 1].id === id;
   };
   return {
