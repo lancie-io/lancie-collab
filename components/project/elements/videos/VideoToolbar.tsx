@@ -7,6 +7,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from '@/components/ui/popover';
+import { useLiveblocks } from '@/lib/liveblocks';
 import { idGenerator } from '@/lib/utils';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { JSONContent } from '@tiptap/react';
@@ -15,7 +16,6 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { BuilderElementInstance } from '../../BuilderElements';
-import { useBuilder } from '../../BuilderProvider';
 import { VideosCustomInstance } from './VideosBuilderElement';
 
 export type TVideoItem = {
@@ -40,7 +40,7 @@ const VideoToolbar = ({
       url: undefined,
     },
   });
-  const { updateElement } = useBuilder();
+  const { updateElement } = useLiveblocks();
   const [open, setOpen] = useState(false);
 
   async function onSubmit(data: z.infer<typeof FormSchema>) {

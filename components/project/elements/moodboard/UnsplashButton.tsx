@@ -6,11 +6,11 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from '@/components/ui/popover';
+import { useLiveblocks } from '@/lib/liveblocks';
 import { useQuery } from '@tanstack/react-query';
 import { useDebounce } from '@uidotdev/usehooks';
 import { HeartCrack, Image as ImageIcon, Loader2, Search } from 'lucide-react';
 import { useState } from 'react';
-import { useBuilder } from '../../BuilderProvider';
 import { MoodboardElement } from './MoodboardBuilderElement';
 import { fetchUnsplash } from './unsplash-action';
 
@@ -41,7 +41,7 @@ const UnsplashButton = ({ element }: UnsplashButtonProps) => {
     return result;
   }
 
-  const { updateElement } = useBuilder();
+  const { updateElement } = useLiveblocks();
 
   const [open, setOpen] = useState(false);
 

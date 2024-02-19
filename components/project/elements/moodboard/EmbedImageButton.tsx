@@ -6,12 +6,12 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from '@/components/ui/popover';
+import { useLiveblocks } from '@/lib/liveblocks';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Link } from 'lucide-react';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
-import { useBuilder } from '../../BuilderProvider';
 import { MoodboardElement } from './MoodboardBuilderElement';
 
 const formSchema = z.object({
@@ -29,7 +29,7 @@ const EmbedImageButton = ({ element }: EmbedImageButtonProps) => {
       url: undefined,
     },
   });
-  const { updateElement } = useBuilder();
+  const { updateElement } = useLiveblocks();
   const [open, setOpen] = useState(false);
 
   async function onSubmit(data: z.infer<typeof formSchema>) {

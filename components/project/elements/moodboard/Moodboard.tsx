@@ -2,11 +2,11 @@ import OptimizedImage from '@/components/shared/OptimizedImage';
 import { UploadedFile } from '@/components/shared/upload/UploadProvider';
 import { Button } from '@/components/ui/button';
 import { MultiImageDropzoneUsage } from '@/components/uploadImages/MultiImageDropzoneUsage';
+import { useLiveblocks } from '@/lib/liveblocks';
 import { idGenerator } from '@/lib/utils';
 import { Trash } from 'lucide-react';
 import { useEffect } from 'react';
 import { toast } from 'sonner';
-import { useBuilder } from '../../BuilderProvider';
 import ElementBar from '../shared/ElementBar';
 import { MoodboardElement, TImage } from './MoodboardBuilderElement';
 import UnsplashButton from './UnsplashButton';
@@ -18,7 +18,7 @@ interface MoodboardProps {
 
 const Moodboard = ({ element, isPreview }: MoodboardProps) => {
   const { images } = element.extraAttributes;
-  const { updateElement } = useBuilder();
+  const { updateElement } = useLiveblocks();
 
   function addImage(file: UploadedFile) {
     console.log('added', file);

@@ -6,6 +6,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from '@/components/ui/popover';
+import { useLiveblocks } from '@/lib/liveblocks';
 import { cn, idGenerator } from '@/lib/utils';
 import { JSONContent } from '@tiptap/react';
 import { AnimatePresence, motion } from 'framer-motion';
@@ -15,7 +16,6 @@ import usePlacesAutocomplete, {
   getGeocode,
   getLatLng,
 } from 'use-places-autocomplete';
-import { useBuilder } from '../../BuilderProvider';
 import { useLocation } from './Locations';
 import { LocationsElement } from './LocationsBuilderElement';
 import { getPlacePhotos } from './actions';
@@ -49,7 +49,7 @@ const PlacesAutocomplete = ({
   isPreview,
 }: PlacesAutocompleteProps) => {
   const { id } = element;
-  const { updateElement } = useBuilder();
+  const { updateElement } = useLiveblocks();
 
   const locations: GoogleLocation[] = element.extraAttributes.locations;
   const {
@@ -179,7 +179,7 @@ interface LocationCardProps {
 }
 
 const LocationCard = ({ location, element, idx }: LocationCardProps) => {
-  const { updateElement } = useBuilder();
+  const { updateElement } = useLiveblocks();
   const { selectedLocationId, setSelectedLocationId } = useLocation();
 
   function removeLocation(locationId: string) {

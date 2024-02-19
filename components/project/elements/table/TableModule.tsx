@@ -1,6 +1,6 @@
+import { useLiveblocks } from '@/lib/liveblocks';
 import update from 'immutability-helper';
 import { useEffect, useReducer } from 'react';
-import { useBuilder } from '../../BuilderProvider';
 import Table from './Table';
 import './style.css';
 import { ActionTypes, DataTypes, randomColor, shortId } from './utils';
@@ -181,7 +181,7 @@ function TableModule({ columns, element, isPreview }: any) {
     data: element.extraAttributes.state.data,
   });
   const { id } = element;
-  const { updateElement } = useBuilder();
+  const { updateElement } = useLiveblocks();
   function updateTableState(tableState: any) {
     updateElement(id, {
       ...element,

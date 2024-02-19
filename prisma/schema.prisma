@@ -30,6 +30,7 @@ model User {
   receiveComments   Boolean @default(true)
   receiveMarketing  Boolean @default(true)
   files         File[]
+  hasSeenWelcomeModal Boolean @default(false)
 }
 
 model Invite {

@@ -6,6 +6,7 @@ declare module 'next-auth' {
       id: string;
       projects: string[];
       memberProjects: string[];
+      hasSeenWelcomeModal: boolean;
     } & DefaultSession['user'];
   }
 
@@ -21,5 +22,6 @@ declare module 'next-auth/jwt' {
     image: string;
     projects: string[];
     memberProjects: string[];
+    hasSeenWelcomeModal: boolean;
   }
 }

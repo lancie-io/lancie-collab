@@ -2,6 +2,7 @@
 
 import { Form, FormField, FormItem, FormLabel } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
+import { useLiveblocks } from '@/lib/liveblocks';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
@@ -11,7 +12,6 @@ import {
   BuilderElementInstance,
   ElementType,
 } from '../../BuilderElements';
-import { useBuilder } from '../../BuilderProvider';
 import Summary from './Summary';
 
 const type: ElementType = 'summary';
@@ -65,7 +65,7 @@ function PropertiesComponent({
   elementInstance: BuilderElementInstance;
 }) {
   const element = elementInstance as SettingsCustomInstance;
-  const { updateElement } = useBuilder();
+  const { updateElement } = useLiveblocks();
   const form = useForm<z.infer<typeof propertiesSchema>>({
     resolver: zodResolver(propertiesSchema),
     mode: 'onBlur',

@@ -1,7 +1,7 @@
 import Title from '@/components/shared/Title';
 import Editor from '@/components/shared/editor';
+import { useLiveblocks } from '@/lib/liveblocks';
 import { JSONContent } from '@tiptap/react';
-import { useBuilder } from '../../BuilderProvider';
 import EmptyState from '../shared/EmptyState';
 import GMap from './GMap';
 import { useLocation } from './Locations';
@@ -14,7 +14,7 @@ interface LocationDetailsProps {
 
 const LocationDetails = ({ element }: LocationDetailsProps) => {
   const { selectedLocationId, setSelectedLocationId } = useLocation();
-  const { updateElement } = useBuilder();
+  const { updateElement } = useLiveblocks();
 
   const locations: GoogleLocation[] = element.extraAttributes.locations;
   const location = locations[selectedLocationId];

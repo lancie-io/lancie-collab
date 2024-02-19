@@ -1,5 +1,6 @@
-import { createClient } from '@liveblocks/client';
+import { LiveList, createClient } from '@liveblocks/client';
 import { createRoomContext } from '@liveblocks/react';
+import { BuilderElementInstance } from './components/project/BuilderElements';
 import {
   getLiveBlockUsersByProjectID,
   getLiveBlockUsersByUserIDs,
@@ -26,6 +27,7 @@ type Presence = {
 type Storage = {
   // author: LiveObject<{ firstName: string, lastName: string }>,
   // ...
+  elements: LiveList<BuilderElementInstance>;
 };
 
 // Optionally, UserMeta represents static/readonly metadata on each user, as

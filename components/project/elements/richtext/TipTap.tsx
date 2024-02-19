@@ -1,9 +1,9 @@
 'use client';
 
 import Editor from '@/components/shared/editor';
+import { useLiveblocks } from '@/lib/liveblocks';
 import { JSONContent } from '@tiptap/react';
 import { BuilderElementInstance } from '../../BuilderElements';
-import { useBuilder } from '../../BuilderProvider';
 import { CustomInstance } from './RichtextBuilderElement';
 
 interface TipTapProps {
@@ -13,7 +13,7 @@ interface TipTapProps {
 
 const Tiptap = ({ elementInstance, isPreview }: TipTapProps) => {
   const element = elementInstance as CustomInstance;
-  const { updateElement } = useBuilder();
+  const { updateElement } = useLiveblocks();
 
   function updateContent(content: JSONContent) {
     updateElement(element.id, {

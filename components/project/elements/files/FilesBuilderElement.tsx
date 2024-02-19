@@ -3,6 +3,7 @@
 import UploadProvider, {
   UploadedFile,
 } from '@/components/shared/upload/UploadProvider';
+import { useLiveblocks } from '@/lib/liveblocks';
 import { icons } from 'lucide-react';
 import {
   BuilderElement,
@@ -10,7 +11,6 @@ import {
   ElementType,
   ExtraAttributes,
 } from '../../BuilderElements';
-import { useBuilder } from '../../BuilderProvider';
 import FilesManager from './FilesManager';
 
 const type: ElementType = 'files';
@@ -55,7 +55,7 @@ function BuilderComponent({
 }: {
   elementInstance: FilesElement;
 }) {
-  const { updateElement } = useBuilder();
+  const { updateElement } = useLiveblocks();
   function addFile(file: UploadedFile) {
     const newFile: File = {
       icon: 'FileText',

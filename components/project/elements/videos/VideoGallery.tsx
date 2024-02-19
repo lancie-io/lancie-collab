@@ -1,6 +1,7 @@
 'use client';
 import Editor from '@/components/shared/editor';
 import { Button, buttonVariants } from '@/components/ui/button';
+import { useLiveblocks } from '@/lib/liveblocks';
 import { JSONContent } from '@tiptap/react';
 import {
   ExternalLink,
@@ -13,7 +14,6 @@ import Link from 'next/link';
 import { useState } from 'react';
 import ReactPlayer from 'react-player';
 import { BuilderElementInstance } from '../../BuilderElements';
-import { useBuilder } from '../../BuilderProvider';
 import EmptyState from '../shared/EmptyState';
 import VideoToolbar, { TVideoItem } from './VideoToolbar';
 
@@ -50,7 +50,7 @@ interface VideoItemProps {
 }
 
 const VideoItem = ({ video, element }: VideoItemProps) => {
-  const { updateElement } = useBuilder();
+  const { updateElement } = useLiveblocks();
 
   const [videoUnsupported, setVideoUnsupported] = useState(false);
 

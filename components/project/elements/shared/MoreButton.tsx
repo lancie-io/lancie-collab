@@ -6,6 +6,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
+import { useLiveblocks } from '@/lib/liveblocks';
 import { cn } from '@/lib/utils';
 import {
   ArrowBigDown,
@@ -16,7 +17,6 @@ import {
   Trash,
 } from 'lucide-react';
 import { BuilderElementInstance } from '../../BuilderElements';
-import { useBuilder } from '../../BuilderProvider';
 
 interface MoreButtonProps extends ButtonProps {
   element: BuilderElementInstance;
@@ -32,7 +32,7 @@ const MoreButton = ({ className, element }: MoreButtonProps) => {
     removeElement,
     isFirst,
     isLast,
-  } = useBuilder();
+  } = useLiveblocks();
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>

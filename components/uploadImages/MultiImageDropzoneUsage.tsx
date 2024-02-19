@@ -1,9 +1,9 @@
 'use client';
 
 import { useEdgeStore } from '@/lib/edgestore';
+import { useLiveblocks } from '@/lib/liveblocks';
 import { idGenerator } from '@/lib/utils';
 import { useEffect, useState } from 'react';
-import { useBuilder } from '../project/BuilderProvider';
 import { MoodboardElement } from '../project/elements/moodboard/MoodboardBuilderElement';
 import { MultiImageDropzone, type FileState } from './MultiImageDropzone';
 
@@ -28,7 +28,7 @@ export function MultiImageDropzoneUsage({
   const [fileStates, setFileStates] = useState<FileState[]>([]);
   const { edgestore } = useEdgeStore();
 
-  const { updateElement } = useBuilder();
+  const { updateElement } = useLiveblocks();
 
   function updateFileProgress(key: string, progress: FileState['progress']) {
     setFileStates((fileStates) => {

@@ -53,6 +53,7 @@ export const authOptions: NextAuthOptions = {
         session.user.image = token.image;
         session.user.projects = token.projects;
         session.user.memberProjects = token.memberProjects;
+        session.user.hasSeenWelcomeModal = token.hasSeenWelcomeModal;
       }
       return session;
     },
@@ -89,6 +90,7 @@ export const authOptions: NextAuthOptions = {
         image: dbUser.image,
         projects: dbUser.projects.map((project) => project.id),
         memberProjects: dbUser.memberProjects.map((project) => project.id),
+        hasSeenWelcomeModal: dbUser.hasSeenWelcomeModal,
       };
     },
 

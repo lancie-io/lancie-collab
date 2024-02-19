@@ -8,6 +8,7 @@ import { Suspense } from 'react';
 const OverviewPage = () => {
   return (
     <UserLayout title="Projects" cta={<ProjectCreateButton />}>
+      {/* <WelcomeModal /> */}
       <Suspense fallback={<LoadingProjectGrid />}>
         <ProjectGrid />
       </Suspense>

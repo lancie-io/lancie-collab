@@ -1,10 +1,10 @@
 import { Input } from '@/components/ui/input';
+import { useLiveblocks } from '@/lib/liveblocks';
 import { cn } from '@/lib/utils';
 import { useDraggable } from '@dnd-kit/core';
 import { GripHorizontal } from 'lucide-react';
 import { useState } from 'react';
 import { BuilderElementInstance } from '../../BuilderElements';
-import { useBuilder } from '../../BuilderProvider';
 import CommentButton from './CommentButton';
 import MoreButton from './MoreButton';
 
@@ -18,7 +18,7 @@ interface ModuleBarProps {
 
 const ModuleBar = ({ element, draggable, isDragging }: ModuleBarProps) => {
   const { label } = element.extraAttributes;
-  const { updateElement } = useBuilder();
+  const { updateElement } = useLiveblocks();
   const handleFocus = (event: any) => event.target.select();
   function updateLabel(newLabelValue: string) {
     if (newLabelValue === '') {

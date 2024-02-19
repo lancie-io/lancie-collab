@@ -1,6 +1,6 @@
 import { UploadedFile } from '@/components/shared/upload/UploadProvider';
+import { useLiveblocks } from '@/lib/liveblocks';
 import { createContext, useContext, useState } from 'react';
-import { useBuilder } from '../../BuilderProvider';
 import ElementBar from '../shared/ElementBar';
 import { SettingsCustomInstance } from './SummaryBuilderElement';
 import SummaryPlayground from './SummaryPlayground';
@@ -11,7 +11,7 @@ interface SummaryProps {
 }
 
 const Summary = ({ element }: SummaryProps) => {
-  const { updateElement } = useBuilder();
+  const { updateElement } = useLiveblocks();
 
   function uploadImage(file: UploadedFile) {
     console.log(file);

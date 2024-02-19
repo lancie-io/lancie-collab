@@ -1,7 +1,6 @@
 import MobileToolbar from '@/components/builder/toolbar/MobileToolbar';
 import BuilderArea from '@/components/project/BuilderArea';
 import BuilderHeader from '@/components/project/BuilderHeader';
-import BuilderProvider from '@/components/project/BuilderProvider';
 import BuilderSidebar from '@/components/project/BuilderSidebar';
 import DragOverlayWrapper from '@/components/project/DragOverlayWrapper';
 import { Conversation } from '@/components/project/comments/Conversation';
@@ -37,24 +36,19 @@ const ProjectPage = async ({ params }: { params: { id: string } }) => {
   }
 
   return (
-    <RoomProvider roomId={params.id}>
+    <RoomProvider roomId={params.id} initialElements={project.content}>
       <DndProvider>
         <ProjectProvider initProjectId={params.id}>
-          <BuilderProvider
-            elementsFromServer={project.content}
-            projectId={params.id}
-          >
-            <div className="grow flex flex-col" style={{ height: '100dvh' }}>
-              <BuilderHeader projectId={params.id} />
-              <MobileToolbar projectId={params.id} />
-              <div className="grow flex overflow-scroll no-scrollbar">
-                <BuilderSidebar className={cn('hidden md:block')} />
-                <BuilderArea />
-                <Conversation className="hidden md:block" />
-              </div>
+          <div className="grow flex flex-col" style={{ height: '100dvh' }}>
+            <BuilderHeader projectId={params.id} />
+            <MobileToolbar projectId={params.id} />
+            <div className="grow flex overflow-scroll no-scrollbar">
+              <BuilderSidebar className={cn('hidden md:block')} />
+              <BuilderArea />
+              <Conversation className="hidden md:block" />
             </div>
-            <DragOverlayWrapper />
-          </BuilderProvider>
+          </div>
+          <DragOverlayWrapper />
         </ProjectProvider>
       </DndProvider>
     </RoomProvider>

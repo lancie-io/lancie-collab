@@ -19,6 +19,7 @@ import {
   PopoverTrigger,
 } from '@/components/ui/popover';
 import { getProjectTitle } from '@/lib/actions';
+import { useLiveblocks } from '@/lib/liveblocks';
 import { cn } from '@/lib/utils';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useQuery } from '@tanstack/react-query';
@@ -29,7 +30,6 @@ import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 import { z } from 'zod';
-import { useBuilder } from '../../BuilderProvider';
 import { useSettings } from './Summary';
 import { SettingsCustomInstance } from './SummaryBuilderElement';
 
@@ -42,7 +42,7 @@ const formSchema = z.object({
 const TitleForm = ({ element }: { element: SettingsCustomInstance }) => {
   const projectId = useProjectId();
   const { settings, setSettings } = useSettings();
-  const { updateElement } = useBuilder();
+  const { updateElement } = useLiveblocks();
   const { data: title, status } = useQuery({
     queryKey: ['title', projectId],
     queryFn: async () => {

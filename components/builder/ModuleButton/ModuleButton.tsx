@@ -5,7 +5,7 @@ import {
   BuilderElements,
   ElementType,
 } from '@/components/project/BuilderElements';
-import { useBuilder } from '@/components/project/BuilderProvider';
+import { useLiveblocks } from '@/lib/liveblocks';
 import { idGenerator } from '@/lib/utils';
 import { useDraggable } from '@dnd-kit/core';
 import ModuleButtonBase from './ModuleButtonBase';
@@ -30,11 +30,10 @@ const ModuleButton = ({
     },
   });
 
-  const { addElement } = useBuilder();
+  const { elements, addElement } = useLiveblocks();
 
   const type = builderElement.type as ElementType;
 
-  const { elements } = useBuilder();
   const isAlreadyInUse =
     elements.some((element) => element.type === builderElement.type) && single;
 
@@ -42,6 +41,7 @@ const ModuleButton = ({
     const newElement = BuilderElements[type as ElementType].construct(
       idGenerator()
     );
+    // addElement(0, newElement);
     addElement(0, newElement);
   };
   return (

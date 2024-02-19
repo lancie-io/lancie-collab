@@ -1,17 +1,17 @@
 'use client';
 import { saveProject } from '@/lib/actions';
+import { useLiveblocks } from '@/lib/liveblocks';
 import { Loader2, Save } from 'lucide-react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { Button } from '../ui/button';
-import { useBuilder } from './BuilderProvider';
 
 interface SaveButtonProps {
   projectId: string;
 }
 
 const SaveButton = ({ projectId }: SaveButtonProps) => {
-  const { elements } = useBuilder();
+  const { elements } = useLiveblocks();
   const [loading, setLoading] = useState(false);
   const handleClick = async () => {
     setLoading(true);
