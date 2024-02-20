@@ -1,3 +1,4 @@
+import { useProjectId } from '@/components/providers/ProjectProvider';
 import { Skeleton } from '@/components/ui/skeleton';
 import { RoomProvider } from '@/liveblocks.config';
 import { ClientSideSuspense } from '@liveblocks/react';
@@ -12,8 +13,12 @@ const LiveEditor = ({
   placeholder?: string;
   editable?: boolean;
 }) => {
+  const projectId = useProjectId();
+  if (!projectId) {
+    return <LoadingEditor />;
+  }
   return (
-    <RoomProvider id={`editor-${id}`} initialPresence={{}}>
+    <RoomProvider id={`${projectId}-editor-${id}`} initialPresence={{}}>
       <ClientSideSuspense fallback={<LoadingEditor />}>
         {() => <Editor editable={editable} placeholder={placeholder} />}
       </ClientSideSuspense>

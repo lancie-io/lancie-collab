@@ -1,7 +1,6 @@
 'use client';
 import { updateProject } from '@/lib/actions';
 import { useAuthUser } from '@/lib/auth';
-import { formatDistance } from 'date-fns';
 import { motion } from 'framer-motion';
 import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
@@ -10,6 +9,7 @@ import UploadProvider, { UploadedFile } from '../shared/upload/UploadProvider';
 import ItemContent from './ItemContent';
 import ItemOptions from './ItemOptions';
 import { GridProjectT } from './ProjectGrid';
+import UpdatedAtLabel from './UpdatedAtLabel';
 
 interface GridItemProps {
   project: GridProjectT;
@@ -56,12 +56,11 @@ const GridItem = ({ project }: GridItemProps) => {
         <div className="pt-1.5 flex items-center justify-between w-full">
           <div>
             <h2 className="font-semibold">{project.name}</h2>
-            <h3 className="text-muted-foreground text-sm">
-              Edited{' '}
-              {formatDistance(project.updatedAt, new Date(), {
-                addSuffix: true,
-              })}
-            </h3>
+
+            <UpdatedAtLabel
+              projectId={project.id}
+              updatedAt={project.updatedAt}
+            />
           </div>
           {!isOwner && (
             <div className="text-xs rounded-full text-muted-foreground flex gap-1.5 items-center border pl-2">

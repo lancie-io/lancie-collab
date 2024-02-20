@@ -239,6 +239,18 @@ export async function createInvite({
   }
 }
 
+export async function getUpdatedAtValue(id: string) {
+  const project = await prisma.project.findUnique({
+    where: {
+      id: id,
+    },
+    select: {
+      updatedAt: true,
+    },
+  });
+  return project?.updatedAt;
+}
+
 export async function createProject(
   data: Omit<Prisma.ProjectCreateInput, 'user'>
 ) {

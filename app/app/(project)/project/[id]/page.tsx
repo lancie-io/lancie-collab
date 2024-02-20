@@ -36,7 +36,7 @@ const ProjectPage = async ({ params }: { params: { id: string } }) => {
   }
 
   return (
-    <RoomProvider roomId={params.id} initialElements={project.content}>
+    <RoomProvider roomId={params.id}>
       <DndProvider>
         <ProjectProvider initProjectId={params.id}>
           <div className="grow flex flex-col" style={{ height: '100dvh' }}>
