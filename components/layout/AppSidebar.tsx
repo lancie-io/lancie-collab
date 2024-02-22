@@ -4,7 +4,9 @@ import FeedbackButton from '../FeedbackButton';
 import AvatarDropdown, {
   LoadingAvatarDropdown,
 } from '../shared/AvatarDropdown';
+import { Button } from '../ui/button';
 import { Sheet, SheetContent, SheetTrigger } from '../ui/sheet';
+import WelcomeModal from '../welcomemodal/WelcomeModal';
 import SidebarMenu from './SidebarMenu';
 
 const AppSidebar = () => {
@@ -16,8 +18,14 @@ const AppSidebar = () => {
         </Suspense>
         <SidebarMenu />
       </div>
-      
-      <FeedbackButton className="w-full" />
+      <div className="flex flex-col items-stretch gap-1.5">
+        <WelcomeModal>
+          <Button variant="ghost" size="sm">
+            How it works
+          </Button>
+        </WelcomeModal>
+        <FeedbackButton className="w-full" />
+      </div>
     </aside>
   );
 };

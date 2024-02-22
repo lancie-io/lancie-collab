@@ -6,10 +6,11 @@ import { cn } from '@/lib/utils';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
-import { Modal, ModalContent } from '../projects/Modal';
+import { Modal, ModalContent, ModalTrigger } from '../projects/Modal';
 import { Icons } from '../shared/Icons';
 import Title from '../shared/Title';
 import { Button } from '../ui/button';
+import { getStepsWithUserName } from './steps';
 
 type Step = {
   label: string;
@@ -19,80 +20,7 @@ type Step = {
   id: number;
 };
 
-function getUserWelcome(name: string) {
-  return `Welcome ${name}. Say hi to Lancie.`;
-}
-
-const getStepsWithUserName = (name: string) => [
-  {
-    label: 'Welcome',
-    title: (
-      <>
-        Welcome {name}.<br />
-        Say hi to Lancie.
-      </>
-    ),
-    content: 'A new way to build up next-level video projects.',
-    image: '/step-welcome.jpg',
-    id: 0,
-  },
-  {
-    label: 'Create',
-    title: (
-      <>
-        Create
-        <br />
-        custom boards.
-      </>
-    ),
-    content: 'New video project. New board. Better process.',
-    image: '/step-build.jpg',
-    id: 1,
-  },
-  {
-    label: 'Build',
-    title: (
-      <>
-        Build
-        <br />
-        modularly.
-      </>
-    ),
-    content:
-      'Lancie is designed upon the concept of modules. Drag them in and create concepts with ease.',
-    image: '/step-build.jpg',
-    id: 2,
-  },
-  {
-    label: 'Publish',
-    title: (
-      <>
-        Publish
-        <br />
-        your boards.
-      </>
-    ),
-    content:
-      'Share public board links with clients. Keep edit access to your collaborators.',
-    image: '/step-publish.jpg',
-    id: 3,
-  },
-  {
-    label: 'Collaborate',
-    title: (
-      <>
-        Collaborate
-        <br />
-        with team mates.
-      </>
-    ),
-    content: 'Invite your team and stakeholders into the project with ease.',
-    image: '/step-collaborate.jpg',
-    id: 4,
-  },
-];
-
-const WelcomeModal = () => {
+const WelcomeModal = ({ children }: { children: React.ReactNode }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [currentStepId, setCurrentStepId] = useState(0);
   const user = useAuthUser();
@@ -109,6 +37,12 @@ const WelcomeModal = () => {
       setUserHasSeenWelcomeModal(user.id, true);
     }
   }, [user]);
+
+  useEffect(() => {
+    if (isOpen) {
+      setCurrentStepId(0);
+    }
+  }, [isOpen]);
 
   if (!user) {
     return;
@@ -128,6 +62,7 @@ const WelcomeModal = () => {
   }
   return (
     <Modal open={isOpen} onOpenChange={setIsOpen}>
+      {children && <ModalTrigger>{children}</ModalTrigger>}
       <ModalContent className="p-0 gap-0 max-w-2xl">
         <div className="flex flex-col md:flex-row">
           <div className="md:shrink-0 md:bg-muted w-full md:w-[200px] ">
