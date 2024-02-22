@@ -3,7 +3,6 @@ import { WebhookHandler } from '@liveblocks/node';
 
 const WEBHOOK_SECRET = process.env.LIVEBLOCKS_STORAGE_WEBHOOK_SECRET!;
 const webhookHandler = new WebhookHandler(WEBHOOK_SECRET);
-const API_SECRET = process.env.LIVEBLOCKS_SECRET_KEY!;
 
 const ACCEPTED_EVENTS = [
   'storageUpdated',
@@ -32,15 +31,7 @@ export async function POST(request: Request) {
     return new Response('Event not accepted.', { status: 400 });
   }
   const { roomId } = event.data;
-  // const url = `https://api.liveblocks.io/v2/rooms/${roomId}/storage`;
-  // const res = await fetch(url, {
-  //   headers: {
-  //     Authorization: `Bearer ${API_SECRET}`,
-  //   },
-  // });
-  // if (!res.ok) {
-  //   return new Response('Problem fetching room storage.', { status: 500 });
-  // }
+
   let projectId = roomId;
   if (event.type === 'ydocUpdated') {
     projectId = roomId.split('-')[0];

@@ -5,6 +5,16 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
+export function isValidUrl(url: string) {
+  let validUrl;
+  try {
+    validUrl = new URL(url);
+  } catch (error) {
+    return false;
+  }
+  return true;
+}
+
 export function generateStatusStrings(word: string) {
   const vowels = 'aeiouAEIOU';
 

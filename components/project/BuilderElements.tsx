@@ -41,9 +41,6 @@ export type BuilderElement = {
   previewComponent: React.FC<{
     elementInstance: BuilderElementInstance;
   }>;
-  propertiesComponent?: React.FC<{
-    elementInstance: BuilderElementInstance;
-  }>;
 };
 
 export type BuilderElementInstance<T = Record<string, any>> = {

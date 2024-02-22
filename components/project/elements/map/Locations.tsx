@@ -31,7 +31,7 @@ function Locations({ element, isPreview }: LocationsProps) {
       initValue={0}
       locations={element.extraAttributes.locations}
     >
-      <div className="grid grid-cols-12 lg:aspect-[3/1] divide-y lg:divide-x">
+      <div className="grid grid-cols-12 lg:aspect-[3/1] divide-y lg:divide-x lg:divide-y-0">
         <div className="col-span-12 lg:col-span-4 p-2 flex flex-col overflow-hidden">
           <PlacesAutocomplete element={element} isPreview={isPreview} />
         </div>

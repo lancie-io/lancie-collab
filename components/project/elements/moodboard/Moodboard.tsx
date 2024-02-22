@@ -1,7 +1,5 @@
-import OptimizedImage from '@/components/shared/OptimizedImage';
 import { UploadedFile } from '@/components/shared/upload/UploadProvider';
 import { Button } from '@/components/ui/button';
-import { MultiImageDropzoneUsage } from '@/components/uploadImages/MultiImageDropzoneUsage';
 import { useLiveblocks } from '@/lib/liveblocks';
 import { idGenerator } from '@/lib/utils';
 import { Trash } from 'lucide-react';
@@ -54,7 +52,7 @@ const Moodboard = ({ element, isPreview }: MoodboardProps) => {
   }
 
   return (
-    <div className="aspect-[2/1] overflow-hidden w-full flex flex-col">
+    <div className="aspect-[3/2] overflow-hidden w-full flex flex-col">
       {!isPreview && (
         <ElementBar>
           <UnsplashButton element={element} />
@@ -64,19 +62,20 @@ const Moodboard = ({ element, isPreview }: MoodboardProps) => {
         </ElementBar>
       )}
 
-      <div className="grow overflow-scroll no-scrollbar grid grid-cols-3 p-4 gap-4 items-start">
-        <MultiImageDropzoneUsage
+      <div className="grow overflow-scroll no-scrollbar grid grid-cols-2 p-4 gap-4 ">
+        {/* <MultiImageDropzoneUsage
           onComplete={() => {}}
           onFileAdded={addImage}
           element={element}
-        />
+        /> */}
         {images.map((image: TImage) => {
           return (
             <div
-              className="relative border rounded-md overflow-hidden min-h-32 bg-accent group"
+              className="relative border rounded-md overflow-hidden min-h-[200px] bg-accent group"
               key={image.id}
             >
-              <OptimizedImage src={image.url} />
+              {/* <OptimizedImage  /> */}
+              <img src={image.url} alt="" />
               <Button
                 onClick={() => removeImage(image.id)}
                 variant="ghost"

@@ -1,7 +1,5 @@
 import Title from '@/components/shared/Title';
 import LiveEditor from '@/components/shared/editor/LiveEditor';
-import { useLiveblocks } from '@/lib/liveblocks';
-import { JSONContent } from '@tiptap/react';
 import EmptyState from '../shared/EmptyState';
 import GMap from './GMap';
 import { useLocation } from './Locations';
@@ -14,30 +12,10 @@ interface LocationDetailsProps {
 
 const LocationDetails = ({ element }: LocationDetailsProps) => {
   const { selectedLocationId, setSelectedLocationId } = useLocation();
-  const { updateElement } = useLiveblocks();
 
   const locations: GoogleLocation[] = element.extraAttributes.locations;
   const location = locations[selectedLocationId];
-  function updateLocationNotes(notes: JSONContent) {
-    console.log('triggered');
-    const newLocations = locations.map((l) => {
-      if (l.id === location.id) {
-        return {
-          ...l,
-          notes,
-        };
-      }
-      return l;
-    });
-    console.log('newLocations', newLocations);
-    updateElement(element.id, {
-      ...element,
-      extraAttributes: {
-        ...element.extraAttributes,
-        locations: newLocations,
-      },
-    });
-  }
+
   if (!location) {
     return (
       <EmptyState

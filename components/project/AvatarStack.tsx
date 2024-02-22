@@ -18,7 +18,7 @@ const AvatarStack = ({ className, ...props }: AvatarStackProps) => {
         className
       )}
     >
-      <pre>Color: {JSON.stringify(currentUser.info.color)}</pre>
+      {/* <pre>Color: {JSON.stringify(currentUser.info.color)}</pre> */}
       <Avatar
         className="w-6 h-6 md:w-7 md:h-7"
         key={currentUser.connectionId}

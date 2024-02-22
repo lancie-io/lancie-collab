@@ -32,7 +32,6 @@ export const ModuleButtonBase = forwardRef<
           className
         )}
         ref={ref}
-        disabled={props.disabled || isAlreadyInUse}
         {...props}
       >
         <LucideIcon name={icon} className="h-6 md:h-8 w-6 md:w-8" />

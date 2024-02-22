@@ -10,7 +10,13 @@
   --lb-accent-foreground: theme(colors.accent.foreground);
 
   --lb-foreground-subtle: theme(colors.border);
-  @apply border rounded-md overflow-hidden;
+  --lb-foreground-tertiary: theme(colors.muted.foreground);
+  --lb-accent-secondary: theme(colors.muted.foreground);
+  --lb-foreground-moderate: theme(colors.muted.foreground);
+  --lb-accent: theme(colors.muted.foreground);
+  --lb-accent-moderate: theme(colors.border);
+  @apply border rounded-md
+    overflow-hidden;
 }
 
 .lb-composer-mention,

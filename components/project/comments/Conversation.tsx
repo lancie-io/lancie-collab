@@ -59,7 +59,7 @@ export function Conversation({ className, ...props }: ConversationProps) {
   return (
     <div
       className={cn(
-        'w-full md:w-[300px] p-3 md:border-l bg-background overflow-scroll no-scrollbar shrink-0',
+        'w-full md:w-[300px] p-0 md:p-3 md:border-l bg-background overflow-scroll no-scrollbar shrink-0',
         className
       )}
       {...props}

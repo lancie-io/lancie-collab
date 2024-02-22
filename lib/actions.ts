@@ -239,6 +239,31 @@ export async function createInvite({
   }
 }
 
+export async function setUserHasSeenWelcomeModal(
+  userId: string,
+  value: boolean
+) {
+  const user = await prisma.user.update({
+    where: {
+      id: userId,
+    },
+    data: {
+      hasSeenWelcomeModal: value,
+    },
+  });
+  if (user) {
+    return {
+      success: true,
+      data: user,
+    };
+  } else {
+    return {
+      success: false,
+      data: null,
+    };
+  }
+}
+
 export async function getUpdatedAtValue(id: string) {
   const project = await prisma.project.findUnique({
     where: {

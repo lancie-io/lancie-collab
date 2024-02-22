@@ -38,8 +38,7 @@ const ModuleBar = ({ element, draggable, isDragging }: ModuleBarProps) => {
 
   const handleKeyDown = (e: any) => {
     if (e.key === 'Enter') {
-      // Pressed Enter key, leave focus and update label
-      e.target.blur(); // Leave focus
+      e.target.blur();
       updateLabel(value);
     }
   };

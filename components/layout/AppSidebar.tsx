@@ -16,6 +16,7 @@ const AppSidebar = () => {
         </Suspense>
         <SidebarMenu />
       </div>
+      
       <FeedbackButton className="w-full" />
     </aside>
   );

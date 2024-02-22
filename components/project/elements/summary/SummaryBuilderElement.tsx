@@ -1,11 +1,5 @@
 'use client';
 
-import { Form, FormField, FormItem, FormLabel } from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
-import { useLiveblocks } from '@/lib/liveblocks';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useEffect } from 'react';
-import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import {
   BuilderElement,
@@ -52,73 +46,11 @@ export const SummaryBuilderElement: BuilderElement = {
 
   builderComponent: BuilderComponent,
   previewComponent: PreviewComponent,
-  propertiesComponent: PropertiesComponent,
 };
 
 export type SettingsCustomInstance = BuilderElementInstance & {
   extraAttributes: typeof extraAttributes;
 };
-
-function PropertiesComponent({
-  elementInstance,
-}: {
-  elementInstance: BuilderElementInstance;
-}) {
-  const element = elementInstance as SettingsCustomInstance;
-  const { updateElement } = useLiveblocks();
-  const form = useForm<z.infer<typeof propertiesSchema>>({
-    resolver: zodResolver(propertiesSchema),
-    mode: 'onBlur',
-    defaultValues: {
-      label: element.extraAttributes.label,
-    },
-  });
-
-  useEffect(() => {
-    form.reset({
-      label: element.extraAttributes.label,
-    });
-  }, [element, form]);
-
-  function applyChanges(values: z.infer<typeof propertiesSchema>) {
-    updateElement(element.id, {
-      ...element,
-      extraAttributes: {
-        ...element.extraAttributes,
-        label: values.label,
-      },
-    });
-  }
-
-  return (
-    <Form {...form}>
-      <form
-        onBlur={form.handleSubmit(applyChanges)}
-        onSubmit={(e) => {
-          e.preventDefault();
-        }}
-      >
-        <FormField
-          control={form.control}
-          name="label"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Label</FormLabel>
-              <Input
-                {...field}
-                onKeyDown={(e) => {
-                  if (e.key === 'Enter') {
-                    e.currentTarget.blur();
-                  }
-                }}
-              />
-            </FormItem>
-          )}
-        />
-      </form>
-    </Form>
-  );
-}
 
 function BuilderComponent({
   elementInstance,

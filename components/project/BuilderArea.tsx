@@ -20,12 +20,6 @@ const BuilderArea = () => {
   });
   useDndMonitor({
     onDragEnd: (event: DragEndEvent) => {
-      // const isAlreadyInUse = elements.some(
-      //   (element) => `module-btn-${element.type}` === event.active.id
-      // );
-      // if (isAlreadyInUse) {
-      //   return;
-      // }
       const { active, over } = event;
       if (!active || !over) return;
       const isModuleButton = active.data?.current?.isModuleButton;
@@ -107,7 +101,6 @@ const BuilderArea = () => {
           droppable.isOver && 'ring-2 ring-ring'
         )}
       >
-        {/* <pre>{JSON.stringify(elements, null, 2)}</pre> */}
         {elements.length === 0 && !droppable.isOver && (
           <div className="grow flex flex-col items-center justify-center gap-3 md:gap-8 font-semibold text-lg md:text-xl text-muted-foreground">
             <Icons.dragDrop className="w-2/5 stroke-muted-foreground" />

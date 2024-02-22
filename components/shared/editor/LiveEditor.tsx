@@ -31,9 +31,9 @@ export default LiveEditor;
 const LoadingEditor = () => {
   return (
     <div className="w-full space-y-2 p-5">
-      <Skeleton className="h-5 w-32" />
-      <Skeleton className="h-5 w-24" />
-      <Skeleton className="h-5 w-16" />
+      <Skeleton className="h-5 w-32 bg-muted-foreground/25" />
+      <Skeleton className="h-5 w-24 bg-muted-foreground/25" />
+      <Skeleton className="h-5 w-16 bg-muted-foreground/25" />
     </div>
   );
 };
