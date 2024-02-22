@@ -1,6 +1,5 @@
 'use client';
 
-import { z } from 'zod';
 import {
   BuilderElement,
   BuilderElementInstance,
@@ -27,10 +26,6 @@ const extraAttributes = {
   production: undefined,
   publishing: undefined,
 };
-
-const propertiesSchema = z.object({
-  label: z.string().min(2).max(50),
-});
 
 export const SummaryBuilderElement: BuilderElement = {
   type,

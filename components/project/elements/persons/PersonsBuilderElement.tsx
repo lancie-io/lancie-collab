@@ -43,22 +43,11 @@ export const PersonsBuilderElement: BuilderElement = {
 
   builderComponent: BuilderComponent,
   previewComponent: PreviewComponent,
-  propertiesComponent: PropertiesComponent,
 };
 
 type CustomInstance = BuilderElementInstance & {
   extraAttributes: typeof extraAttributes;
 };
-
-function PropertiesComponent({
-  elementInstance,
-}: {
-  elementInstance: BuilderElementInstance;
-}) {
-  const element = elementInstance as CustomInstance;
-
-  return <div>Persons Properties Component</div>;
-}
 
 function BuilderComponent({
   elementInstance,
