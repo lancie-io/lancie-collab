@@ -27,6 +27,10 @@ const extraAttributes = {
   publishing: undefined,
 };
 
+export type SettingsCustomInstance = BuilderElementInstance & {
+  extraAttributes: typeof extraAttributes;
+};
+
 export const SummaryBuilderElement: BuilderElement = {
   type,
   construct: (id: string) => ({
@@ -41,10 +45,6 @@ export const SummaryBuilderElement: BuilderElement = {
 
   builderComponent: BuilderComponent,
   previewComponent: PreviewComponent,
-};
-
-export type SettingsCustomInstance = BuilderElementInstance & {
-  extraAttributes: typeof extraAttributes;
 };
 
 function BuilderComponent({

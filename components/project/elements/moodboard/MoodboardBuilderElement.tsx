@@ -27,7 +27,7 @@ const extraAttributes: ExtraAttributes<MoodboardAttributes> = {
   images: [],
 };
 
-type CustomInstance = BuilderElementInstance & {
+export type MoodboardCustomInstance = BuilderElementInstance & {
   extraAttributes: typeof extraAttributes;
 };
 
@@ -51,10 +51,11 @@ function BuilderComponent({
   elementInstance,
   isPreview = false,
 }: {
-  elementInstance: BuilderElementInstance<MoodboardAttributes>;
+  elementInstance: BuilderElementInstance;
   isPreview?: boolean;
 }) {
-  return <Moodboard element={elementInstance} isPreview={isPreview} />;
+  const element = elementInstance as MoodboardCustomInstance;
+  return <Moodboard element={element} isPreview={isPreview} />;
 }
 
 export function PreviewComponent({
@@ -62,6 +63,6 @@ export function PreviewComponent({
 }: {
   elementInstance: BuilderElementInstance;
 }) {
-  const element = elementInstance as CustomInstance;
+  const element = elementInstance as MoodboardCustomInstance;
   return <BuilderComponent elementInstance={element} isPreview={true} />;
 }

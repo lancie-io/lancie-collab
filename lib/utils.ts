@@ -31,7 +31,7 @@ export function generateStatusStrings(word: string) {
 }
 
 export function idGenerator(): string {
-  return Math.floor(Math.random() * 100001).toString();
+  return Math.floor(Math.random() * 1000001).toString();
 }
 
 export function slugify(str: string) {

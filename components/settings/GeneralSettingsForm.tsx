@@ -1,4 +1,5 @@
 'use client';
+import Upload from '@/components/fileupload/Upload';
 import { updateUser } from '@/lib/actions';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Prisma } from '@prisma/client';
@@ -7,7 +8,8 @@ import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 import { z } from 'zod';
-import UploadProvider, { UploadedFile } from '../shared/upload/UploadProvider';
+import { UploadTrigger } from '../fileupload/UploadTrigger';
+import { UploadedFile } from '../fileupload/types';
 import { Button } from '../ui/button';
 import {
   Form,
@@ -51,8 +53,7 @@ const GeneralSettingsForm = ({
     }
   }
 
-  async function uploadFile(file: UploadedFile) {
-    console.log(file);
+  async function uploadProfileImage(file: UploadedFile) {
     const res = await updateUser({
       image: file.url,
     });
@@ -65,9 +66,11 @@ const GeneralSettingsForm = ({
   }
   return (
     <div className="flex flex-col md:flex-row gap-8 items-start">
-      <UploadProvider onFileChange={uploadFile}>
-        <UserImage user={user} />
-      </UploadProvider>
+      <Upload onUpload={uploadProfileImage}>
+        <UploadTrigger>
+          <UserImage user={user} />
+        </UploadTrigger>
+      </Upload>
 
       <Form {...form}>
         <form

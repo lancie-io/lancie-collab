@@ -1,5 +1,3 @@
-import { UploadedFile } from '@/components/shared/upload/UploadProvider';
-import { useLiveblocks } from '@/lib/liveblocks';
 import { createContext, useContext, useState } from 'react';
 import ElementBar from '../shared/ElementBar';
 import { SettingsCustomInstance } from './SummaryBuilderElement';
@@ -11,14 +9,9 @@ interface SummaryProps {
 }
 
 const Summary = ({ element }: SummaryProps) => {
-  const { updateElement } = useLiveblocks();
-
-  function uploadImage(file: UploadedFile) {
-    console.log(file);
-  }
   return (
     <SettingsProvider initialValue={element.extraAttributes.settings}>
-      <div className="">
+      <div>
         <ElementBar>
           <SummarySettings />
         </ElementBar>

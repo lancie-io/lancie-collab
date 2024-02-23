@@ -28,7 +28,6 @@ import debounce from 'lodash.debounce';
 import { CalendarIcon } from 'lucide-react';
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import { toast } from 'sonner';
 import { z } from 'zod';
 import { useSettings } from './Summary';
 import { SettingsCustomInstance } from './SummaryBuilderElement';
@@ -63,7 +62,6 @@ const TitleForm = ({ element }: { element: SettingsCustomInstance }) => {
   });
   function onSubmit(values: z.infer<typeof formSchema>) {
     debouncedUpdate(values);
-    toast.success(JSON.stringify(values, null, 2));
   }
 
   useEffect(() => {
@@ -87,7 +85,7 @@ const TitleForm = ({ element }: { element: SettingsCustomInstance }) => {
     <Form {...form}>
       <form
         onSubmit={(e) => e.preventDefault()}
-        className="flex flex-col gap-6"
+        className="flex flex-col gap-3 md:gap-6"
       >
         {settings.title && <Title>{title}</Title>}
         {settings.description && (
@@ -109,7 +107,7 @@ const TitleForm = ({ element }: { element: SettingsCustomInstance }) => {
           />
         )}
         {(settings.production || settings.publishing) && (
-          <div className="grid grid-cols-2 gap-6">
+          <div className="grid grid-cols-2 gap-3 md:gap-6">
             {settings.production && (
               <FormField
                 control={form.control}
@@ -123,12 +121,12 @@ const TitleForm = ({ element }: { element: SettingsCustomInstance }) => {
                           <Button
                             variant={'outline'}
                             className={cn(
-                              'pl-3 text-left font-normal',
+                              'pl-3 text-left font-normal text-ellipsis overflow-hidden justify-start',
                               !field.value && 'text-muted-foreground'
                             )}
                           >
                             {field.value ? (
-                              format(field.value, 'PPP')
+                              format(field.value, 'MMM do, yyyy')
                             ) : (
                               <span>Pick a date</span>
                             )}
@@ -172,7 +170,7 @@ const TitleForm = ({ element }: { element: SettingsCustomInstance }) => {
                             )}
                           >
                             {field.value ? (
-                              format(field.value, 'PPP')
+                              format(field.value, 'MMM do, yyyy')
                             ) : (
                               <span>Pick a date</span>
                             )}

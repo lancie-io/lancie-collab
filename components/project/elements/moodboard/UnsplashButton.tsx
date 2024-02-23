@@ -6,16 +6,16 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from '@/components/ui/popover';
-import { useLiveblocks } from '@/lib/liveblocks';
 import { useQuery } from '@tanstack/react-query';
 import { useDebounce } from '@uidotdev/usehooks';
 import { HeartCrack, Image as ImageIcon, Loader2, Search } from 'lucide-react';
 import { useState } from 'react';
-import { MoodboardElement } from './MoodboardBuilderElement';
+import { MoodboardCustomInstance } from './MoodboardBuilderElement';
 import { fetchUnsplash } from './unsplash-action';
+import { useMoodboard } from './useMoodboard';
 
 interface UnsplashButtonProps {
-  element: MoodboardElement;
+  element: MoodboardCustomInstance;
 }
 
 const UnsplashButton = ({ element }: UnsplashButtonProps) => {
@@ -41,18 +41,12 @@ const UnsplashButton = ({ element }: UnsplashButtonProps) => {
     return result;
   }
 
-  const { updateElement } = useLiveblocks();
+  const { addImage } = useMoodboard(element);
 
   const [open, setOpen] = useState(false);
 
   const handleClick = (url: string) => {
-    updateElement(element.id, {
-      ...element,
-      extraAttributes: {
-        ...element.extraAttributes,
-        images: [{ url }, ...element.extraAttributes.images],
-      },
-    });
+    addImage({ url });
     setOpen(false);
   };
 

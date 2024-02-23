@@ -8,9 +8,10 @@ import { Button, ButtonProps } from '../ui/button';
 
 interface LoginButtonProps extends ButtonProps {
   children: React.ReactNode;
+  provider: 'google' | 'email';
 }
 
-const LoginButton = ({ children, ...props }: LoginButtonProps) => {
+const LoginButton = ({ children, provider, ...props }: LoginButtonProps) => {
   const { className, ...rest } = props;
   const searchParams = useSearchParams();
   const callbackUrl = searchParams.get('callbackUrl');
@@ -19,7 +20,7 @@ const LoginButton = ({ children, ...props }: LoginButtonProps) => {
 
   const handleClick = () => {
     setLoading(true);
-    signIn('google', {
+    signIn(provider, {
       callbackUrl: callbackUrl || '/app',
     });
     return () => setLoading(false);

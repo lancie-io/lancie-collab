@@ -24,7 +24,14 @@ const Avatar = ({ user, loading, ...props }: AvatarProps) => {
         {...rest}
       >
         {loading && <Loader2 className="w-1/2 h-1/2 animate-spin absolute" />}
-        {user?.image && <AvatarImage src={user.image} />}
+        {user?.image && (
+          <AvatarImage
+            src={user.image}
+            style={{
+              objectFit: 'cover',
+            }}
+          />
+        )}
         <AvatarFallback className="uppercase text-xs bg-border">
           {user?.name?.slice(0, 1) || (
             <User className="w-1/2 h-1/2 text-muted-foreground" />

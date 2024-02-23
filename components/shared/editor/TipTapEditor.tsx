@@ -58,7 +58,8 @@ export function TiptapEditor({
     ],
     editorProps: {
       attributes: {
-        class: 'prose dark:prose-invert focus:outline-none p-5 w-full h-full',
+        class:
+          'prose dark:prose-invert focus:outline-none p-4 md:p-5 w-full h-full max-w-none',
       },
 
       editable: () => editable,
