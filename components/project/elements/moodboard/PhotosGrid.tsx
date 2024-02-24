@@ -49,12 +49,13 @@ const PhotosGrid = ({ element }: { element: MoodboardCustomInstance }) => {
               {uploadingItems.map((item) => {
                 const isLoading = typeof item.progress === 'number';
                 return (
-                  <div key={item.key} className={cn('relative aspect-square')}>
-                    <img
-                      src={item.url}
-                      alt=""
-                      className="opacity-25 w-full h-full object-cover"
-                    />
+                  <div
+                    key={item.key}
+                    className={cn(
+                      'relative border rounded-md overflow-hidden bg-accent'
+                    )}
+                  >
+                    <img src={item.url} alt="" className="opacity-25" />
                     <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 grid place-items-center">
                       {isLoading && (
                         // <p className="absolute text-sm font-medium">

@@ -45,9 +45,6 @@ const UploadTrigger = React.forwardRef<HTMLInputElement, InputProps>(
       isUploading,
       setIsUploading,
     } = useUpload();
-    React.useEffect(() => {
-      console.log('on upload changed');
-    }, [onUpload]);
 
     const { edgestore } = useEdgeStore();
     const [customError, setCustomError] = React.useState<string>();

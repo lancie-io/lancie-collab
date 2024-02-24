@@ -1,5 +1,6 @@
 'use client';
 
+import { scrollToElementWithRetry } from '@/components/project/BuilderArea';
 import {
   BuilderElement,
   BuilderElements,
@@ -42,7 +43,8 @@ const ModuleButton = ({
       idGenerator()
     );
     // addElement(0, newElement);
-    addElement(0, newElement);
+    addElement(elements.length, newElement);
+    scrollToElementWithRetry(newElement.id);
   };
   return (
     <>

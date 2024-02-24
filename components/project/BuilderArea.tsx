@@ -8,6 +8,36 @@ import { Icons } from '../shared/Icons';
 import BuilderElementWrapper from './BuilderElementWrapper';
 import { BuilderElements, ElementType } from './BuilderElements';
 
+export const scrollToElementWithRetry = (
+  id: any,
+  maxRetries = 5,
+  retryInterval = 10
+) => {
+  let retries = 0;
+
+  const scrollToElement = () => {
+    const element = document.getElementById(id);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      element.classList.add('pulsate'); // Add pulsate class after scrolling
+      setTimeout(() => {
+        element.classList.remove('pulsate'); // Remove pulsate class after 2 seconds
+      }, 2000);
+    } else {
+      retries++;
+      if (retries < maxRetries) {
+        setTimeout(scrollToElement, retryInterval);
+      } else {
+        console.warn(
+          `Element with ID ${id} not found after ${retries} retries`
+        );
+      }
+    }
+  };
+
+  scrollToElement();
+};
+
 const BuilderArea = () => {
   const { addElement, removeElement } = useLiveblocks();
   const elements = useStorage((root) => root.elements);
@@ -33,6 +63,7 @@ const BuilderArea = () => {
           idGenerator()
         );
         addElement(elements.length, newElement);
+        scrollToElementWithRetry(newElement.id);
         return;
       }
       const isDroppingOverBuilderElementTopHalf =
@@ -64,6 +95,7 @@ const BuilderArea = () => {
           indexForNewElement = overElementIndex + 1;
         }
         addElement(indexForNewElement, newElement);
+        scrollToElementWithRetry(newElement.id);
         return;
       }
       const isDraggingBuilderElement = active.data?.current?.isBuilderElement;
@@ -97,13 +129,13 @@ const BuilderArea = () => {
       <div
         ref={droppable.setNodeRef}
         className={cn(
-          'bg-subtle md:border grow md:p-4 lg:p-6 xl:p-8 rounded-xl flex flex-col w-full max-w-[1200px] mx-auto',
+          'bg-subtle md:border grow md:p-4 lg:p-6 xl:p-8 rounded-xl flex flex-col w-full max-w-[1200px] mx-auto pb-32 md:pb-48 lg:pb-64 xl:pb-96 relative',
           droppable.isOver && 'ring-2 ring-ring'
         )}
       >
         {elements.length === 0 && !droppable.isOver && (
-          <div className="grow flex flex-col items-center justify-center gap-3 md:gap-8 font-semibold text-lg md:text-xl text-muted-foreground">
-            <Icons.dragDrop className="w-2/5 stroke-muted-foreground" />
+          <div className="grow flex flex-col items-center justify-center gap-3 md:gap-8 font-semibold text-lg md:text-xl text-muted-foreground absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
+            <Icons.dragDrop className="w-4/5 stroke-muted-foreground" />
             Drop here
           </div>
         )}

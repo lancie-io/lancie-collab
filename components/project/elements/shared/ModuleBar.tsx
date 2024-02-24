@@ -55,9 +55,9 @@ const ModuleBar = ({ element, draggable, isDragging }: ModuleBarProps) => {
           type="text"
           value={value}
           onChange={(e) => setValue(e.target.value)}
-          className="h-6 px-0 min-w-[0px] border-none font-medium hover:bg-accent"
+          className="h-6 px-0 min-w-[0px] border-none font-medium hover:bg-accent max-w-[200px]"
           style={{
-            width: `${value.length * 8 + 4}px`,
+            width: `${value.length}ch`,
           }}
           onFocus={handleFocus}
           onBlur={() => updateLabel(value)}

@@ -52,6 +52,7 @@ const LocationDetails = ({ element }: LocationDetailsProps) => {
       <div className="grid grid-cols-2 mt-4 gap-4">
         <div className="bg-muted border rounded-md">
           <LiveEditor
+            key={location.id}
             id={location.id}
             placeholder="Take notes about this location..."
           />

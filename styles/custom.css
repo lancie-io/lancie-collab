@@ -9,3 +9,32 @@
   content: '';
   clear: both;
 }
+
+@keyframes pulsate {
+  0% {
+    top: 0px; /* Adjust position as needed */
+    left: 0px; /* Adjust position as needed */
+    right: 0px; /* Adjust position as needed */
+    bottom: 0px;
+    opacity: 1;
+  }
+  100% {
+    top: -20px; /* Adjust position as needed */
+    left: -20px; /* Adjust position as needed */
+    right: -20px; /* Adjust position as needed */
+    bottom: -20px; /* Adjust position as needed */
+    opacity: 0;
+  }
+}
+
+.pulsate::before {
+  content: '';
+  position: absolute;
+  top: 0px; /* Adjust position as needed */
+  left: 0px; /* Adjust position as needed */
+  right: 0px; /* Adjust position as needed */
+  bottom: 0px; /* Adjust position as needed */
+  animation: pulsate 0.9s ease-out 1; /* Adjust animation duration as needed */
+  animation-delay: 400ms;
+  @apply bg-ring/10 rounded-xl border border-ring/50;
+}

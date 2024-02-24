@@ -12,12 +12,12 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from '@/components/ui/popover';
+import { Textarea } from '@/components/ui/textarea';
 import { getProjectTitle } from '@/lib/actions';
 import { useLiveblocks } from '@/lib/liveblocks';
 import { cn } from '@/lib/utils';
@@ -96,7 +96,7 @@ const TitleForm = ({ element }: { element: SettingsCustomInstance }) => {
               <FormItem>
                 <FormLabel>Description</FormLabel>
                 <FormControl>
-                  <Input
+                  <Textarea
                     placeholder="Enter project description..."
                     {...field}
                   />
