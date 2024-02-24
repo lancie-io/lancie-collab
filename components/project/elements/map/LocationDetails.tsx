@@ -27,13 +27,13 @@ const LocationDetails = ({ element }: LocationDetailsProps) => {
     );
   }
   return (
-    <div className="aspect-[5/4]">
+    <div className="">
       <Title>{location.formatted.main}</Title>
       <p className="text-sm text-muted-foreground">
         {location.formatted.secondary}
       </p>
       {location.photos.length > 0 && (
-        <div className="flex gap-2 w-full overflow-scroll no-scrollbar h-20 mt-2">
+        <div className="flex gap-1.5 md:gap-2 w-full overflow-scroll no-scrollbar h-20 mt-2">
           {location.photos.map((photo, index) => {
             let imageUrl;
             if (photo.reference) {
@@ -49,7 +49,7 @@ const LocationDetails = ({ element }: LocationDetailsProps) => {
         </div>
       )}
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 mt-4 gap-4">
+      <div className="grid grid-cols-1 lg:grid-cols-2 mt-3 md:mt-4 gap-3 md:gap-4">
         <div className="bg-muted border rounded-md">
           <LiveEditor
             key={location.id}
