@@ -26,7 +26,7 @@ const Moodboard = ({ element, isPreview }: MoodboardProps) => {
         maxFiles: 20,
       }}
     >
-      <div className="aspect-[3/2] overflow-hidden flex flex-col">
+      <div className="aspect-[4/3] overflow-hidden flex flex-col">
         <ElementBar>
           <UnsplashButton element={element} />
           <UploadButton element={element} />

@@ -49,7 +49,7 @@ const LocationDetails = ({ element }: LocationDetailsProps) => {
         </div>
       )}
 
-      <div className="grid grid-cols-2 mt-4 gap-4">
+      <div className="grid grid-cols-1 lg:grid-cols-2 mt-4 gap-4">
         <div className="bg-muted border rounded-md">
           <LiveEditor
             key={location.id}
@@ -57,7 +57,7 @@ const LocationDetails = ({ element }: LocationDetailsProps) => {
             placeholder="Take notes about this location..."
           />
         </div>
-        <div className="aspect-square">
+        <div className="aspect-[5/4] lg:aspect-square">
           <GMap location={location} />
         </div>
       </div>

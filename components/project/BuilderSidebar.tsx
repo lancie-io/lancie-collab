@@ -10,7 +10,10 @@ interface BuilderSidebarProps extends React.HTMLAttributes<HTMLBaseElement> {}
 const BuilderSidebar = ({ className }: BuilderSidebarProps) => {
   return (
     <aside
-      className={cn('md:border-r overflow-scroll no-scrollbar', className)}
+      className={cn(
+        'md:border-r overflow-scroll no-scrollbar shrink-0',
+        className
+      )}
       style={{
         maxWidth: 'min-content',
       }}

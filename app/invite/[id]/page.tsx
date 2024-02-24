@@ -54,7 +54,6 @@ const InvitePage = async ({
 
   return (
     <Container className="grow flex flex-col items-center justify-center gap-8 md:gap-12">
-      <pre>{JSON.stringify(searchParams, null, 2)}</pre>
       <Link href="/" className="w-20 absolute top-8">
         <Icons.logoText />
       </Link>

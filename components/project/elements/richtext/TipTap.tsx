@@ -13,7 +13,7 @@ const Tiptap = ({ elementInstance, isPreview }: TipTapProps) => {
   const element = elementInstance as CustomInstance;
 
   return (
-    <div className="min-h-[150px] overflow-scroll max-h-[300px]">
+    <div className="min-h-[150px] overflow-scroll max-h-[800px]">
       <LiveEditor id={element.id} placeholder="Write about the project..." />
     </div>
   );
