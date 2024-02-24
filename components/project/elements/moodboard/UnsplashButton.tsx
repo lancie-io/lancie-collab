@@ -10,6 +10,7 @@ import { useQuery } from '@tanstack/react-query';
 import { useDebounce } from '@uidotdev/usehooks';
 import { HeartCrack, Image as ImageIcon, Loader2, Search } from 'lucide-react';
 import { useState } from 'react';
+import Masonry, { ResponsiveMasonry } from 'react-responsive-masonry';
 import { MoodboardCustomInstance } from './MoodboardBuilderElement';
 import { fetchUnsplash } from './unsplash-action';
 import { useMoodboard } from './useMoodboard';
@@ -32,21 +33,12 @@ const UnsplashButton = ({ element }: UnsplashButtonProps) => {
     setSearchValue(e.currentTarget.value);
   };
 
-  function distributeItems<T>(items: T[], n: number): T[][] {
-    const result = Array.from({ length: n }, () => [] as T[]);
-    items.forEach((item, index) => {
-      const arrayIndex = index % n;
-      result[arrayIndex].push(item);
-    });
-    return result;
-  }
-
   const { addImage } = useMoodboard(element);
 
   const [open, setOpen] = useState(false);
 
   const handleClick = (url: string) => {
-    addImage({ url });
+    addImage({ url, name: null });
     setOpen(false);
   };
 
@@ -90,37 +82,27 @@ const UnsplashButton = ({ element }: UnsplashButtonProps) => {
                 </div>
               )}
               {data && !('errors' in data) && data?.results?.length && (
-                <div className="grid grid-cols-3 gap-4">
-                  {distributeItems(data.results, 3).map(
-                    (column, colIdx: number) => {
+                <ResponsiveMasonry
+                  columnsCountBreakPoints={{ 350: 2, 768: 2, 960: 3 }}
+                >
+                  <Masonry gutter="16px">
+                    {data.results.map((photo) => {
                       return (
-                        <div className="space-y-4" key={colIdx}>
-                          {column.map((photo, rowIdx: number) => {
-                            return (
-                              <button
-                                key={photo.urls.regular}
-                                tabIndex={-1}
-                                className="relative overflow-hidden rounded-md"
-                                onClick={() => handleClick(photo.urls.regular)}
-                              >
-                                {/* <Image
-                                  src={photo.urls.regular}
-                                  width={photo.width}
-                                  height={photo.height}
-                                  alt={photo.alt_description}
-                                /> */}
-                                <OptimizedImage
-                                  src={photo.urls.regular}
-                                  steps={[200]}
-                                />
-                              </button>
-                            );
-                          })}
-                        </div>
+                        <button
+                          key={photo.urls.regular}
+                          tabIndex={-1}
+                          className="relative overflow-hidden rounded-md"
+                          onClick={() => handleClick(photo.urls.regular)}
+                        >
+                          <OptimizedImage
+                            src={photo.urls.regular}
+                            steps={[300]}
+                          />
+                        </button>
                       );
-                    }
-                  )}
-                </div>
+                    })}
+                  </Masonry>
+                </ResponsiveMasonry>
               )}
             </div>
           </div>
