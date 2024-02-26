@@ -9,6 +9,8 @@ export function useMoodboard(element: MoodboardCustomInstance) {
   const elementRef = useRef(element);
   elementRef.current = element;
 
+  const images = elementRef.current.extraAttributes.images;
+
   function addImage(image: UploadedFile) {
     const updatedElement = {
       ...elementRef.current,
@@ -36,5 +38,21 @@ export function useMoodboard(element: MoodboardCustomInstance) {
       },
     });
   }
-  return { addImage, removeImage };
+
+  function moveImage(id: string, newIndex: number) {
+    const index = element.extraAttributes.images.findIndex(
+      (image) => image.id === id
+    );
+    const newImages = [...element.extraAttributes.images];
+    newImages.splice(index, 1);
+    newImages.splice(newIndex, 0, element.extraAttributes.images[index]);
+    updateElement(element.id, {
+      ...element,
+      extraAttributes: {
+        ...element.extraAttributes,
+        images: newImages,
+      },
+    });
+  }
+  return { addImage, removeImage, moveImage };
 }
