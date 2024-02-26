@@ -37,7 +37,7 @@ function BuilderElementWrapper({
 
   if (draggable.isDragging) return null;
   return (
-    <ErrorBoundary>
+    <ErrorBoundary info={element.type}>
       <div className="relative" id={element.id}>
         <div
           ref={topHalf.setNodeRef}

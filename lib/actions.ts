@@ -126,6 +126,81 @@ export async function generateInviteLink(
   }
 }
 
+export async function removeInvite(projectId: string, email?: string) {
+  const user = await getAuthUser();
+  if (!user) {
+    return {
+      success: false,
+      message: 'User not authenticated.',
+    };
+  }
+  console.log('Fired clientsidesetter');
+  try {
+    const res = await prisma.invite.findFirst({
+      where: {
+        projectId,
+        toEmail: email || user.email,
+      },
+    });
+    if (!res) {
+      return {
+        success: false,
+        message: 'Invite not found.',
+      };
+    }
+    console.log('findres:', res);
+    const invres = await prisma.invite.delete({
+      where: {
+        id: res.id,
+      },
+    });
+    console.log('invres:', invres);
+    return {
+      success: true,
+      message: 'Invite removed.',
+    };
+  } catch (error) {
+    console.error('failed css:', error);
+    return {
+      success: false,
+      message: 'Invite removal failed.',
+    };
+  }
+}
+
+export async function removeUserFromProject(projectId: string, email: string) {
+  const user = await getAuthUser();
+  if (!user) {
+    return {
+      success: false,
+      message: 'User not authenticated.',
+    };
+  }
+  try {
+    await prisma.project.update({
+      where: {
+        id: projectId,
+      },
+      data: {
+        members: {
+          disconnect: {
+            email,
+          },
+        },
+      },
+    });
+    return {
+      success: true,
+      message: 'User removed from project.',
+    };
+  } catch (error) {
+    return {
+      success: false,
+      message: 'User removal failed.',
+    };
+  }
+}
+
 export async function createInvite({
   email,
   projectId,

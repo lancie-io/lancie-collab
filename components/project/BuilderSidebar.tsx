@@ -31,7 +31,7 @@ const BuilderSidebar = ({ className }: BuilderSidebarProps) => {
         <ModuleButton builderElement={BuilderElements.locations} />
         <ModuleButton builderElement={BuilderElements.videos} />
         <ModuleButton builderElement={BuilderElements.files} single />
-        <ModuleButton builderElement={BuilderElements.persons} />
+        <ModuleButton builderElement={BuilderElements.persons} disabled />
         <ModuleButton builderElement={BuilderElements.deliverables} disabled />
         <ModuleButton builderElement={BuilderElements.financials} disabled />
       </div>

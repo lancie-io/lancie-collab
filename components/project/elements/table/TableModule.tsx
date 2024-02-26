@@ -194,8 +194,8 @@ function TableModule({ columns, element, isPreview }: any) {
   useEffect(() => {
     console.log('Changed');
     dispatch({ type: ActionTypes.ENABLE_RESET });
-    updateTableState(state);
-  }, [state, state.data, state.columns]);
+    // updateTableState(state);
+  }, []);
 
   return (
     <div className="">

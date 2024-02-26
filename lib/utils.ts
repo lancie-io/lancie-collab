@@ -44,3 +44,11 @@ export function slugify(str: string) {
     .replace(/-+/g, '-') // Replace multiple hyphens with a single hyphen
     .replace(/^-|-$/g, ''); // Remove leading and trailing hyphens if present
 }
+
+export function capitalize(str: string): string {
+  // Check if the string is empty
+  if (!str) return str;
+
+  // Capitalize the first letter and concatenate it with the rest of the string
+  return str.charAt(0).toUpperCase() + str.slice(1);
+}

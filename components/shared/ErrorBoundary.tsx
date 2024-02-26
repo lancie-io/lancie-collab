@@ -3,11 +3,13 @@ import React, { ReactNode } from 'react';
 import { Alert, AlertDescription, AlertTitle } from '../ui/alert';
 
 interface ErrorBoundaryProps {
+  info?: string;
   children: ReactNode;
 }
 
 interface ErrorBoundaryState {
   hasError: boolean;
+  error: any;
 }
 
 class ErrorBoundary extends React.Component<
@@ -18,12 +20,12 @@ class ErrorBoundary extends React.Component<
     super(props);
 
     // Define a state variable to track whether there is an error or not
-    this.state = { hasError: false };
+    this.state = { hasError: false, error: null };
   }
 
-  static getDerivedStateFromError(_: any) {
+  static getDerivedStateFromError(error: any) {
     // Update state so the next render will show the fallback UI
-    return { hasError: true };
+    return { hasError: true, error: error };
   }
 
   componentDidCatch(error: any, errorInfo: any) {
@@ -38,11 +40,13 @@ class ErrorBoundary extends React.Component<
       return (
         <Alert variant="destructive" className="w-full bg-red-500/20">
           <AlertCircle className="h-4 w-4" />
-          <AlertTitle>Error</AlertTitle>
+          <AlertTitle>Error in module: {this.state.hasError}</AlertTitle>
           <AlertDescription>
             An error occurred. The Lancie developer team has been notified. We
             are working on it.
+            <pre>Error: {JSON.stringify(this.state.error, null, 2)}</pre>
           </AlertDescription>
+          {/* <pre>{JSON.stringify(this.props.children, null, 2)}</pre> */}
         </Alert>
       );
     }

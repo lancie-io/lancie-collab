@@ -3,8 +3,7 @@
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { generateInviteLink } from '@/lib/actions';
-import { cn } from '@/lib/utils';
-import { Check, Copy, Loader2 } from 'lucide-react';
+import { Copy } from 'lucide-react';
 import { useState } from 'react';
 import { toast } from 'sonner';
 
@@ -35,16 +34,26 @@ const GenerateLinkButton = ({ projectId }: { projectId: string }) => {
   };
   return (
     <div className="w-full space-y-2">
-      <Button
+      <p className="text-muted-foreground text-sm text-center cursor-pointer">
+        or{' '}
+        <span
+          className="hover:text-underline hover:text-foreground"
+          onClick={handleClick}
+        >
+          generate invite link
+        </span>
+      </p>
+      {/* <Button
         variant="secondary"
         onClick={handleClick}
         disabled={isLoading}
+        variant="silent"
         className={cn('w-full', inviteId && 'bg-green-500 pointer-events-none')}
       >
         {isLoading && <Loader2 className="animate-spin w-4 h-4" />}
         {inviteId ? <Check className="w-4 h-4" /> : null}
-        {inviteId ? 'Link generated' : 'Generate Invite Link'}
-      </Button>
+        {inviteId ? 'Link generated' : 'or Generate Invite Link'}
+      </Button> */}
       {inviteId && (
         <div>
           <div className="flex gap-2">
