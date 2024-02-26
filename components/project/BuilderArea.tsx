@@ -4,6 +4,7 @@ import { useLiveblocks } from '@/lib/liveblocks';
 import { cn, idGenerator } from '@/lib/utils';
 import { useStorage } from '@/liveblocks.config';
 import { DragEndEvent, useDndMonitor, useDroppable } from '@dnd-kit/core';
+import { useView } from '../providers/ViewProvider';
 import { Icons } from '../shared/Icons';
 import BuilderElementWrapper from './BuilderElementWrapper';
 import { BuilderElements, ElementType } from './BuilderElements';
@@ -41,6 +42,8 @@ export const scrollToElementWithRetry = (
 const BuilderArea = () => {
   const { addElement, removeElement } = useLiveblocks();
   const elements = useStorage((root) => root.elements);
+
+  const { isView } = useView();
 
   const droppable = useDroppable({
     id: 'builder-area',
@@ -125,12 +128,17 @@ const BuilderArea = () => {
   });
 
   return (
-    <div className="grow p-3 md:p-4 lg:p-6 xl:p-8 bg-subtle overflow-scroll no-scrollbar flex flex-col">
+    <div
+      className={cn(
+        'grow p-3 md:p-4 lg:p-6 xl:p-8 bg-subtle overflow-scroll no-scrollbar flex flex-col'
+      )}
+    >
       <div
         ref={droppable.setNodeRef}
         className={cn(
           'bg-subtle md:border grow md:p-4 lg:p-6 xl:p-8 rounded-xl flex flex-col w-full max-w-[1200px] mx-auto pb-32 md:pb-48 lg:pb-64 xl:pb-96 relative',
-          droppable.isOver && 'ring-2 ring-ring'
+          droppable.isOver && 'ring-2 ring-ring',
+          isView && 'p-0 border-none'
         )}
       >
         {elements.length === 0 && !droppable.isOver && (

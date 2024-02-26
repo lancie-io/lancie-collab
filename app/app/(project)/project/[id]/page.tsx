@@ -1,20 +1,15 @@
-import MobileToolbar from '@/components/builder/toolbar/MobileToolbar';
-import BuilderArea from '@/components/project/BuilderArea';
-import BuilderHeader from '@/components/project/BuilderHeader';
-import BuilderSidebar from '@/components/project/BuilderSidebar';
-import ClientSideSetter from '@/components/project/ClientSideSetter';
+import { CommentProvider } from '@/components/project/CommentToggle';
 import DragOverlayWrapper from '@/components/project/DragOverlayWrapper';
-import { Conversation } from '@/components/project/comments/Conversation';
 import DndProvider from '@/components/providers/DndProvider';
 import ProjectProvider from '@/components/providers/ProjectProvider';
 import { RoomProvider } from '@/components/providers/RoomProvider';
+import ViewProvider from '@/components/providers/ViewProvider';
 import { getAuthUser } from '@/lib/auth';
 import prisma from '@/lib/prisma';
-import { cn } from '@/lib/utils';
-import { notFound, redirect } from 'next/navigation';
+import { notFound } from 'next/navigation';
+import ProjectPageCore from './ProjectPageCore';
 
 const ProjectPage = async ({ params }: { params: { id: string } }) => {
-  const user = await getAuthUser();
   const project = await prisma.project.findUnique({
     where: {
       id: params.id,
@@ -23,6 +18,7 @@ const ProjectPage = async ({ params }: { params: { id: string } }) => {
       members: true,
     },
   });
+  const user = await getAuthUser();
 
   if (!project) {
     notFound();
@@ -32,28 +28,19 @@ const ProjectPage = async ({ params }: { params: { id: string } }) => {
     (member) => member.id === user?.id
   );
 
-  if (!isMemberOfProject) {
-    redirect('/app/unauthorized');
-  }
-
   return (
-    <RoomProvider roomId={params.id}>
-      <DndProvider>
-        <ProjectProvider initProjectId={params.id}>
-          <div className="grow flex flex-col" style={{ height: '100dvh' }}>
-            <ClientSideSetter projectId={params.id} />
-            <BuilderHeader projectId={params.id} />
-            <MobileToolbar projectId={params.id} />
-            <div className="grow flex overflow-scroll no-scrollbar">
-              <BuilderSidebar className={cn('hidden md:block')} />
-              <BuilderArea />
-              <Conversation className="hidden md:block" />
-            </div>
-          </div>
-          <DragOverlayWrapper />
-        </ProjectProvider>
-      </DndProvider>
-    </RoomProvider>
+    <ViewProvider initialView={isMemberOfProject ? 'edit' : 'view'}>
+      <RoomProvider roomId={params.id}>
+        <DndProvider>
+          <ProjectProvider initProjectId={params.id}>
+            <CommentProvider>
+              <ProjectPageCore projectId={params.id} />
+            </CommentProvider>
+            <DragOverlayWrapper />
+          </ProjectProvider>
+        </DndProvider>
+      </RoomProvider>
+    </ViewProvider>
   );
 };
 

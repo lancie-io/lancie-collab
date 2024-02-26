@@ -2,6 +2,7 @@ import { cn } from '@/lib/utils';
 import { useDraggable } from '@dnd-kit/core';
 import { motion } from 'framer-motion';
 import { HTMLAttributes } from 'react';
+import { useView } from '../providers/ViewProvider';
 import { BuilderElementInstance, BuilderElements } from './BuilderElements';
 import ModuleBar from './elements/shared/ModuleBar';
 
@@ -21,6 +22,7 @@ const BuilderElementContainer = ({
   isDragging,
 }: BuilderElementContainerProps) => {
   const BuilderElement = BuilderElements[element.type].builderComponent;
+  const { isEdit } = useView();
   return (
     <motion.div
       layoutId={isDragging ? undefined : element.id}
@@ -31,6 +33,7 @@ const BuilderElementContainer = ({
         draggable={draggable}
         element={element}
       />
+
       <BuilderElement elementInstance={element} />
     </motion.div>
   );

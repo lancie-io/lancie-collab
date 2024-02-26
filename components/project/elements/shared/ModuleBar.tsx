@@ -1,3 +1,4 @@
+import { useView } from '@/components/providers/ViewProvider';
 import { Input } from '@/components/ui/input';
 import { useLiveblocks } from '@/lib/liveblocks';
 import { cn } from '@/lib/utils';
@@ -43,6 +44,8 @@ const ModuleBar = ({ element, draggable, isDragging }: ModuleBarProps) => {
     }
   };
 
+  const { isEdit } = useView();
+
   return (
     <div
       className="flex items-center h-12 border-b gap-2 px-3 relative justify-between"
@@ -64,18 +67,20 @@ const ModuleBar = ({ element, draggable, isDragging }: ModuleBarProps) => {
           onKeyDown={handleKeyDown}
         />
       </div>
-      <button
-        className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 px-16 h-10 group text-muted-foreground/50 cursor-grab"
-        {...draggable?.attributes}
-        {...draggable?.listeners}
-      >
-        <GripHorizontal
-          className={cn(
-            'group-hover:text-foreground',
-            isDragging && 'text-foreground'
-          )}
-        />
-      </button>
+      {isEdit && (
+        <button
+          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 px-16 h-10 group text-muted-foreground/50 cursor-grab"
+          {...draggable?.attributes}
+          {...draggable?.listeners}
+        >
+          <GripHorizontal
+            className={cn(
+              'group-hover:text-foreground',
+              isDragging && 'text-foreground'
+            )}
+          />
+        </button>
+      )}
       <div className="flex items-center gap-2">
         <CommentButton element={element} />
         <MoreButton element={element} />

@@ -54,7 +54,7 @@ model Project {
   userId        String
   content       Json?
   comments      Comment[]
-  published     Boolean   @default(false)
+  published     Boolean   @default(true)
   members       User[]    @relation("ProjectMembers")
   cover         String?
   invites       Invite[] @relation("project")

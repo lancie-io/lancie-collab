@@ -1,13 +1,19 @@
+'use client';
 import { cn } from '@/lib/utils';
 import React from 'react';
 import FeedbackButton from '../FeedbackButton';
 import ModuleButton from '../builder/ModuleButton';
+import { useView } from '../providers/ViewProvider';
 import { Separator } from '../ui/separator';
 import { BuilderElements } from './BuilderElements';
 
 interface BuilderSidebarProps extends React.HTMLAttributes<HTMLBaseElement> {}
 
 const BuilderSidebar = ({ className }: BuilderSidebarProps) => {
+  const { isView } = useView();
+  if (isView) {
+    return null;
+  }
   return (
     <aside
       className={cn(

@@ -1,4 +1,5 @@
 'use client';
+import { useView } from '@/components/providers/ViewProvider';
 import { Button, ButtonProps } from '@/components/ui/button';
 import {
   DropdownMenu,
@@ -33,6 +34,9 @@ const MoreButton = ({ className, element }: MoreButtonProps) => {
     isFirst,
     isLast,
   } = useLiveblocks();
+
+  const { isView } = useView();
+  if (isView) return null;
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
