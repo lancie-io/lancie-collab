@@ -10,8 +10,8 @@ const GetStartedCTA = () => {
           re-imagined. <br />
           Available today
         </h2>
-        <Button variant="primary" className="h-16 px-12 text-xl mt-8">
-          Get Started
+        <Button variant="primary" size="mega" className="mt-8">
+          Start Project
         </Button>
       </Container>
     </section>

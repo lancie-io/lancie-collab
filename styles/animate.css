@@ -1,0 +1,88 @@
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInHalf {
+  from {
+    opacity: 0.5;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes zoomIn {
+  from {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.animate {
+  animation-duration: 1s;
+  animation-timing-function: ease-out;
+  animation-fill-mode: both;
+}
+
+.animate-zoom-in  {
+  animation-name: zoomIn;
+}
+
+.animate-fade-in-down {
+  animation-name: fadeInDown;
+}
+
+.animate-fade-in-half {
+  animation-name: fadeInHalf;
+}
+
+.animate-delay-200 {
+  animation-delay: 200ms;
+}
+
+.animate-delay-400 {
+  animation-delay: 400ms;
+}
+
+.animate-delay-600 {
+  animation-delay: 600ms;
+}
+
+.animate-delay-800 {
+  animation-delay: 800ms;
+}
+
+.animate-delay-1000 {
+  animation-delay: 1000ms;
+}
+
+.animate-delay-1200 {
+  animation-delay: 1200ms;
+}
+
+.animate-delay-1400 {
+  animation-delay: 1400ms;
+}
+
+.animate-delay-1600 {
+  animation-delay: 1600ms;
+}
+
+.animate-delay-1800 {
+  animation-delay: 1800ms;
+}
+
+.animate-delay-2000 {
+  animation-delay: 2000ms;
+}

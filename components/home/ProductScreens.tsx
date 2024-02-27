@@ -1,6 +1,9 @@
+import { cn } from '@/lib/utils';
 import Image from 'next/image';
+import Link from 'next/link';
 import Container from '../shared/Container';
 import Title from '../shared/Title';
+import { buttonVariants } from '../ui/button';
 
 const ProductScreens = () => {
   return (
@@ -14,6 +17,7 @@ const ProductScreens = () => {
           Lancie is built to scale your quality and output. <br />
           Keep track of all your projects in Lancie.
         </p>
+
         <div className="relative flex justify-center w-[150%] md:w-full -translate-x-[16.67%] md:translate-x-0">
           <div className="aspect-video border rounded-2xl w-1/3 overflow-hidden absolute -translate-x-3/4 top-1/2 -translate-y-1/2 opacity-50">
             <Image src="/product-table.jpg" fill alt="screen" />
@@ -33,6 +37,17 @@ const ProductScreens = () => {
             <Image src="/product-projects.jpg" fill alt="screen" />
           </div>
         </div>
+        <Link
+          href="/app"
+          className={cn(
+            buttonVariants({
+              variant: 'primary',
+            }),
+            'relative z-10'
+          )}
+        >
+          Start Project
+        </Link>
       </Container>
     </section>
   );

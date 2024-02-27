@@ -93,7 +93,7 @@ const PhotosGrid = ({ element }: { element: MoodboardCustomInstance }) => {
   if (hasImages || uploadingItems.length) {
     return (
       <div className="grow flex flex-col overflow-hidden rounded-b-md relative">
-        <div className="grow overflow-scroll">
+        <div className="grow overflow-scroll no-scrollbar">
           <DndContext
             sensors={sensors}
             collisionDetection={closestCenter}

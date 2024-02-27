@@ -1,16 +1,17 @@
-import { getAuthUser } from '@/lib/auth';
 import { cn } from '@/lib/utils';
 import Link from 'next/link';
 import { buttonVariants } from '../ui/button';
 
-const HeroCTA = async () => {
-  const user = await getAuthUser();
+const HeroCTA = () => {
   return (
     <Link
-      href={user ? '/app' : '/login'}
-      className={cn(buttonVariants({ size: 'mega', variant: 'primary' }))}
+      href={'/app'}
+      className={cn(
+        buttonVariants({ size: 'mega', variant: 'primary' }),
+        'animate animate-fade-in-down animate-delay-400'
+      )}
     >
-      Get Started
+      Start Creating
     </Link>
   );
 };

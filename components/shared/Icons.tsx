@@ -8,6 +8,34 @@ export const Icons = {
       <path d="M7.5 6.75V0h9v6.75h-9zm9 3.75H24V24H0V10.5h7.5v6.75h9V10.5z" />
     </svg>
   ),
+  lanciePlay: (props: LucideProps) => (
+    <svg
+      width="44"
+      height="54"
+      viewBox="0 0 44 54"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      {...props}
+    >
+      <path
+        d="M0.666992 4.32667C0.666992 1.16201 4.16798 -0.749358 6.83002 0.961958L42.0997 23.6353C44.549 25.2098 44.549 28.7902 42.0997 30.3647L6.83002 53.0381C4.16797 54.7494 0.666992 52.838 0.666992 49.6733V4.32667Z"
+        fill="url(#paint0_linear_914_427)"
+      />
+      <defs>
+        <linearGradient
+          id="paint0_linear_914_427"
+          x1="0.666992"
+          y1="0.320129"
+          x2="-8.41671"
+          y2="42.3549"
+          gradientUnits="userSpaceOnUse"
+        >
+          <stop stop-color="#FF8500" />
+          <stop offset="1" stop-color="#FF4F18" />
+        </linearGradient>
+      </defs>
+    </svg>
+  ),
   marker: (props: LucideProps) => (
     <svg
       viewBox="0 0 1024 1536"

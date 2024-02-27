@@ -1,28 +1,30 @@
-import Image from 'next/image';
 import Container from '../shared/Container';
 import Title from '../shared/Title';
 import HeroCTA from './HeroCTA';
-import ModuleButtonReplica from './ModuleButtonReplica';
+import HeroVisual from './HeroVisual';
 
 const Hero = () => {
   return (
     <section id="hero" className="">
-      <Container className="flex flex-col items-center gap-8 md:gap-12">
+      <Container className="flex flex-col items-center gap-10 md:gap-12">
         <Title
           as="h1"
-          className="text-center tracking-[-0.04em] font-extrabold leading-[1.1] bg-white bg-gradient-to-b from-white to-ring/50 bg-clip-text text-transparent"
+          className="animate animate-fade-in-down text-center tracking-[-0.04em] font-extrabold leading-[1.1] bg-white bg-gradient-to-b from-white to-ring/50 bg-clip-text text-transparent"
           style={{
             fontSize: 'clamp(2.25rem, 6vw, 3.5rem)',
           }}
         >
-          The pre-production <br className="md:hidden" />
+          Supercharge your <br />
+          video pre-production
+          {/* The pre-production <br className="md:hidden" />
           tool
           <br className="hidden md:inline" /> for the modern{' '}
           <br className="md:hidden" />
-          video creator
+          video creator */}
         </Title>
         <HeroCTA />
-        <div className="relative w-full mt-8">
+        <HeroVisual />
+        {/* <div className="relative w-full mt-8">
           <ModuleButtonReplica
             className="absolute top-0 right-0 -translate-y-[75%] rotate-12 opacity-80"
             icon="Presentation"
@@ -34,7 +36,6 @@ const Hero = () => {
             label="Locations"
           />
           <div className="p-2 md:p-3 border rounded-3xl bg-muted relative w-full shadow-[0_0_40px_30px_rgba(22,23,24,0.9)]">
-            {/* <div className="aspect-video relative w-full border md:border-2 border-ring rounded-2xl overflow-hidden"> */}
             <div
               className="aspect-video overflow-hidden relative w-full rounded-2xl"
               style={{
@@ -46,7 +47,7 @@ const Hero = () => {
               <Image src="/tv-placeholder.jpg" alt="tv-placeholder" fill />
             </div>
           </div>
-        </div>
+        </div> */}
       </Container>
       {/* <p className="text-lg text-center max-w-[800px]">
         <Balancer>

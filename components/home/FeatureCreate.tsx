@@ -1,5 +1,6 @@
 import { cn } from '@/lib/utils';
 import Image from 'next/image';
+import Balancer from 'react-wrap-balancer';
 import Container from '../shared/Container';
 import Title from '../shared/Title';
 
@@ -33,11 +34,15 @@ const FeatureCreate = () => {
                   className="w-full"
                 />
               </div>
-              <p className="text-lg text-muted-foreground mt-3">
-                Every great video starts with a clear common vision. Expressing
+              {/* Every great video starts with a clear common vision. Expressing
                 your ideas and capturing them in one collaborative place has
                 never been so easy and fun. Build it by yourself or together
-                with your team.
+                with your team.  */}
+              <p className="text-lg md:text-xl text-muted-foreground mt-3">
+                <Balancer>
+                  Express your ideas faster and with more clarity using
+                  pre-built modules.
+                </Balancer>
               </p>
             </div>
           </div>
