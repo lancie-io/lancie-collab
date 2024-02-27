@@ -38,6 +38,7 @@ export default function RootLayout({
                     <LoadingProvider>
                       {children}
                       {modal}
+                      {/* <AnimatedCursor /> */}
                     </LoadingProvider>
                   </ModalProvider>
                 </QueryProvider>
