@@ -90,6 +90,7 @@ const SelectCell = <TData, TValue>({
             variant="none"
             style={{
               backgroundColor: `${hasValue?.color}70`,
+              border: !hasValue ? '1px solid #27282A' : undefined,
             }}
           >
             {value ? hasValue?.label : 'Select'}
