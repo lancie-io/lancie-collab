@@ -1,24 +1,30 @@
 'use client';
 
 import {
+  Person,
+  personsColumns,
+  personsData,
+} from '@/components/shared/editableTable/columns';
+import { ColumnDef } from '@tanstack/react-table';
+import {
   BuilderElement,
   BuilderElementInstance,
   ElementType,
 } from '../../BuilderElements';
 import Persons from './Persons';
-import { personsColumns, personsData } from './personsColumns';
 
 const type: ElementType = 'persons';
 
 export type PersonsAttributes = {
-  state: {
-    columns: any[];
-    data: any[];
-    skipReset: boolean;
-  };
+  state: TableState;
 };
 
 export type PersonsElement = BuilderElementInstance<PersonsAttributes>;
+
+export type TableState = {
+  columns: ColumnDef<Person, any>[];
+  data: Person[];
+};
 
 const extraAttributes = {
   label: 'Persons',
@@ -45,7 +51,7 @@ export const PersonsBuilderElement: BuilderElement = {
   previewComponent: PreviewComponent,
 };
 
-type CustomInstance = BuilderElementInstance & {
+export type PersonsCustomInstance = BuilderElementInstance & {
   extraAttributes: typeof extraAttributes;
 };
 
@@ -56,7 +62,7 @@ function BuilderComponent({
   elementInstance: BuilderElementInstance;
   isPreview?: boolean;
 }) {
-  const element = elementInstance as CustomInstance;
+  const element = elementInstance as PersonsCustomInstance;
   return <Persons element={element} isPreview={isPreview} />;
 }
 
@@ -65,6 +71,6 @@ export function PreviewComponent({
 }: {
   elementInstance: BuilderElementInstance;
 }) {
-  const element = elementInstance as CustomInstance;
+  const element = elementInstance as PersonsCustomInstance;
   return <BuilderComponent elementInstance={element} isPreview={true} />;
 }

@@ -1,22 +1,21 @@
-import React from 'react';
-import TableModule from '../table/TableModule';
-import { PersonsElement } from './PersonsBuilderElement';
+import { DataTable } from '@/components/shared/editableTable/DataTable';
+import {
+  personsColumns,
+  personsData,
+} from '@/components/shared/editableTable/columns';
+import { PersonsCustomInstance } from './PersonsBuilderElement';
 
 interface PersonsProps {
-  element: PersonsElement;
+  element: PersonsCustomInstance;
   isPreview: boolean;
 }
 
 const Persons = ({ element, isPreview }: PersonsProps) => {
   return (
-    <div className="overflow-scroll rounded-b-md max-h-[800px]">
-      <TableModule
-        columns={element.extraAttributes.state.columns}
-        element={element}
-        isPreview={isPreview}
-      />
+    <div className="">
+      <DataTable columns={personsColumns} data={personsData} />
     </div>
   );
 };
 
-export default React.memo(Persons);
+export default Persons;

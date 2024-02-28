@@ -1,20 +1,20 @@
+import { DataTable } from '@/components/shared/editableTable/DataTable';
+import {
+  financialsColumns,
+  financialsData,
+} from '@/components/shared/editableTable/mydata';
 import React from 'react';
-import TableModule from '../table/TableModule';
-import { FinancialsElement } from './FinancialsBuilderElement';
+import { FinancialsCustomInstance } from './FinancialsBuilderElement';
 
 interface FinancialsProps {
-  element: FinancialsElement;
+  element: FinancialsCustomInstance;
   isPreview: boolean;
 }
 
 const Financials = ({ element, isPreview }: FinancialsProps) => {
   return (
-    <div className="w-full bg-background overflow-scroll">
-      <TableModule
-        isPreview={isPreview}
-        columns={element.extraAttributes.state.columns}
-        element={element}
-      />
+    <div>
+      <DataTable data={financialsData} columns={financialsColumns} />
     </div>
   );
 };

@@ -1,5 +1,9 @@
+import { DataTable } from '@/components/shared/editableTable/DataTable';
+import {
+  deliverablesColumns,
+  deliverablesData,
+} from '@/components/shared/editableTable/mydata';
 import React from 'react';
-import TableModule from '../table/TableModule';
 import { DeliverablesElement } from './DeliverablesBuilderElement';
 
 interface DeliverablesProps {
@@ -9,12 +13,8 @@ interface DeliverablesProps {
 
 const Deliverables = ({ element, isPreview }: DeliverablesProps) => {
   return (
-    <div className="w-full bg-background overflow-scroll">
-      <TableModule
-        isPreview={isPreview}
-        columns={element.extraAttributes.state.columns}
-        element={element}
-      />
+    <div>
+      <DataTable data={deliverablesData} columns={deliverablesColumns} />
     </div>
   );
 };

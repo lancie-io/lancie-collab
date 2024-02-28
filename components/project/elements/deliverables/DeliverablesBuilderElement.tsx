@@ -46,7 +46,7 @@ export const DeliverablesBuilderElement: BuilderElement = {
   previewComponent: PreviewComponent,
 };
 
-type CustomInstance = BuilderElementInstance & {
+export type DeliverablesCustomInstance = BuilderElementInstance & {
   extraAttributes: typeof extraAttributes;
 };
 
@@ -57,7 +57,7 @@ function BuilderComponent({
   elementInstance: BuilderElementInstance;
   isPreview?: boolean;
 }) {
-  const element = elementInstance as CustomInstance;
+  const element = elementInstance as DeliverablesCustomInstance;
   return <Deliverables isPreview={isPreview} element={element} />;
 }
 
@@ -66,6 +66,6 @@ export function PreviewComponent({
 }: {
   elementInstance: BuilderElementInstance;
 }) {
-  const element = elementInstance as CustomInstance;
+  const element = elementInstance as DeliverablesCustomInstance;
   return <BuilderComponent elementInstance={element} isPreview={true} />;
 }

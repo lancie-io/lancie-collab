@@ -56,11 +56,12 @@ const BuilderArea = () => {
       const { active, over } = event;
       if (!active || !over) return;
       const isModuleButton = active.data?.current?.isModuleButton;
+      const isBuilderElement = active.data?.current?.isBuilderElement;
       const isDroppingOverBuilderArea = over.data?.current?.isBuilderArea;
 
-      const isDroppingOverDropArea =
+      const isDroppingModuleButtonOverDropArea =
         isModuleButton && isDroppingOverBuilderArea;
-      if (isDroppingOverDropArea) {
+      if (isDroppingModuleButtonOverDropArea) {
         const type = active.data?.current?.type;
         const newElement = BuilderElements[type as ElementType].construct(
           idGenerator()
@@ -106,6 +107,23 @@ const BuilderArea = () => {
       const isDraggingBuilderElementOverAnotherBuilderElement =
         isDraggingBuilderElement && isDroppingOverBuilderElement;
 
+      const isDraggingBuilderElementOverDropArea =
+        isDraggingBuilderElement && isDroppingOverBuilderArea;
+      if (isDraggingBuilderElementOverDropArea) {
+        const activeId = active.data?.current?.elementId;
+        const activeElementIndex = elements.findIndex(
+          (el) => el.id === activeId
+        );
+        if (activeElementIndex === -1) {
+          throw new Error('Element not found');
+        }
+        const activeElement = { ...elements[activeElementIndex] };
+        removeElement(activeId);
+        addElement(elements.length - 1, activeElement);
+        scrollToElementWithRetry(activeElement.id);
+        return;
+      }
+
       if (isDraggingBuilderElementOverAnotherBuilderElement) {
         const activeId = active.data?.current?.elementId;
         const overId = over.data?.current?.elementId;
@@ -121,6 +139,16 @@ const BuilderArea = () => {
         let indexForNewElement = overElementIndex;
         if (isDroppingOverBuilderElementBottomHalf) {
           indexForNewElement = overElementIndex + 1;
+          //if overelement is last element in then add new element at the end
+          console.log(
+            'OverIDX: ',
+            overElementIndex,
+            'Elements: ',
+            elements.length
+          );
+          if (overElementIndex === elements.length - 1) {
+            indexForNewElement = elements.length - 1;
+          }
         }
         addElement(indexForNewElement, activeElement);
       }
