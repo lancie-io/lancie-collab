@@ -1,9 +1,10 @@
 'use client';
 
 import { useLiveblocks } from '@/lib/liveblocks';
-import { cn, idGenerator } from '@/lib/utils';
+import { cn } from '@/lib/utils';
 import { useStorage } from '@/liveblocks.config';
 import { DragEndEvent, useDndMonitor, useDroppable } from '@dnd-kit/core';
+import { nanoid } from 'nanoid';
 import { useView } from '../providers/ViewProvider';
 import { Icons } from '../shared/Icons';
 import BuilderElementWrapper from './BuilderElementWrapper';
@@ -64,7 +65,7 @@ const BuilderArea = () => {
       if (isDroppingModuleButtonOverDropArea) {
         const type = active.data?.current?.type;
         const newElement = BuilderElements[type as ElementType].construct(
-          idGenerator()
+          nanoid(6)
         );
         addElement(elements.length, newElement);
         scrollToElementWithRetry(newElement.id);
@@ -86,7 +87,7 @@ const BuilderArea = () => {
       if (isDroppingModuleButtonOverBuilderElement) {
         const type = active.data?.current?.type;
         const newElement = BuilderElements[type as ElementType].construct(
-          idGenerator()
+          nanoid(6)
         );
         const overId = over.data?.current?.elementId;
         const overElementIndex = elements.findIndex((el) => el.id === overId);

@@ -1,33 +1,36 @@
 import { Input } from '@/components/ui/input';
 import { useEffect, useState } from 'react';
-import { TableMetaType } from './DataTable';
 import { WrapperCellProps } from './WrapperCell';
+import { Row } from './types';
 
 interface NumberCellProps<TData, TValue>
   extends WrapperCellProps<TData, TValue> {}
 
 const NumberCell = <TData, TValue>({
-  getValue,
   row,
   column,
-  table,
+  value: initialValue,
+  selectCell,
+  setCellValue,
 }: NumberCellProps<TData, TValue>) => {
-  const { updateData } = table.options.meta as TableMetaType<TData, TValue>;
+  const columnId = column.id;
+  const originalRow = row.original as Row;
+  const rowId = originalRow.id;
 
-  const initialValue = getValue();
   const [value, setValue] = useState(initialValue);
   useEffect(() => {
     setValue(initialValue);
   }, [initialValue]);
-  const onBlur = () => {
-    updateData(row.index, column.id, value);
+  const onChange = (e: any) => {
+    setCellValue?.(columnId, rowId, e.target.value);
+    setValue(e.target.value);
   };
   return (
     <Input
-      className="h-full bg-transparent border-none relative focus-visible:z-10"
+      onSelect={() => selectCell?.(columnId, rowId)}
+      className="h-full bg-transparent border-none relative focus-visible:z-10 text-right"
       value={value}
-      onBlur={onBlur}
-      onChange={(e) => setValue(e.target.value)}
+      onChange={onChange}
       type="number"
     />
   );

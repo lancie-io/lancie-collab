@@ -6,7 +6,7 @@ import {
   getLiveBlockUsersByUserIDs,
 } from './lib/actions';
 
-const client = createClient({
+export const liveblocksClient = createClient({
   // publicApiKey: process.env.NEXT_PUBLIC_LIVEBLOCKS_PUBLIC_KEY!,
   authEndpoint: '/api/liveblocks-auth',
   // throttle: 100,
@@ -99,7 +99,7 @@ export const {
     useRemoveReaction,
   },
 } = createRoomContext<Presence, Storage, UserMeta, RoomEvent, ThreadMetadata>(
-  client,
+  liveblocksClient,
   {
     async resolveUsers({ userIds }) {
       // Used only for Comments. Return a list of user information retrieved

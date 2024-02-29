@@ -1,33 +1,48 @@
 import { Input } from '@/components/ui/input';
+import { cn } from '@/lib/utils';
 import { useEffect, useState } from 'react';
-import { TableMetaType } from './DataTable';
 import { WrapperCellProps } from './WrapperCell';
+import { Row } from './types';
 
-interface TextCellProps<TData, TValue>
-  extends WrapperCellProps<TData, TValue> {}
+interface TextCellProps<TData, TValue> extends WrapperCellProps<TData, TValue> {
+  className?: string;
+}
 
 const TextCell = <TData, TValue>({
-  getValue,
   row,
   column,
-  table,
+  selectCell,
+  setCellValue,
+  className,
+  value: initialValue,
 }: TextCellProps<TData, TValue>) => {
-  const { updateData } = table.options.meta as TableMetaType<TData, TValue>;
+  const columnIndex = column.getIndex();
+  const rowIndex = row.index;
+  const columnId = column.id;
+  const originalRow = row.original as Row;
+  const rowId = originalRow.id;
 
-  const initialValue = getValue();
   const [value, setValue] = useState(initialValue || '');
   useEffect(() => {
     setValue(initialValue || '');
   }, [initialValue]);
-  const onBlur = () => {
-    updateData(row.index, column.id, value);
+  // const onBlur = () => {
+  //   updateData(row.index, column.id, value);
+  // };
+
+  const onChange = (e: any) => {
+    setCellValue?.(columnId, rowId, e.target.value);
+    setValue(e.target.value);
   };
   return (
     <Input
-      className="h-full bg-transparent border-none relative focus-visible:z-10"
+      onSelect={() => selectCell?.(columnId, rowId)}
+      className={cn(
+        'h-full bg-transparent border-none relative focus-visible:z-10',
+        className
+      )}
       value={value}
-      onBlur={onBlur}
-      onChange={(e) => setValue(e.target.value)}
+      onChange={onChange}
     />
   );
 };

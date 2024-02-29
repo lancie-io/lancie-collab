@@ -7,8 +7,8 @@ import {
   ElementType,
 } from '@/components/project/BuilderElements';
 import { useLiveblocks } from '@/lib/liveblocks';
-import { idGenerator } from '@/lib/utils';
 import { useDraggable } from '@dnd-kit/core';
+import { nanoid } from 'nanoid';
 import ModuleButtonBase from './ModuleButtonBase';
 
 interface ModuleButtonProps {
@@ -40,7 +40,7 @@ const ModuleButton = ({
 
   const handleAdd = () => {
     const newElement = BuilderElements[type as ElementType].construct(
-      idGenerator()
+      nanoid(6)
     );
     // addElement(0, newElement);
     addElement(elements.length, newElement);

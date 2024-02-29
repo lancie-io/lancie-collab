@@ -1,32 +1,37 @@
-import { Cell, Column, Row, Table } from '@tanstack/react-table';
+import { CellContext, ColumnDef } from '@tanstack/react-table';
+// import NumberCell from './NumberCell';
+// import SelectCell from './SelectCell';
+// import TextCell from './TextCell';
 import NumberCell from './NumberCell';
 import SelectCell from './SelectCell';
 import TextCell from './TextCell';
+import { ReactDataTable } from './react';
+import { Column } from './types';
 
-export interface WrapperCellProps<TData, TValue> {
-  getValue: <TTValue = TValue>() => any;
-  row: Row<TData>;
-  column: Column<TData, TValue>;
-  cell: Cell<TData, TValue>;
-  table: Table<TData>;
-  renderValue: <TTValue = TValue>() => any;
+export interface WrapperCellProps<TData, TValue>
+  extends CellContext<TData, TValue> {
+  value?: any;
+  selection?: ReactDataTable['selection'];
+  selectCell?: ReactDataTable['selectCell'];
+  addOptionToColumn?: ReactDataTable['addOptionToColumn'];
+  setCellValue?: ReactDataTable['setCellValue'];
+  isSelected?: boolean;
 }
 
-type ColumnDefMeta = {
-  type: 'text' | 'select' | 'number';
-};
-
 const WrapperCell = <TData, TValue>(props: WrapperCellProps<TData, TValue>) => {
-  const { column } = props;
-  const columnMeta = column.columnDef.meta as ColumnDefMeta;
+  const { column, value, selection, row, isSelected } = props;
 
-  if (columnMeta?.type === 'select') {
+  const { type } = column.columnDef as ColumnDef<TData, TValue> & Column;
+  if (type === 'select') {
     return <SelectCell {...props} />;
   }
-  if (columnMeta?.type === 'text') {
+  if (type === 'text') {
     return <TextCell {...props} />;
   }
-  return <NumberCell {...props} />;
+  if (type === 'number') {
+    return <NumberCell {...props} />;
+  }
+  return <div>This should not show.</div>;
 };
 
 export default WrapperCell;

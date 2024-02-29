@@ -2,11 +2,12 @@ import { Input, InputProps } from '@/components/ui/input';
 import { useState } from 'react';
 
 interface ControlledInputProps extends InputProps {
-  initialValue: string | undefined;
+  initialValue?: string;
 }
 
 const ControlledInput = ({ initialValue, ...props }: ControlledInputProps) => {
   const [value, setValue] = useState<string>(initialValue || '');
+
   return (
     <Input
       className="min-w-0 w-full"

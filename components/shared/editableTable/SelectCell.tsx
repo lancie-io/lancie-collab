@@ -1,4 +1,3 @@
-import { TableMetaType } from './DataTable';
 import { WrapperCellProps } from './WrapperCell';
 
 import { Check } from 'lucide-react';
@@ -19,45 +18,51 @@ import {
 } from '@/components/ui/popover';
 import TailwindColor from '@/lib/tailwind';
 import { cn } from '@/lib/utils';
-import { ColumnMeta } from '@tanstack/react-table';
+import { ColumnDef } from '@tanstack/react-table';
 import { useEffect, useState } from 'react';
 import { SelectOption } from './columns';
+import { Column, Row } from './types';
 
 interface SelectCellProps<TData, TValue>
   extends WrapperCellProps<TData, TValue> {}
 
 const SelectCell = <TData, TValue>({
-  getValue,
-  row,
+  value: initialValue,
   column,
-  table,
+  cell,
+  row,
+
+  addOptionToColumn,
+  setCellValue,
+  selectCell,
+  isSelected,
 }: SelectCellProps<TData, TValue>) => {
-  const initialValue = getValue();
+  const { options = [] } = column.columnDef as ColumnDef<TData, TValue> &
+    Column;
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState(initialValue);
-  const { updateData, updateColumn } = table.options.meta as TableMetaType<
-    TData,
-    TValue
-  >;
-  const columnMeta: any = column.columnDef.meta as ColumnMeta<TData, TValue>;
-  const options: SelectOption[] = columnMeta.options || [];
 
   const [currentValue, setCurrentValue] = useState<string>('');
   const [currentColor, setCurrentColor] = useState<string>('');
-  const [isEqualToLastSuggestion, setIsEqualToLastSuggestion] = useState(false);
-
+  const columnIndex = column.getIndex();
+  const rowIndex = row.index;
+  const columnId = column.id;
+  const originalRow = row.original as Row;
+  const rowId = originalRow.id;
   useEffect(() => {
     setValue(initialValue);
   }, [initialValue]);
 
   function addOption(newOption: SelectOption) {
-    updateColumn(column.getIndex(), {
-      ...column.columnDef,
-      meta: {
-        ...columnMeta,
-        options: [...options, newOption],
-      },
-    });
+    console.log('New Option: ', newOption);
+    addOptionToColumn?.(columnIndex, newOption);
+    // updateColumn(column.getIndex(), {
+    //   ...column.columnDef,
+    //   meta: {
+    //     ...columnMeta,
+    //     options: [...options, newOption],
+    //   },
+    // });
     setOpen(false);
   }
   useEffect(() => {
@@ -78,6 +83,7 @@ const SelectCell = <TData, TValue>({
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
         <Button
+          onFocus={() => selectCell?.(columnId, rowId)}
           variant="none"
           role="combobox"
           className={cn(
@@ -89,7 +95,7 @@ const SelectCell = <TData, TValue>({
           <Badge
             variant="none"
             style={{
-              backgroundColor: `${hasValue?.color}70`,
+              backgroundColor: hasValue && `${hasValue?.color}70`,
               border: !hasValue ? '1px solid #27282A' : undefined,
             }}
           >
@@ -102,7 +108,7 @@ const SelectCell = <TData, TValue>({
           <CommandInput
             value={currentValue}
             onValueChange={setCurrentValue}
-            placeholder={columnMeta.placeholder || 'Search or create...'}
+            placeholder={'Search or create...'}
           />
           <CommandEmpty>Not found.</CommandEmpty>
           <CommandGroup>
@@ -112,7 +118,8 @@ const SelectCell = <TData, TValue>({
                 value={option.value}
                 onSelect={(currentValue) => {
                   setValue(option.value);
-                  updateData(row.index, column.id, option.value as any);
+                  setCellValue?.(columnId, rowId, option.value as string);
+                  // updateData(row.index, column.id, option.value as any);
                   setOpen(false);
                 }}
               >
@@ -144,7 +151,7 @@ const SelectCell = <TData, TValue>({
                       color: currentColor,
                     };
                     addOption(newOption);
-                    updateData(row.index, column.id, newOption.value as any);
+                    setCellValue?.(columnId, rowId, newOption.value as string);
                     setCurrentValue('');
                     setOpen(false);
                   }}

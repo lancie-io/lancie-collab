@@ -10,26 +10,32 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { TableHead } from '@/components/ui/table';
 import { capitalize, cn } from '@/lib/utils';
-import { Header, flexRender } from '@tanstack/react-table';
+import { ColumnDef, Header, flexRender } from '@tanstack/react-table';
 import { AlignLeft, Check, ChevronDownCircle, Hash, Trash } from 'lucide-react';
 import { useState } from 'react';
 import LucideIcon from '../LucideIcon';
 import ControlledInput from './ControlledInput';
-import { TableMetaType } from './DataTable';
-import { ColumnMeta } from './columns';
-import { ColumnType } from './helpers';
+import { ReactDataTable } from './react';
+import { Column } from './types';
 
 interface DataTableHeadProps<TData, TValue> {
   header: Header<TData, TValue>;
-  tableMeta: TableMetaType<TData, TValue>;
+  deleteColumn?: (columnIndex: number) => void;
+  updateColumnHeader?: ReactDataTable['updateColumnHeader'];
+  replaceColumn?: ReactDataTable['replaceColumn'];
 }
 
 const DataTableHead = <TData, TValue>({
   header,
-  tableMeta: meta,
+  deleteColumn,
+  updateColumnHeader,
+  replaceColumn,
 }: DataTableHeadProps<TData, TValue>) => {
-  const { type } = header.column.columnDef.meta as ColumnMeta;
   const [open, setOpen] = useState(false);
+  const columnIndex = header.column.getIndex();
+  const column = header.column.columnDef as ColumnDef<TData, TValue> & Column;
+  const type = column.type;
+
   return (
     <TableHead className="p-0" key={header.id}>
       <DropdownMenu open={open} onOpenChange={setOpen}>
@@ -50,10 +56,13 @@ const DataTableHead = <TData, TValue>({
                 if (e.target.value === header.column.columnDef.header) {
                   return;
                 }
-                meta.updateHeaderValue(
-                  header.column.getIndex(),
-                  e.target.value
-                );
+                updateColumnHeader?.(columnIndex, e.target.value);
+              }}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter') {
+                  e.currentTarget.blur();
+                  setOpen(false);
+                }
               }}
               initialValue={header.column.columnDef.header as string}
             />
@@ -69,9 +78,7 @@ const DataTableHead = <TData, TValue>({
             <DropdownMenuPortal>
               <DropdownMenuSubContent className="w-[180px]">
                 <DropdownMenuItem
-                  onClick={() =>
-                    meta.switchColumn(header.column.getIndex(), 'text')
-                  }
+                  onClick={() => replaceColumn?.(columnIndex, 'text')}
                 >
                   <AlignLeft className="mr-2 h-4 w-4" />
                   <span>Text</span>
@@ -83,9 +90,7 @@ const DataTableHead = <TData, TValue>({
                   />
                 </DropdownMenuItem>
                 <DropdownMenuItem
-                  onClick={() =>
-                    meta.switchColumn(header.column.getIndex(), 'select')
-                  }
+                  onClick={() => replaceColumn?.(columnIndex, 'select')}
                 >
                   <ChevronDownCircle className="mr-2 h-4 w-4" />
                   <span>Select</span>
@@ -97,9 +102,7 @@ const DataTableHead = <TData, TValue>({
                   />
                 </DropdownMenuItem>
                 <DropdownMenuItem
-                  onClick={() =>
-                    meta.switchColumn(header.column.getIndex(), 'number')
-                  }
+                  onClick={() => replaceColumn?.(columnIndex, 'number')}
                 >
                   <Hash className="mr-2 h-4 w-4" />
                   <span>Number</span>
@@ -113,9 +116,7 @@ const DataTableHead = <TData, TValue>({
               </DropdownMenuSubContent>
             </DropdownMenuPortal>
           </DropdownMenuSub>
-          <DropdownMenuItem
-            onClick={() => meta.removeColumn(header.column.getIndex())}
-          >
+          <DropdownMenuItem onClick={() => deleteColumn?.(columnIndex)}>
             <Trash className="mr-2 w-4 h-4" />
             <span>Delete</span>
           </DropdownMenuItem>
@@ -128,7 +129,7 @@ const DataTableHead = <TData, TValue>({
 export default DataTableHead;
 
 interface ColumnIconProps {
-  type: ColumnType;
+  type: string;
   className?: string;
 }
 
