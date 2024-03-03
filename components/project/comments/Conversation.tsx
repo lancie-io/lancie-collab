@@ -87,6 +87,7 @@ export function Conversation({ className, ...props }: ConversationProps) {
                 }}
                 key={thread.id}
                 layoutId={thread.id}
+                layout="position"
                 transition={{
                   ease: 'easeOut',
                   duration: 0.3,
