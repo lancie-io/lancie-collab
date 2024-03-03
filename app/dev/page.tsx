@@ -11,8 +11,8 @@ const DevPage = () => {
         <div className="pb-6 md:py-10">
           <Title>Dev Settings</Title>
           <p className="text-primary mt-1">
-            Back in the app, after any settings update, refresh the browser
-            (CMD+R) to make sure that changes take effect.
+            After any settings update, refresh the browser (CMD+R) to make sure
+            that changes take effect.
           </p>
         </div>
         <DevSettings />

@@ -1,5 +1,5 @@
 'use client';
-import { useLocalStorage } from '@uidotdev/usehooks';
+import useLocalStorage from '@/lib/hooks/useLocalStorage';
 import AnimatedCursor from './AnimatedCursor';
 
 const AnimatedCursorShowHandler = () => {

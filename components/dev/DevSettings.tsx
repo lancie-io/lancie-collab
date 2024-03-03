@@ -1,6 +1,6 @@
 'use client';
 
-import { useLocalStorage } from '@uidotdev/usehooks';
+import useLocalStorage from '@/lib/hooks/useLocalStorage';
 import { Label } from '../ui/label';
 import { Switch } from '../ui/switch';
 
@@ -16,7 +16,7 @@ const DevSettings = () => {
         <Switch
           checked={isCustomCursor}
           onCheckedChange={() =>
-            setIsCustomCursor((isCustomCursor) => !isCustomCursor)
+            setIsCustomCursor((isCustomCursor: boolean) => !isCustomCursor)
           }
         />
       </div>
