@@ -1,5 +1,6 @@
 import { clsx, type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
+import { COLORS } from './constants';
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -51,4 +52,13 @@ export function capitalize(str: string): string {
 
   // Capitalize the first letter and concatenate it with the rest of the string
   return str.charAt(0).toUpperCase() + str.slice(1);
+}
+
+export function getPresenceColor(connectionId: number) {
+  console.log(
+    'connectionId',
+    connectionId,
+    COLORS[connectionId % COLORS.length]
+  );
+  return COLORS[connectionId % COLORS.length];
 }

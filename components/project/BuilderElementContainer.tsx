@@ -1,9 +1,11 @@
+import { useClickOutside } from '@/lib/hooks/useClickOutside';
 import { cn } from '@/lib/utils';
+import { useUpdateMyPresence } from '@/liveblocks.config';
 import { useDraggable } from '@dnd-kit/core';
 import { motion } from 'framer-motion';
-import { HTMLAttributes } from 'react';
-import { useView } from '../providers/ViewProvider';
+import { HTMLAttributes, memo, useCallback, useRef } from 'react';
 import { BuilderElementInstance, BuilderElements } from './BuilderElements';
+import SelectionTags from './SelectionTags';
 import ModuleBar from './elements/shared/ModuleBar';
 
 type DraggableHookReturnType = ReturnType<typeof useDraggable>;
@@ -22,12 +24,25 @@ const BuilderElementContainer = ({
   isDragging,
 }: BuilderElementContainerProps) => {
   const BuilderElement = BuilderElements[element.type].builderComponent;
-  const { isEdit } = useView();
+  const updateMyPresence = useUpdateMyPresence();
+  const handleClick = useCallback(() => {
+    updateMyPresence({ selectedModule: element.id });
+  }, [element.id]);
+  const clickRef = useRef(null);
+  useClickOutside(
+    clickRef,
+    (e: any) => updateMyPresence({ selectedModule: null }),
+    'module'
+    // console.log('updated presence')
+  );
   return (
     <motion.div
+      ref={clickRef}
       layoutId={isDragging ? undefined : element.id}
       className={cn('border bg-background rounded-lg relative', className)}
+      onClick={handleClick}
     >
+      <SelectionTags elementId={element.id} />
       <ModuleBar
         isDragging={isDragging}
         draggable={draggable}
@@ -39,4 +54,4 @@ const BuilderElementContainer = ({
   );
 };
 
-export default BuilderElementContainer;
+export default memo(BuilderElementContainer);

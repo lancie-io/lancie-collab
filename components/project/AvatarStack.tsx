@@ -27,7 +27,7 @@ const AvatarStack = ({ className, ...props }: AvatarStackProps) => {
           image: currentUser.info.avatar,
         }}
       />
-      {users.slice(0, 3).map(({ connectionId, info }) => {
+      {users.slice(0, 3).map(({ connectionId, info, presence }) => {
         const avatarUser = {
           name: info.name,
           image: info.avatar,
@@ -36,7 +36,10 @@ const AvatarStack = ({ className, ...props }: AvatarStackProps) => {
           <Avatar
             key={connectionId}
             user={avatarUser}
-            className="w-6 h-6 md:w-7 md:h-7"
+            className="w-6 h-6 md:w-7 md:h-7 border-2"
+            style={{
+              borderColor: presence.color!,
+            }}
           />
         );
       })}

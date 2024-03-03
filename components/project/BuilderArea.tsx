@@ -2,7 +2,7 @@
 
 import { useLiveblocks } from '@/lib/liveblocks';
 import { cn } from '@/lib/utils';
-import { useStorage } from '@/liveblocks.config';
+import { useOthers, useSelf, useStorage } from '@/liveblocks.config';
 import { DragEndEvent, useDndMonitor, useDroppable } from '@dnd-kit/core';
 import { nanoid } from 'nanoid';
 import { useView } from '../providers/ViewProvider';
@@ -43,6 +43,9 @@ export const scrollToElementWithRetry = (
 const BuilderArea = () => {
   const { addElement, removeElement } = useLiveblocks();
   const elements = useStorage((root) => root.elements);
+  // useClickAwayHandler();
+  const self = useSelf();
+  const others = useOthers();
 
   const { isView } = useView();
 
@@ -182,6 +185,7 @@ const BuilderArea = () => {
         )}
         {elements.length > 0 && (
           <div className="flex flex-col gap-3 md:gap-8 w-full">
+            <pre>{JSON.stringify(self, null, 2)}</pre>
             {elements.map((element) => (
               <BuilderElementWrapper key={element.id} element={element} />
             ))}

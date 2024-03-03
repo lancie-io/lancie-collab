@@ -1,3 +1,4 @@
+import { getPresenceColor } from '@/lib/utils';
 import { useSelf } from '@/liveblocks.config';
 import Collaboration from '@tiptap/extension-collaboration';
 import CollaborationCursor from '@tiptap/extension-collaboration-cursor';
@@ -23,7 +24,7 @@ export function TiptapEditor({
   placeholder,
   editable = true,
 }: TipTapEditorProps) {
-  const userInfo = useSelf((me) => me.info);
+  const self = useSelf((me) => me);
   const editor = useEditor({
     extensions: [
       StarterKit.configure({
@@ -53,7 +54,11 @@ export function TiptapEditor({
       }),
       CollaborationCursor.configure({
         provider: provider,
-        user: userInfo,
+        user: {
+          name: self.info.name,
+          color: getPresenceColor(self.connectionId),
+          avatar: self.info.avatar,
+        },
       }),
     ],
     editorProps: {

@@ -44,7 +44,7 @@ const MoreButton = ({ className, element }: MoreButtonProps) => {
           <MoreVertical className="w-4 h-4" />
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="w-40">
+      <DropdownMenuContent className="w-40" id="popover-content">
         <DropdownMenuItem
           disabled={isFirst(id)}
           onClick={() => moveElementUp(id)}

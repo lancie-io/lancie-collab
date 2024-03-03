@@ -16,3 +16,13 @@ export function useClickOutside(elRef: any, callback: (e: any) => void) {
     };
   }, [callback, elRef]);
 }
+
+// export function useClickAwayHandler() {
+//   useEffect(() => {
+//     const handleClickOutside = (e: React.MouseEvent) => {};
+//     document.addEventListener('click', handleClickOutside, true);
+//     return () => {
+//       document.removeEventListener('click', handleClickOutside, true);
+//     };
+//   }, []);
+// }

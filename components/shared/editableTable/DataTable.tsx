@@ -16,6 +16,7 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
+import { useOthers, useSelf } from '@/liveblocks.config';
 import { AnyARecord } from 'dns';
 import { Plus, Trash } from 'lucide-react';
 import DataTableHead from './DataTableHead';
@@ -50,6 +51,8 @@ export type TableMetaType<TData, TValue> = {
 export function DataTable<TData, TValue>(props: DataTableProps<TData, TValue>) {
   const dataTable = useDataTable();
   const {
+    users,
+    others,
     selection,
     selectCell,
     cells,
@@ -64,6 +67,8 @@ export function DataTable<TData, TValue>(props: DataTableProps<TData, TValue>) {
     replaceColumn,
     addOptionToColumn,
   } = dataTable || {};
+  const self = useSelf();
+  const globalOthers = useOthers();
 
   const table = useReactTable({
     data: rows as TData[],
@@ -97,6 +102,7 @@ export function DataTable<TData, TValue>(props: DataTableProps<TData, TValue>) {
       </div>
     );
   }
+  console.log('dt rendered');
 
   return (
     <div>
@@ -139,7 +145,11 @@ export function DataTable<TData, TValue>(props: DataTableProps<TData, TValue>) {
                     selection?.columnId === columnId &&
                     selection?.rowId === rowId;
                   return (
-                    <TableCell className="p-0 h-14" key={cell.id}>
+                    <TableCell
+                      className="p-0 h-14"
+                      key={cell.id}
+                      id={`wrapper-cell`}
+                    >
                       <WrapperCell
                         isSelected={isSelected}
                         value={value}
@@ -147,6 +157,7 @@ export function DataTable<TData, TValue>(props: DataTableProps<TData, TValue>) {
                         selectCell={selectCell}
                         setCellValue={setCellValue}
                         addOptionToColumn={addOptionToColumn}
+                        other={others?.[id]}
                         {...cell.getContext()}
                       />
                     </TableCell>

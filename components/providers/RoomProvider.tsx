@@ -16,7 +16,10 @@ export function RoomProvider({
   return (
     <Room
       id={roomId}
-      initialPresence={{}}
+      initialPresence={{
+        selectedModule: null,
+        color: null,
+      }}
       initialStorage={{
         elements: new LiveList([]),
       }}

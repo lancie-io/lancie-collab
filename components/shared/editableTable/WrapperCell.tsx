@@ -5,6 +5,7 @@ import { CellContext, ColumnDef } from '@tanstack/react-table';
 import NumberCell from './NumberCell';
 import SelectCell from './SelectCell';
 import TextCell from './TextCell';
+import { UserInfoDataTable } from './liveblocks-datatable';
 import { ReactDataTable } from './react';
 import { Column } from './types';
 
@@ -16,6 +17,7 @@ export interface WrapperCellProps<TData, TValue>
   addOptionToColumn?: ReactDataTable['addOptionToColumn'];
   setCellValue?: ReactDataTable['setCellValue'];
   isSelected?: boolean;
+  other?: UserInfoDataTable;
 }
 
 const WrapperCell = <TData, TValue>(props: WrapperCellProps<TData, TValue>) => {

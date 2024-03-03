@@ -1,4 +1,5 @@
 import { Input } from '@/components/ui/input';
+import { cn, getPresenceColor } from '@/lib/utils';
 import { useEffect, useState } from 'react';
 import { WrapperCellProps } from './WrapperCell';
 import { Row } from './types';
@@ -12,6 +13,7 @@ const NumberCell = <TData, TValue>({
   value: initialValue,
   selectCell,
   setCellValue,
+  other,
 }: NumberCellProps<TData, TValue>) => {
   const columnId = column.id;
   const originalRow = row.original as Row;
@@ -28,7 +30,15 @@ const NumberCell = <TData, TValue>({
   return (
     <Input
       onSelect={() => selectCell?.(columnId, rowId)}
-      className="h-full bg-transparent border-none relative focus-visible:z-10 text-right"
+      onBlur={() => selectCell?.(null, null)}
+      className={cn(
+        'h-full bg-transparent border-none relative focus-visible:z-10 text-right focus-visible:ring-0 focus-visible:shadow-inner-outline'
+      )}
+      style={{
+        boxShadow: other?.globalConnectionId
+          ? `inset 0 0 0 2px ${getPresenceColor(other.globalConnectionId)}`
+          : undefined,
+      }}
       value={value}
       onChange={onChange}
       type="number"

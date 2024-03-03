@@ -58,6 +58,9 @@ const config: Config = {
         //   },
         // },
       }),
+      boxShadow: {
+        'inner-outline': 'inset 0 0 0 2px hsl(var(--ring))',
+      },
 
       colors: {
         brand: {

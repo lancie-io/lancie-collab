@@ -17,7 +17,7 @@ import {
   PopoverTrigger,
 } from '@/components/ui/popover';
 import TailwindColor from '@/lib/tailwind';
-import { cn } from '@/lib/utils';
+import { cn, getPresenceColor } from '@/lib/utils';
 import { ColumnDef } from '@tanstack/react-table';
 import { useEffect, useState } from 'react';
 import { SelectOption } from './columns';
@@ -36,6 +36,7 @@ const SelectCell = <TData, TValue>({
   setCellValue,
   selectCell,
   isSelected,
+  other,
 }: SelectCellProps<TData, TValue>) => {
   const { options = [] } = column.columnDef as ColumnDef<TData, TValue> &
     Column;
@@ -79,17 +80,38 @@ const SelectCell = <TData, TValue>({
   }, [currentValue]);
   const hasValue = options.find((option) => option.value === value);
 
+  useEffect(() => {
+    console.log('open changed', open);
+    if (!open) {
+      selectCell?.(null, null);
+    }
+  }, [open]);
+
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
         <Button
-          onFocus={() => selectCell?.(columnId, rowId)}
+          onFocus={() => {
+            console.log('focused');
+            selectCell?.(columnId, rowId);
+          }}
+          onBlur={() => {
+            console.log('blurred');
+            if (!open) {
+              selectCell?.(null, null);
+            }
+          }}
           variant="none"
           role="combobox"
           className={cn(
-            'p-4 w-full text-left h-full justify-start',
-            open && 'ring-2 ring-ring ring-offset-2'
+            'p-4 w-full text-left h-full justify-start focus-visible:ring-0 focus-visible:shadow-inner-outline focus:shadow-inner-outline',
+            open && 'shadow-inner-outline'
           )}
+          style={{
+            boxShadow: other?.globalConnectionId
+              ? `inset 0 0 0 2px ${getPresenceColor(other.globalConnectionId)}`
+              : undefined,
+          }}
           aria-expanded={open}
         >
           <Badge
@@ -103,7 +125,11 @@ const SelectCell = <TData, TValue>({
           </Badge>
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-[200px] p-0">
+      <PopoverContent
+        className="w-[200px] p-0"
+        id="popover-content"
+        onCloseAutoFocus={(e) => e.preventDefault()}
+      >
         <Command>
           <CommandInput
             value={currentValue}

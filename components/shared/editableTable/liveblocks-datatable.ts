@@ -3,15 +3,18 @@ import { LiveList, LiveMap, LiveObject } from '@liveblocks/client';
 import { createRoomContext } from '@liveblocks/react';
 import { Cell, Column, Row } from './types';
 
-export type UserInfo = {
+export type UserInfoDataTable = {
   color: string;
   name: string;
   avatar: string;
+  connectionId: number;
+  globalConnectionId?: number;
+  id: string;
 };
 
 export type UserMetaDataTable = {
   id: string;
-  info: UserInfo;
+  info: UserInfoDataTable;
 };
 
 export type PresenceDataTable = {

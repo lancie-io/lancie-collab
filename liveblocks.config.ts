@@ -18,6 +18,8 @@ export const liveblocksClient = createClient({
 type Presence = {
   // cursor: { x: number, y: number } | null,
   // ...
+  selectedModule?: string | null;
+  color?: string | null;
 };
 
 // Optionally, Storage represents the shared document that persists in the
@@ -116,7 +118,7 @@ export const {
         ...usersData.map((userData) => ({
           name: userData.name as string,
           avatar: userData.image as string,
-          color: '#ff0000',
+          color: '#ff0022',
         })),
       ];
     },

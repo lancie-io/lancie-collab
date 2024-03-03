@@ -1,4 +1,4 @@
-import { LiveObject, Room } from '@liveblocks/client';
+import { LiveObject, Others, Room } from '@liveblocks/client';
 import { nanoid } from 'nanoid';
 import { SelectOption } from './columns';
 import { ID_LENGTH } from './constants';
@@ -21,11 +21,14 @@ export interface DataTable {
   onRowsChange(callback: (rows: Row[]) => void): () => void;
   onColumnsChange(callback: (columns: Column[]) => void): () => void;
   setCellValue(columnId: string, rowId: string, value: string): void;
-  selectCell(columnId: string, rowId: string): void;
+  selectCell(columnId: string | null, rowId: string | null): void;
   getCellValue(columnId: string, rowId: string): any;
   updateColumnHeader(index: number, header: string): void;
   replaceColumn(index: number, type: string): void;
   addOptionToColumn(index: number, option: SelectOption): void;
+  onOthersChange(
+    callback: (others: Others<PresenceDataTable, UserMetaDataTable>) => void
+  ): () => void;
 }
 
 export async function createDataTable(
@@ -143,6 +146,22 @@ export async function createDataTable(
     { isDeep: true }
   );
 
+  const othersCallbacks: Array<
+    (others: Others<PresenceDataTable, UserMetaDataTable>) => void
+  > = [];
+  function onOthersChange(
+    callback: (others: Others<PresenceDataTable, UserMetaDataTable>) => void
+  ) {
+    othersCallbacks.push(callback);
+    callback(room.getOthers());
+    return () => removeFromArray(othersCallbacks, callback);
+  }
+  room.subscribe('others', (others) => {
+    for (const callback of othersCallbacks) {
+      callback(others);
+    }
+  });
+
   function innerClearColumn(index: number) {
     const column = dataTable.get('columns').get(index);
 
@@ -206,7 +225,7 @@ export async function createDataTable(
     dataTable.get('columns').get(index)?.set('header', header);
   }
 
-  function selectCell(columnId: string, rowId: string) {
+  function selectCell(columnId: string | null, rowId: string | null) {
     room.updatePresence({
       selectedCell: columnId && rowId ? getCellId(columnId, rowId) : null,
     });
@@ -239,5 +258,6 @@ export async function createDataTable(
     updateColumnHeader,
     replaceColumn,
     addOptionToColumn,
+    onOthersChange,
   };
 }

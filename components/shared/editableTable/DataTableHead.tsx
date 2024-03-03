@@ -45,7 +45,7 @@ const DataTableHead = <TData, TValue>({
             ? null
             : flexRender(header.column.columnDef.header, header.getContext())}
         </DropdownMenuTrigger>
-        <DropdownMenuContent className="w-[180px]">
+        <DropdownMenuContent className="w-[180px]" id="popover-content">
           <div className="px-2 py-1.5">
             <ControlledInput
               autoFocus
@@ -76,7 +76,10 @@ const DataTableHead = <TData, TValue>({
               <span>{capitalize(type)}</span>
             </DropdownMenuSubTrigger>
             <DropdownMenuPortal>
-              <DropdownMenuSubContent className="w-[180px]">
+              <DropdownMenuSubContent
+                className="w-[180px]"
+                id="popover-content"
+              >
                 <DropdownMenuItem
                   onClick={() => replaceColumn?.(columnIndex, 'text')}
                 >

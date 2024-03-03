@@ -53,7 +53,7 @@ const CommentButton = ({ element }: CommentButtonProps) => {
           )}
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="p-0">
+      <PopoverContent className="p-0" id="popover-content">
         {filteredThreads.length < 1 && (
           <Composer onComposerSubmit={handleSubmit} className="border-none" />
         )}

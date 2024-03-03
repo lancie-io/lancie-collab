@@ -38,7 +38,7 @@ function BuilderElementWrapper({
   if (draggable.isDragging) return null;
   return (
     <ErrorBoundary info={element.type}>
-      <div className="relative" id={element.id}>
+      <div className="relative" id={`module-${element.id}`}>
         <div
           ref={topHalf.setNodeRef}
           className={cn('absolute top-0 w-full h-1/2')}
@@ -53,6 +53,7 @@ function BuilderElementWrapper({
         {bottomHalf.isOver && (
           <div className="absolute -bottom-5 w-full h-2 bg-foreground rounded-lg" />
         )}
+
         <BuilderElementContainer draggable={draggable} element={element} />
       </div>
     </ErrorBoundary>
