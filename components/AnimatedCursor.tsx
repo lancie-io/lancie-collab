@@ -1,7 +1,7 @@
 'use client';
 import { cn } from '@/lib/utils';
 import { MousePointer2 } from 'lucide-react';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 const AnimatedCursor = () => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
@@ -11,24 +11,40 @@ const AnimatedCursor = () => {
   const updateMousePosition = (e: any) => {
     setMousePosition({ x: e.clientX, y: e.clientY });
   };
+  const handleClick = () => {
+    const cursor = document.getElementById('animated-cursor');
+    if (cursor) {
+      cursor.classList.add('animated-click');
+      setTimeout(() => {
+        cursor.classList.remove('animated-click');
+      }, 200);
+    }
+  };
 
   useEffect(() => {
     document.addEventListener('mousemove', updateMousePosition);
-    document.body.style.cursor = 'none';
+    document.addEventListener('click', handleClick);
+    document.body.classList.add('no-cursor');
 
     return () => {
       document.removeEventListener('mousemove', updateMousePosition);
-      document.body.style.cursor = 'auto';
+      document.body.classList.remove('no-cursor');
     };
   }, []);
+
+  const ref = useRef<HTMLElement>(null);
 
   return (
     <MousePointer2
       className={cn(
-        'w-12 h-12 fill-primary/50 stroke-primary scale-100',
-        cursorSize === 'small' && 'scale-75'
+        'transition duration-200 ease-in-out w-12 h-12 fill-foreground stroke-foreground pointer-events-none z-[10000] origin-[30%_30%]'
       )}
-      style={{ position: 'fixed', left: mousePosition.x, top: mousePosition.y }}
+      id="animated-cursor"
+      style={{
+        position: 'fixed',
+        left: mousePosition.x,
+        top: mousePosition.y,
+      }}
     />
   );
 };

@@ -38,3 +38,11 @@
   animation-delay: 400ms;
   @apply bg-ring/10 rounded-xl border border-ring/50;
 }
+
+.animated-click {
+  transform: scale(0.5);
+}
+
+.no-cursor * {
+  cursor: none !important;
+}

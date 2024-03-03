@@ -42,7 +42,7 @@ export function Conversation({ className, ...props }: ConversationProps) {
 
   const handleThreadClick = (id?: string) => {
     if (!id) return;
-    const element = document.getElementById(id);
+    const element = document.getElementById(`module-${id}`);
     const outlineClass1 = 'outline-dashed';
     const outlineClass2 = 'outline-ring';
     if (element) {

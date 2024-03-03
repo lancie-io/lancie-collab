@@ -18,7 +18,7 @@ export const scrollToElementWithRetry = (
   let retries = 0;
 
   const scrollToElement = () => {
-    const element = document.getElementById(id);
+    const element = document.getElementById(`module-${id}`);
     if (element) {
       element.scrollIntoView({ behavior: 'smooth', block: 'center' });
       element.classList.add('pulsate'); // Add pulsate class after scrolling
@@ -185,7 +185,6 @@ const BuilderArea = () => {
         )}
         {elements.length > 0 && (
           <div className="flex flex-col gap-3 md:gap-8 w-full">
-            <pre>{JSON.stringify(self, null, 2)}</pre>
             {elements.map((element) => (
               <BuilderElementWrapper key={element.id} element={element} />
             ))}

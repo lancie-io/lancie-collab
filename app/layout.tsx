@@ -1,3 +1,4 @@
+import AnimatedCursorShowHandler from '@/components/AnimatedCursorShowHandler';
 import AuthProvider from '@/components/providers/AuthProvider';
 import LoadingProvider from '@/components/providers/LoadingProvider';
 import QueryProvider from '@/components/providers/QueryProvider';
@@ -38,7 +39,7 @@ export default function RootLayout({
                     <LoadingProvider>
                       {children}
                       {modal}
-                      {/* <AnimatedCursor /> */}
+                      <AnimatedCursorShowHandler />
                     </LoadingProvider>
                   </ModalProvider>
                 </QueryProvider>
