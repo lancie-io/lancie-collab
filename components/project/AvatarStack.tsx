@@ -1,6 +1,6 @@
 'use client';
 
-import { cn } from '@/lib/utils';
+import { cn, getPresenceColor } from '@/lib/utils';
 import { useOthers, useSelf } from '@/liveblocks.config';
 import React from 'react';
 import Avatar from '../shared/Avatar';
@@ -38,7 +38,7 @@ const AvatarStack = ({ className, ...props }: AvatarStackProps) => {
             user={avatarUser}
             className="w-6 h-6 md:w-7 md:h-7 border-2"
             style={{
-              borderColor: presence.color!,
+              borderColor: getPresenceColor(connectionId),
             }}
           />
         );

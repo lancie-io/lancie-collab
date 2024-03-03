@@ -1,5 +1,6 @@
 import { getPresenceColor } from '@/lib/utils';
-import { useSelf } from '@/liveblocks.config';
+import { Presence, UserMeta } from '@/liveblocks.config';
+import { User } from '@liveblocks/client';
 import Collaboration from '@tiptap/extension-collaboration';
 import CollaborationCursor from '@tiptap/extension-collaboration-cursor';
 import Highlight from '@tiptap/extension-highlight';
@@ -16,6 +17,7 @@ interface TipTapEditorProps {
   editable?: boolean;
   doc: any;
   provider: any;
+  self: User<Presence, UserMeta> | null;
 }
 
 export function TiptapEditor({
@@ -23,8 +25,8 @@ export function TiptapEditor({
   provider,
   placeholder,
   editable = true,
+  self,
 }: TipTapEditorProps) {
-  const self = useSelf((me) => me);
   const editor = useEditor({
     extensions: [
       StarterKit.configure({
@@ -55,9 +57,9 @@ export function TiptapEditor({
       CollaborationCursor.configure({
         provider: provider,
         user: {
-          name: self.info.name,
-          color: getPresenceColor(self.connectionId),
-          avatar: self.info.avatar,
+          name: self?.info.name,
+          color: self?.connectionId && getPresenceColor(self.connectionId),
+          avatar: self?.info.avatar,
         },
       }),
     ],
