@@ -3,6 +3,16 @@
 import DevSettings from '@/components/dev/DevSettings';
 import Container from '@/components/shared/Container';
 import Title from '@/components/shared/Title';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Dev',
+  description: 'Lancie dev settings page.',
+  robots: {
+    follow: false,
+    index: false,
+  },
+};
 
 const DevPage = () => {
   return (
