@@ -11,12 +11,12 @@ type TDetail = {
 
 const detailsData: TDetail[] = [
   {
-    title: 'Comments',
-    description: 'Get feedback from your team and clients.',
-    icon: 'MessagesSquare',
+    title: 'Moodboard',
+    description: 'Visualize ideas and create a tone for the movie.',
+    icon: 'Images',
   },
   {
-    title: 'File Upload',
+    title: 'Files Manager',
     description: 'Upload your files and keep them organized.',
     icon: 'File',
   },
@@ -27,13 +27,29 @@ const detailsData: TDetail[] = [
   },
   {
     title: 'Financials',
-    description: 'Keep track of your budget and expenses.',
+    description: 'Track your budget and expenses.',
     icon: 'DollarSign',
   },
   {
     title: 'Reference Media',
     description: 'Keep all your reference media in one place.',
     icon: 'Video',
+  },
+  {
+    title: 'Deliverables',
+    description:
+      'Keep track of different video formats and distribution channels.',
+    icon: 'Group',
+  },
+  {
+    title: 'Script',
+    description: 'Write down your movie script and screenplay.',
+    icon: 'Pen',
+  },
+  {
+    title: 'Team',
+    description: 'Assign crew and stakeholders to tasks.',
+    icon: 'Users',
   },
 ];
 

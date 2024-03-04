@@ -1,13 +1,12 @@
 import DetailsOverview from '@/components/home/DetailsOverview';
-import FeatureCollaborate from '@/components/home/FeatureCollaborate';
-import FeatureCreate from '@/components/home/FeatureCreate';
-import FeaturePublish from '@/components/home/FeaturePublish';
+import Flipper from '@/components/home/Flipper';
 import GetStartedCTA from '@/components/home/GetStartedCTA';
 import Hero from '@/components/home/Hero';
 import ProductScreens from '@/components/home/ProductScreens';
 import ProminentText from '@/components/home/ProminentText';
 import SocialTeaser from '@/components/home/SocialTeaser';
 import Testimonial from '@/components/home/Testimonial';
+import { flippers } from '@/lib/content';
 
 export default function Home() {
   return (
@@ -16,15 +15,12 @@ export default function Home() {
       <ProminentText />
       <SocialTeaser />
       <div className="space-y-24 md:space-y-56">
-        <FeatureCreate />
-        <FeaturePublish />
-        <FeatureCollaborate />
+        {flippers.map((flipper, idx) => (
+          <Flipper key={idx} data={flipper} flip={idx % 2 === 0} />
+        ))}
       </div>
       <Testimonial />
       {/* <SocialProof /> */}
-      {/* {flippers.map((flipper, idx) => (
-        <Flipper key={idx} data={flipper} flip={idx % 2 === 0} />
-      ))} */}
 
       <ProductScreens />
       <DetailsOverview />

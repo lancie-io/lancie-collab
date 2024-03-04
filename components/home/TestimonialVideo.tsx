@@ -35,6 +35,13 @@ const TestimonialVideo = () => {
         width="100%"
         height="100%"
         playsinline
+        config={{
+          file: {
+            attributes: {
+              poster: './testimonial-maik-thumbnail.jpg',
+            },
+          },
+        }}
       />
       <div
         className={cn(

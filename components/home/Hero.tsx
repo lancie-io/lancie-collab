@@ -1,5 +1,6 @@
 import Container from '../shared/Container';
 import Title from '../shared/Title';
+import CreatorAvatars from './CreatorAvatars';
 import HeroCTA from './HeroCTA';
 import HeroVisual from './HeroVisual';
 
@@ -7,22 +8,29 @@ const Hero = () => {
   return (
     <section id="hero" className="">
       <Container className="flex flex-col items-center gap-10 md:gap-12">
-        <Title
-          as="h1"
-          className="animate animate-fade-in-down text-center tracking-[-0.04em] font-extrabold leading-[1.1] bg-white bg-gradient-to-b from-white to-ring/50 bg-clip-text text-transparent"
-          style={{
-            fontSize: 'clamp(2.25rem, 6vw, 3.5rem)',
-          }}
-        >
-          Supercharge your <br />
-          video pre-production
-          {/* The pre-production <br className="md:hidden" />
+        <div className="flex flex-col items-center gap-4 md:gap-6">
+          <Title
+            as="h1"
+            className="animate animate-fade-in-down text-center tracking-[-0.04em] font-extrabold leading-[1.1] bg-white bg-gradient-to-b from-white to-ring/50 bg-clip-text text-transparent"
+            style={{
+              fontSize: 'clamp(1.8rem, 6vw, 3.5rem)',
+            }}
+          >
+            Supercharge your <br />
+            video pre-production
+            {/* The pre-production <br className="md:hidden" />
           tool
           <br className="hidden md:inline" /> for the modern{' '}
           <br className="md:hidden" />
           video creator */}
-        </Title>
-        <HeroCTA />
+          </Title>
+          <p className="text-muted-foreground md:text-lg animate animate-fade-in-down animate-delay-200 text-center">
+            Create beautiful video concepts <br />
+            with clients and crew.
+          </p>
+          <CreatorAvatars />
+          <HeroCTA />
+        </div>
         <HeroVisual />
         {/* <div className="relative w-full mt-8">
           <ModuleButtonReplica

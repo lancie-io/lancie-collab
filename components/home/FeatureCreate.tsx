@@ -1,4 +1,3 @@
-import { cn } from '@/lib/utils';
 import Image from 'next/image';
 import Balancer from 'react-wrap-balancer';
 import Container from '../shared/Container';
@@ -11,13 +10,6 @@ const FeatureCreate = () => {
         <div className="grid grid-cols-12 items-center">
           <div className="col-span-12 md:col-span-5">
             <div>
-              <span
-                className={cn(
-                  'uppercase font-semibold tracking-wider bg-gradient-to-b from-green-400 to-green-600 bg-clip-text text-transparent'
-                )}
-              >
-                Create
-              </span>
               <Title
                 as="h2"
                 className="text-3xl md:text-5xl mt-2 tracking-[-0.04em] font-extrabold "
@@ -34,10 +26,6 @@ const FeatureCreate = () => {
                   className="w-full"
                 />
               </div>
-              {/* Every great video starts with a clear common vision. Expressing
-                your ideas and capturing them in one collaborative place has
-                never been so easy and fun. Build it by yourself or together
-                with your team.  */}
               <p className="text-lg md:text-xl text-muted-foreground mt-3">
                 <Balancer>
                   Express your ideas faster and with more clarity using

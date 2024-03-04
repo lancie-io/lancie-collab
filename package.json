@@ -60,7 +60,7 @@
     "immutability-helper": "^3.1.1",
     "lodash.debounce": "^4.0.8",
     "lodash.isequal": "^4.5.0",
-    "lucide-react": "^0.323.0",
+    "lucide-react": "^0.329.0",
     "nanoid": "^5.0.6",
     "next": "14.0.0",
     "next-auth": "^4.24.4",

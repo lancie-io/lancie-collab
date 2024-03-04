@@ -11,7 +11,7 @@ const HeroCTA = () => {
         'animate animate-fade-in-down animate-delay-400'
       )}
     >
-      Start Creating
+      Start Creating - It&apos;s free
     </Link>
   );
 };
