@@ -3,19 +3,20 @@ import Container from './Container';
 
 const Footer = () => {
   return (
-    <div className="border-t py-4 md:py-8">
+    <div className="border-t py-6 md:py-8">
       <Container className="text-muted-foreground flex justify-center text-sm">
-        <ul className="flex gap-4">
-          <li>© 2024 Lancie.</li>·
+        <ul className="flex flex-col md:flex-row gap-2 md:gap-4 text-center">
+          <li>© 2024 Lancie.</li>
+          <span className="hidden md:inline">·</span>
           <li>
-            <Link href="/" className="hover:text-foreground">
-              Data Privacy
+            <Link href="/privacy" className="hover:text-foreground">
+              Privacy
             </Link>
           </li>
-          ·
+          <span className="hidden md:inline">·</span>
           <li>
-            <Link href="/" className="hover:text-foreground">
-              Imprint
+            <Link href="/terms" className="hover:text-foreground">
+              Terms
             </Link>
           </li>
         </ul>
