@@ -1,5 +1,4 @@
 import AnimatedCursorShowHandler from '@/components/AnimatedCursorShowHandler';
-import Analytics from '@/components/providers/Analytics';
 import AuthProvider from '@/components/providers/AuthProvider';
 import LoadingProvider from '@/components/providers/LoadingProvider';
 import QueryProvider from '@/components/providers/QueryProvider';
@@ -50,7 +49,6 @@ export default function RootLayout({
           </AuthProvider>
         </main>
       </body>
-      <Analytics />
     </html>
   );
 }
