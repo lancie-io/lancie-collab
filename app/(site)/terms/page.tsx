@@ -2,6 +2,16 @@ import MDXRenderer from '@/components/content/MDXRenderer';
 import Container from '@/components/shared/Container';
 import Title from '@/components/shared/Title';
 import { getContent } from '@/lib/content';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Terms',
+  description: 'Lancie terms.',
+  robots: {
+    follow: false,
+    index: false,
+  },
+};
 
 const TermsPage = async () => {
   const { data, content } = await getContent('terms');

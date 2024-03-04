@@ -1,4 +1,5 @@
 import AnimatedCursorShowHandler from '@/components/AnimatedCursorShowHandler';
+import Analytics from '@/components/providers/Analytics';
 import AuthProvider from '@/components/providers/AuthProvider';
 import LoadingProvider from '@/components/providers/LoadingProvider';
 import QueryProvider from '@/components/providers/QueryProvider';
@@ -16,8 +17,9 @@ import '../styles/liveblocks.css';
 import '../styles/prose.css';
 
 export const metadata: Metadata = {
-  title: 'Lancie Collab',
-  description: 'The fastest path to production.',
+  title: 'Lancie - Supercharge your video pre-production',
+  description:
+    'Collaborative video pre-production tool for creators and teams. Create stunning visuals and drive real results.',
 };
 
 export default function RootLayout({
@@ -48,6 +50,7 @@ export default function RootLayout({
           </AuthProvider>
         </main>
       </body>
+      <Analytics />
     </html>
   );
 }
