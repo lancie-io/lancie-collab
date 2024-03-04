@@ -18,7 +18,7 @@ export const metadata: Metadata = {
 const TermsPage = async () => {
   const { data, content } = await getContent('terms');
   return (
-    <Container className="grow py-12 md:py-20 max-w-[1200px]">
+    <Container className="grow py-12 md:py-20 max-w-[1200px] flex flex-col gap-6 md:gap-12">
       <Title className="text-3xl md:text-5xl" mega>
         {data.title}
       </Title>
