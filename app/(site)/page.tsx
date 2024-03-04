@@ -6,7 +6,7 @@ import ProductScreens from '@/components/home/ProductScreens';
 import ProminentText from '@/components/home/ProminentText';
 import SocialTeaser from '@/components/home/SocialTeaser';
 import Testimonial from '@/components/home/Testimonial';
-import { flippers } from '@/lib/content';
+import { flippers } from '@/lib/flippercontent';
 
 export default function Home() {
   return (

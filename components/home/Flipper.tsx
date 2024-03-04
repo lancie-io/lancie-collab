@@ -1,4 +1,4 @@
-import { FlipperData } from '@/lib/content';
+import { FlipperData } from '@/lib/flippercontent';
 import { cn } from '@/lib/utils';
 import Balancer from 'react-wrap-balancer';
 import Container from '../shared/Container';
