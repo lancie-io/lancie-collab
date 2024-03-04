@@ -1,5 +1,3 @@
-'use client';
-
 import DevSettings from '@/components/dev/DevSettings';
 import Container from '@/components/shared/Container';
 import Title from '@/components/shared/Title';
