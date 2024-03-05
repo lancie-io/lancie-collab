@@ -13,6 +13,10 @@ const type: ElementType = 'moodboard';
 export type TImage = {
   url: string;
   id: string;
+  user?: {
+    name?: string;
+    username?: string;
+  };
 };
 
 export type MoodboardAttributes = {

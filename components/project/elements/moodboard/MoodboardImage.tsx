@@ -1,4 +1,3 @@
-import OptimizedImage from '@/components/shared/OptimizedImage';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { Trash } from 'lucide-react';
@@ -30,7 +29,7 @@ const MoodboardImage = forwardRef<HTMLDivElement, MoodboardImageProps>(
         style={style}
         {...props}
       >
-        <OptimizedImage src={image!.url} steps={[300]} />
+        <img src={image!.url} />
         {!isDragging && (
           <Button
             onClick={() => removeImage(image!.id)}
@@ -40,6 +39,25 @@ const MoodboardImage = forwardRef<HTMLDivElement, MoodboardImageProps>(
           >
             <Trash className="w-4 h-4" />
           </Button>
+        )}
+        {image.user && (
+          <span className="absolute left-2 bottom-1 opacity-0 group-hover:opacity-100 text-sm">
+            Photo by{' '}
+            <a
+              className="underline"
+              href={`https://unsplash.com/@${image.user?.username}?utm_source=lancie_name&utm_medium=referral`}
+              target="_blank"
+            >
+              {image.user?.name}
+            </a>{' '}
+            on{' '}
+            <a
+              href="https://unsplash.com/?utm_source=lancie&utm_medium=referral"
+              className="underline"
+            >
+              Unsplash
+            </a>
+          </span>
         )}
       </div>
     );

@@ -3,6 +3,7 @@ import { useLiveblocks } from '@/lib/liveblocks';
 import { idGenerator } from '@/lib/utils';
 import { useRef } from 'react';
 import { MoodboardCustomInstance, TImage } from './MoodboardBuilderElement';
+import { UnsplashPhoto } from './unsplash-action';
 
 export function useMoodboard(element: MoodboardCustomInstance) {
   const { updateElement } = useLiveblocks();
@@ -10,6 +11,27 @@ export function useMoodboard(element: MoodboardCustomInstance) {
   elementRef.current = element;
 
   const images = elementRef.current.extraAttributes.images;
+
+  function addUnsplashImage(image: UnsplashPhoto) {
+    const updatedElement = {
+      ...elementRef.current,
+      extraAttributes: {
+        ...elementRef.current.extraAttributes,
+        images: [
+          {
+            url: image.urls.small,
+            user: {
+              name: image.user.name,
+              username: image.user.username,
+            },
+            id: idGenerator(),
+          },
+          ...elementRef.current.extraAttributes.images,
+        ],
+      },
+    };
+    updateElement(element.id, updatedElement);
+  }
 
   function addImage(image: UploadedFile) {
     const updatedElement = {
@@ -54,5 +76,5 @@ export function useMoodboard(element: MoodboardCustomInstance) {
       },
     });
   }
-  return { addImage, removeImage, moveImage };
+  return { addImage, addUnsplashImage, removeImage, moveImage };
 }

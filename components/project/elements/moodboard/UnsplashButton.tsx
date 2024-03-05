@@ -1,4 +1,3 @@
-import OptimizedImage from '@/components/shared/OptimizedImage';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import {
@@ -12,7 +11,12 @@ import { HeartCrack, Image as ImageIcon, Loader2, Search } from 'lucide-react';
 import { useState } from 'react';
 import Masonry, { ResponsiveMasonry } from 'react-responsive-masonry';
 import { MoodboardCustomInstance } from './MoodboardBuilderElement';
-import { fetchUnsplash } from './unsplash-action';
+import { triggerUnsplashDownloadLink } from './actions';
+import {
+  UnsplashPhoto,
+  UnsplashResponse,
+  fetchUnsplash,
+} from './unsplash-action';
 import { useMoodboard } from './useMoodboard';
 
 interface UnsplashButtonProps {
@@ -24,7 +28,7 @@ const UnsplashButton = ({ element }: UnsplashButtonProps) => {
   const debouncedSearchValue = useDebounce(searchValue, 300);
   const { data, status } = useQuery({
     queryKey: ['unsplash', debouncedSearchValue],
-    queryFn: async () => {
+    queryFn: async (): Promise<UnsplashResponse> => {
       return await fetchUnsplash({ query: debouncedSearchValue });
     },
   });
@@ -33,12 +37,20 @@ const UnsplashButton = ({ element }: UnsplashButtonProps) => {
     setSearchValue(e.currentTarget.value);
   };
 
-  const { addImage } = useMoodboard(element);
+  const { addUnsplashImage } = useMoodboard(element);
 
   const [open, setOpen] = useState(false);
 
-  const handleClick = (url: string) => {
-    addImage({ url, name: null });
+  const handleClick = async (photo: UnsplashPhoto) => {
+    addUnsplashImage(photo);
+    const res = await triggerUnsplashDownloadLink(
+      photo.links.download_location
+    );
+    // if (res.success) {
+    //   toast.success('Image added successfully');
+    // } else {
+    //   toast.error(JSON.stringify(res.error));
+    // }
     setOpen(false);
   };
 
@@ -51,7 +63,7 @@ const UnsplashButton = ({ element }: UnsplashButtonProps) => {
             Search
           </Button>
         </PopoverTrigger>
-        <PopoverContent className="w-auto">
+        <PopoverContent className="w-auto max-h-[400px] overflow-scroll">
           <div className="h-[400px] w-[600px] flex flex-col gap-4">
             <Input
               value={searchValue}
@@ -91,13 +103,17 @@ const UnsplashButton = ({ element }: UnsplashButtonProps) => {
                         <button
                           key={photo.urls.regular}
                           tabIndex={-1}
-                          className="relative overflow-hidden rounded-md"
-                          onClick={() => handleClick(photo.urls.regular)}
+                          className="relative overflow-hidden rounded-md group"
+                          onClick={() => handleClick(photo)}
                         >
-                          <OptimizedImage
-                            src={photo.urls.regular}
-                            steps={[300]}
-                          />
+                          <img src={photo.urls.small} />
+                          <a
+                            className="absolute left-2 bottom-1 font-medium opacity-0 group-hover:opacity-100 text-xs"
+                            href={`https://unsplash.com/@${photo.user.username}?utm_source=lancie_name&utm_medium=referral`}
+                            target="_blank"
+                          >
+                            {photo.user.name}
+                          </a>
                         </button>
                       );
                     })}
