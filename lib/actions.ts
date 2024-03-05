@@ -6,6 +6,15 @@ import { getAuthUser } from './auth';
 import prisma from './prisma';
 import { sendInviteEmail } from './sendgrid';
 
+export async function getProject(id?: string) {
+  const project = await prisma.project.findUnique({
+    where: {
+      id,
+    },
+  });
+  return project;
+}
+
 export async function getProjectTitle(id?: string) {
   const project = await prisma.project.findUnique({
     where: {

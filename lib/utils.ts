@@ -1,4 +1,5 @@
 import { clsx, type ClassValue } from 'clsx';
+import { Metadata } from 'next';
 import { twMerge } from 'tailwind-merge';
 import { COLORS } from './constants';
 
@@ -64,3 +65,34 @@ export function getPresenceColor(connectionId: number) {
   );
   return COLORS[connectionId % COLORS.length];
 }
+
+export interface MetaDataData {
+  title: string;
+  description: string;
+  slug?: string;
+  imageUrl?: string;
+}
+
+export const createMetaDataObject = (data: MetaDataData): Metadata => {
+  const {
+    title,
+    description,
+    imageUrl = 'https://res.cloudinary.com/dum2lqmke/image/upload/v1692958978/og-image_tssqjm.jpg',
+  } = data;
+
+  return {
+    title: `${title}`,
+    description,
+    openGraph: {
+      title,
+      description,
+      images: imageUrl,
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
+      images: imageUrl,
+    },
+  };
+};

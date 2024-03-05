@@ -4,10 +4,11 @@ import DndProvider from '@/components/providers/DndProvider';
 import ProjectProvider from '@/components/providers/ProjectProvider';
 import { RoomProvider } from '@/components/providers/RoomProvider';
 import ViewProvider from '@/components/providers/ViewProvider';
-import { getProjectTitle } from '@/lib/actions';
+import { getProject } from '@/lib/actions';
 import { getAuthUser } from '@/lib/auth';
 import prisma from '@/lib/prisma';
-import { Metadata, ResolvingMetadata } from 'next';
+import { MetaDataData, createMetaDataObject } from '@/lib/utils';
+import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import ProjectPageCore from './ProjectPageCore';
 
@@ -16,19 +17,24 @@ type Props = {
   searchParams: { [key: string]: string | string[] | undefined };
 };
 
-export async function generateMetadata(
-  { params, searchParams }: Props,
-  parent: ResolvingMetadata
-): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: Props): Promise<Metadata | undefined> {
   // read route params
   const id = params.id;
 
   // fetch data
-  const projectTitle = await getProjectTitle(id);
-  return {
-    title: projectTitle,
-    description: 'Lancie project created by',
+  const project = await getProject(id);
+  if (!project) {
+    return;
+  }
+  const newMetadata: MetaDataData = {
+    title: project.name!,
+    description: project.description!,
+    imageUrl: project.cover!,
   };
+  const metadata = createMetaDataObject(newMetadata);
+  return metadata;
 }
 
 const ProjectPage = async ({ params }: { params: { id: string } }) => {

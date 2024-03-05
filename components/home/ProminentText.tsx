@@ -9,10 +9,10 @@ const ProminentText = () => {
         <Title className="text-xl md:text-5xl text-center" mega>
           <Balancer>
             <span className="text-muted-foreground leading-[1.2]">
-              The collaboration tool for videographers{' '}
+              Create, collaborate, and align your next shoot with ease.
             </span>
             <span className="text-foreground leading-[1.2]">
-              that care about quality.
+              All on your Lancie board.
             </span>
           </Balancer>
         </Title>

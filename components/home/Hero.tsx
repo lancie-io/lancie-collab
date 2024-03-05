@@ -1,3 +1,4 @@
+import Balancer from 'react-wrap-balancer';
 import Container from '../shared/Container';
 import Title from '../shared/Title';
 import CreatorAvatars from './CreatorAvatars';
@@ -16,8 +17,8 @@ const Hero = () => {
               fontSize: 'clamp(1.8rem, 6vw, 3.5rem)',
             }}
           >
-            Supercharge your <br />
-            video pre-production
+            Video pre-production <br />
+            made easy
             {/* The pre-production <br className="md:hidden" />
           tool
           <br className="hidden md:inline" /> for the modern{' '}
@@ -25,8 +26,10 @@ const Hero = () => {
           video creator */}
           </Title>
           <p className="text-muted-foreground md:text-lg animate animate-fade-in-down animate-delay-200 text-center">
-            Create beautiful video concepts <br />
-            with clients and crew.
+            <Balancer>
+              Create beautiful video concepts with clients and crew. <br />
+              Lancie simplifies decision-making and brings visions to life.
+            </Balancer>
           </p>
           <CreatorAvatars />
           <HeroCTA />
