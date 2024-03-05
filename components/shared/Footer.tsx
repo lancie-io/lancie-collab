@@ -1,4 +1,6 @@
+'use client';
 import Link from 'next/link';
+import { trackEvent } from '../providers/Analytics';
 import Container from './Container';
 
 const Footer = () => {
@@ -9,13 +11,25 @@ const Footer = () => {
           <li>© 2024 Lancie.</li>
           <span className="hidden md:inline">·</span>
           <li>
-            <Link href="/privacy" className="hover:text-foreground">
+            <Link
+              href="/privacy"
+              className="hover:text-foreground"
+              onClick={() =>
+                trackEvent('Footer Link Clicked', { href: '/privacy' })
+              }
+            >
               Privacy
             </Link>
           </li>
           <span className="hidden md:inline">·</span>
           <li>
-            <Link href="/terms" className="hover:text-foreground">
+            <Link
+              href="/terms"
+              className="hover:text-foreground"
+              onClick={() =>
+                trackEvent('Footer Link Clicked', { href: '/privacy' })
+              }
+            >
               Terms
             </Link>
           </li>

@@ -4,17 +4,31 @@ import { useInView } from 'framer-motion';
 import { Play } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 import ReactPlayer from 'react-player';
+import { trackEvent } from '../providers/Analytics';
 
 const TestimonialVideo = () => {
   const [playing, setPlaying] = useState(false);
   const ref = useRef(null);
   const isInView = useInView(ref);
+  const [progress, setProgress] = useState(0);
 
   const handlePlaying = () => {
-    setPlaying((playing) => !playing);
+    setPlaying((playing) => {
+      if (playing) {
+        trackEvent('Testimonial Video Stopped', { progress });
+      } else {
+        trackEvent('Testimonial Video Started');
+      }
+      return !playing;
+    });
   };
   useEffect(() => {
-    if (!isInView) setPlaying(false);
+    if (!isInView) {
+      if (playing) {
+        setPlaying(false);
+        trackEvent('Testimonial Video Stopped', { progress });
+      }
+    }
   }, [isInView]);
   return (
     <div
@@ -25,6 +39,7 @@ const TestimonialVideo = () => {
       <ReactPlayer
         url={'/maik_testimonial.mp4'}
         playing={playing}
+        onProgress={(state) => setProgress(Number(state.played.toFixed(4)))}
         style={{
           position: 'absolute',
           width: '100%',

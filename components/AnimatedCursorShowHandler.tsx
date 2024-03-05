@@ -3,9 +3,9 @@ import useLocalStorage from '@/lib/hooks/useLocalStorage';
 import AnimatedCursor from './AnimatedCursor';
 
 const AnimatedCursorShowHandler = () => {
-  const [isCustomCursor] = useLocalStorage('custom-cursor');
+  const [showCustomCursor] = useLocalStorage('show-custom-cursor');
 
-  if (!isCustomCursor) {
+  if (!showCustomCursor) {
     return null;
   }
   return <AnimatedCursor />;

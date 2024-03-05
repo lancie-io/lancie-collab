@@ -4,6 +4,7 @@ import { Loader2 } from 'lucide-react';
 import { signIn } from 'next-auth/react';
 import { useSearchParams } from 'next/navigation';
 import React from 'react';
+import { trackEvent } from '../providers/Analytics';
 import { Button, ButtonProps } from '../ui/button';
 
 interface LoginButtonProps extends ButtonProps {
@@ -20,6 +21,7 @@ const LoginButton = ({ children, provider, ...props }: LoginButtonProps) => {
 
   const handleClick = () => {
     setLoading(true);
+    trackEvent('Login Button Clicked', { provider });
     signIn(provider, {
       callbackUrl: callbackUrl || '/app',
     });

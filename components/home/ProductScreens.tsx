@@ -1,9 +1,7 @@
-import { cn } from '@/lib/utils';
 import Image from 'next/image';
-import Link from 'next/link';
 import Container from '../shared/Container';
 import Title from '../shared/Title';
-import { buttonVariants } from '../ui/button';
+import MegaCTA from './MegaCTA';
 
 const ProductScreens = () => {
   return (
@@ -38,18 +36,7 @@ const ProductScreens = () => {
             <Image src="/product-projects.jpg" fill alt="screen" />
           </div>
         </div>
-        <Link
-          href="/app"
-          className={cn(
-            buttonVariants({
-              variant: 'primary',
-              size: 'mega',
-            }),
-            'relative z-10 mt-4 md:mt-8'
-          )}
-        >
-          Start Project - It&apos;s free
-        </Link>
+        <MegaCTA id="product-screenss" />
       </Container>
     </section>
   );

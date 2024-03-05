@@ -1,19 +1,11 @@
 import { getAuthUser } from '@/lib/auth';
-import Link from 'next/link';
-import { buttonVariants } from '../ui/button';
 import AvatarDropdown from './AvatarDropdown';
+import SignInButton from './SignInButton';
 
 const SignInOrAvatar = async () => {
   const user = await getAuthUser();
   if (!user) {
-    return (
-      <Link
-        href="/login"
-        className={buttonVariants({ variant: 'primary', size: 'sm' })}
-      >
-        Sign In
-      </Link>
-    );
+    return <SignInButton />;
   }
   return <AvatarDropdown showName={false} inApp={false} />;
 };

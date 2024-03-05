@@ -9,6 +9,7 @@ import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 import { z } from 'zod';
+import { trackEvent } from '../providers/Analytics';
 import { Button } from '../ui/button';
 import {
   Form,
@@ -47,6 +48,10 @@ const ProjectCreateForm = () => {
       toast.success(res.message);
       sendProjectCreated(makeProjectData);
       router.refresh();
+      trackEvent('Project Created', {
+        name: values.name,
+        email: session?.data?.user?.email,
+      });
       hide();
     } else {
       toast.error(res.message);
