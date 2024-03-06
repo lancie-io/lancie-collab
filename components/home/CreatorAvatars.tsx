@@ -23,7 +23,7 @@ const data: CreatorAvatarType[] = [
 
 const CreatorAvatars = () => {
   return (
-    <div className="flex">
+    <div className="flex pb-1">
       {data.map((creator, idx) => {
         return (
           <CreatorAvatar

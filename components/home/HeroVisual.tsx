@@ -191,7 +191,7 @@ const HeroVisual = () => {
             {comments[1].body}
           </Comment>
         </div>
-        <MousePointer2 className="absolute top-[40%] md:top-[55%] left-[55%] fill-rose-500/60 stroke-rose-400 w-10 md:w-12 h-10 md:h-12" />
+        <MousePointer2 className="absolute top-[40%] md:top-[55%] left-[55%] fill-foreground stroke-foreground w-10 md:w-12 h-10 md:h-12" />
       </div>
     </div>
   );

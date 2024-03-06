@@ -4,13 +4,13 @@ import Title from '../shared/Title';
 
 const ProminentText = () => {
   return (
-    <section id="prominenttext">
+    <section id="prominenttext" className="-my-8">
       <Container className="max-w-[1400px]">
         <Title className="text-xl md:text-5xl text-center" mega>
           <Balancer>
             <span className="text-muted-foreground leading-[1.2]">
               Create, collaborate, and align your next shoot with ease.
-            </span>
+            </span>{' '}
             <span className="text-foreground leading-[1.2]">
               All on your Lancie board.
             </span>

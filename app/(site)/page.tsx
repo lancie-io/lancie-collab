@@ -10,13 +10,13 @@ import { flippers } from '@/lib/flippercontent';
 
 export default function Home() {
   return (
-    <div className="py-12 md:py-20 flex flex-col gap-24 md:gap-48 overflow-hidden bg-[radial-gradient(50%_10%_at_50%_0%,rgba(255,77,20,0.1)_0%,rgba(255,77,20,0)_100%)]">
+    <div className="py-12 md:py-20 flex flex-col gap-28 md:gap-56 overflow-hidden bg-[radial-gradient(50%_10%_at_50%_0%,rgba(255,77,20,0.1)_0%,rgba(255,77,20,0)_100%)]">
       <Hero />
       <ProminentText />
       <SocialTeaser />
-      <div className="space-y-24 md:space-y-56">
+      <div className="space-y-20 md:space-y-48">
         {flippers.map((flipper, idx) => (
-          <Flipper key={idx} data={flipper} flip={idx % 2 === 0} />
+          <Flipper key={idx} data={flipper} flip={idx % 2 !== 0} />
         ))}
       </div>
       <Testimonial />

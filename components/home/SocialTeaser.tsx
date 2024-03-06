@@ -7,7 +7,7 @@ import { Testimonial, testimonialData } from './SocialProof';
 
 const SocialTeaser = () => {
   return (
-    <section id="socialteaser" className="-mb-0 md:-mb-16">
+    <section id="socialteaser" className="">
       <Container className="flex flex-col gap-6 md:gap-16 items-center">
         <Title mega className="text-xl shrink-0 text-muted-foreground">
           Trusted by top creators
@@ -74,7 +74,7 @@ const CreatorItem = ({
         }}
       >
         <div className="bg-ring/25 backdrop-blur-sm text-background text-2xs md:text-sm rounded-md px-2 py-0.5 -translate-x-3/4 -translate-y-2/3 absolute">
-          <p className="font-medium bg-clip-text text-white">11k</p>
+          <p className="font-medium bg-clip-text text-white">{followers}k</p>
         </div>
         <Instagram className="w-4 h-4 lg:w-6 md:h-6" />
       </div>

@@ -13,7 +13,7 @@ const FlipperLabel = ({
   return (
     <span
       className={cn(
-        'uppercase font-semibold tracking-wider'
+        'uppercase text-sm md:text-base font-semibold tracking-wider'
         // `from-[${fromColor}] to-[${toColor}]`
       )}
       style={{

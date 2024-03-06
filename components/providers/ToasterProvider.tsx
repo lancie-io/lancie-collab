@@ -1,14 +1,20 @@
 'use client';
 import { Toaster as SonnerToaster } from '@/components/ui/sonner';
+import { getLocalStorage } from '@/lib/hooks/useLocalStorage';
 import colors from '@/resolveConfig';
 import React from 'react';
 import { Toaster } from 'react-hot-toast';
 
 const ToasterProvider = ({ children }: { children: React.ReactNode }) => {
+  const showTrackingEventToast = getLocalStorage('show-tracking-event-toast');
   return (
     <>
       {children}
-      <SonnerToaster position="top-center" theme="dark" />
+      <SonnerToaster
+        position={showTrackingEventToast ? 'bottom-right' : 'top-center'}
+        theme="dark"
+        expand={true}
+      />
       <Toaster
         toastOptions={{
           // Define default options

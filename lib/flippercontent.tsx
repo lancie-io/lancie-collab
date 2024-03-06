@@ -1,4 +1,8 @@
+import visualBuilding from '@/public/visual-building.png';
+import visualCollaborating from '@/public/visual-collaboration.png';
+import visualSharing from '@/public/visual-sharing.png';
 import colors from '@/resolveConfig';
+import Image from 'next/image';
 import { ReactNode } from 'react';
 
 export type FlipperData = {
@@ -8,13 +12,16 @@ export type FlipperData = {
   title: ReactNode;
   description: string;
   visual: ReactNode;
+  classNameText?: string;
+  classNameVisual?: string;
+  narrow?: boolean;
 };
 
 export const flippers: FlipperData[] = [
   {
     label: 'Create',
-    fromColor: colors.green[500],
-    toColor: colors.green[600],
+    fromColor: colors.emerald[500],
+    toColor: colors.emerald[600],
     title: (
       <>
         Craft beautiful concepts.
@@ -24,7 +31,7 @@ export const flippers: FlipperData[] = [
     ),
     description:
       "Don't start from scratch. Pre-built modules help you structure creative thoughts quickly.",
-    visual: <div>Animation Move</div>,
+    visual: <Image src={visualBuilding} alt="Lancie building block UI" />,
   },
   {
     label: 'Pitch',
@@ -39,7 +46,10 @@ export const flippers: FlipperData[] = [
     ),
     description:
       'Share your Lancie board with clients and stakeholders in one-click.',
-    visual: <div>Animation Share</div>,
+    visual: <Image src={visualSharing} alt="Lancie sharing UI" />,
+    classNameVisual: 'col-span-12 md:col-span-5 md:col-start-2',
+    classNameText: 'col-span-12 md:col-span-5',
+    narrow: true,
   },
   {
     label: 'Collaborate',
@@ -54,6 +64,8 @@ export const flippers: FlipperData[] = [
     ),
     description:
       'Move beyond emails, spreadsheets and other tools. Ideate, collaborate and manage files all in one place. In real-time.',
-    visual: <div>Animation Collaborate</div>,
+    visual: (
+      <Image src={visualCollaborating} alt="Lancie collaborating users" />
+    ),
   },
 ];

@@ -9,7 +9,7 @@ const Hero = () => {
   return (
     <section id="hero" className="">
       <Container className="flex flex-col items-center gap-10 md:gap-12">
-        <div className="flex flex-col items-center gap-4 md:gap-6">
+        <div className="flex flex-col items-center gap-3 md:gap-5">
           <Title
             as="h1"
             className="animate animate-fade-in-down text-center tracking-[-0.04em] font-extrabold leading-[1.1] bg-white bg-gradient-to-b from-white to-ring/50 bg-clip-text text-transparent"
