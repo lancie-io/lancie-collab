@@ -14,7 +14,7 @@ export default function Home() {
       <Hero />
       <ProminentText />
       <SocialTeaser />
-      <div className="space-y-20 md:space-y-48">
+      <div className="space-y-16 md:space-y-40">
         {flippers.map((flipper, idx) => (
           <Flipper key={idx} data={flipper} flip={idx % 2 !== 0} />
         ))}

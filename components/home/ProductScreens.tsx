@@ -17,7 +17,7 @@ const ProductScreens = () => {
           </p>
         </div>
 
-        <div className="relative flex justify-center w-[150%] md:w-full -translate-x-[16.67%] md:translate-x-0 mb-4 md:mb-4">
+        <div className="relative flex justify-center w-[150%] md:w-full -translate-x-[16.67%] md:translate-x-0 mb-4 md:mb-2">
           <div className="aspect-video border rounded-2xl w-1/3 overflow-hidden absolute -translate-x-3/4 top-1/2 -translate-y-1/2 opacity-50">
             <Image
               src="/product-table.jpg"
