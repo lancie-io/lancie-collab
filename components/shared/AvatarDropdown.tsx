@@ -1,3 +1,5 @@
+'use client';
+
 import Avatar from '@/components/shared/Avatar';
 import {
   DropdownMenu,
@@ -5,10 +7,9 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { getAuthUser } from '@/lib/auth';
+import { useAuthUser } from '@/lib/auth';
 import { LayoutGrid, Monitor, Settings } from 'lucide-react';
 import Link from 'next/link';
-import { Skeleton } from '../ui/skeleton';
 import LogOutDropdownItem from './LogOutDropdownItem';
 
 interface AvatarDropdownProps {
@@ -16,23 +17,8 @@ interface AvatarDropdownProps {
   inApp: boolean;
 }
 
-export const LoadingAvatarDropdown = () => {
-  return (
-    <div className="flex gap-2 items-center max-w-full">
-      <Skeleton className="w-8 h-8" />
-      <div className="space-y-2">
-        <Skeleton className="w-8 h-4" />
-        <Skeleton className="w-32 h-2" />
-      </div>
-    </div>
-  );
-};
-
-const AvatarDropdown = async ({
-  showName = false,
-  inApp,
-}: AvatarDropdownProps) => {
-  const user = await getAuthUser();
+const AvatarDropdown = ({ showName = false, inApp }: AvatarDropdownProps) => {
+  const user = useAuthUser();
   if (!user) {
     return;
   }

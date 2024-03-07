@@ -23,17 +23,22 @@ const data: CreatorAvatarType[] = [
 
 const CreatorAvatars = () => {
   return (
-    <div className="flex pb-1">
-      {data.map((creator, idx) => {
-        return (
-          <CreatorAvatar
-            key={idx}
-            idx={idx}
-            creator={creator}
-            className={idx !== data.length - 1 ? '-mr-2' : ''}
-          />
-        );
-      })}
+    <div className="flex items-center gap-2">
+      <div className="flex">
+        {data.map((creator, idx) => {
+          return (
+            <CreatorAvatar
+              key={idx}
+              idx={idx}
+              creator={creator}
+              className={idx !== data.length - 1 ? '-mr-2' : ''}
+            />
+          );
+        })}
+      </div>
+      <p className="text-xs md:text-sm text-muted-foreground">
+        Loved by 300+ creators already
+      </p>
     </div>
   );
 };
@@ -61,8 +66,8 @@ const CreatorAvatar = ({
     >
       <Image
         src={creator.image}
-        width={32}
-        height={32}
+        width={24}
+        height={24}
         alt={`Picture of ${creator.name}`}
       />
     </div>

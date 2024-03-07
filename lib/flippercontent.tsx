@@ -31,7 +31,13 @@ export const flippers: FlipperData[] = [
     ),
     description:
       "Don't start from scratch. Pre-built modules help you structure creative thoughts quickly.",
-    visual: <Image src={visualBuilding} alt="Lancie building block UI" />,
+    visual: (
+      <Image
+        src={visualBuilding}
+        alt="Lancie building block UI"
+        sizes="(max-width: 768px) 400px, 900px"
+      />
+    ),
   },
   {
     label: 'Pitch',
@@ -46,7 +52,14 @@ export const flippers: FlipperData[] = [
     ),
     description:
       'Share your Lancie board with clients and stakeholders in one-click.',
-    visual: <Image src={visualSharing} alt="Lancie sharing UI" />,
+
+    visual: (
+      <Image
+        src={visualSharing}
+        alt="Lancie sharing UI"
+        sizes="(max-width: 768px) 400px, 600px"
+      />
+    ),
     classNameVisual: 'col-span-12 md:col-span-5 md:col-start-2',
     classNameText: 'col-span-12 md:col-span-5',
     narrow: true,
@@ -65,7 +78,11 @@ export const flippers: FlipperData[] = [
     description:
       'Move beyond emails, spreadsheets and other tools. Ideate, collaborate and manage files all in one place. In real-time.',
     visual: (
-      <Image src={visualCollaborating} alt="Lancie collaborating users" />
+      <Image
+        src={visualCollaborating}
+        alt="Lancie collaborating users"
+        sizes="(max-width: 768px) 400px, 900px"
+      />
     ),
   },
 ];

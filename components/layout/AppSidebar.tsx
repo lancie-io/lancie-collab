@@ -1,9 +1,6 @@
 import { PanelLeft } from 'lucide-react';
-import { Suspense } from 'react';
 import FeedbackButton from '../FeedbackButton';
-import AvatarDropdown, {
-  LoadingAvatarDropdown,
-} from '../shared/AvatarDropdown';
+import AvatarDropdown from '../shared/AvatarDropdown';
 import { Button } from '../ui/button';
 import { Sheet, SheetContent, SheetTrigger } from '../ui/sheet';
 import WelcomeModal from '../welcomemodal/WelcomeModal';
@@ -13,9 +10,7 @@ const AppSidebar = () => {
   return (
     <aside className="p-3 md:p-6 h-full flex flex-col">
       <div className="mb-auto">
-        <Suspense fallback={<LoadingAvatarDropdown />}>
-          <AvatarDropdown inApp={true} showName={true} />
-        </Suspense>
+        <AvatarDropdown inApp={true} showName={true} />
         <SidebarMenu />
       </div>
       <div className="flex flex-col items-stretch gap-1.5">

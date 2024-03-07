@@ -2,16 +2,15 @@ import { cn } from '@/lib/utils';
 import { Instagram } from 'lucide-react';
 import Image from 'next/image';
 import Container from '../shared/Container';
-import Title from '../shared/Title';
 import { Testimonial, testimonialData } from './SocialProof';
 
 const SocialTeaser = () => {
   return (
-    <section id="socialteaser" className="">
-      <Container className="flex flex-col gap-6 md:gap-16 items-center">
-        <Title mega className="text-xl shrink-0 text-muted-foreground">
+    <section id="socialteaser">
+      <Container className="flex flex-col gap-4 md:gap-12 items-center">
+        <h2 className="uppercase text-sm md:text-base font-semibold tracking-wider bg-foreground bg-gradient-to-bl from-foreground to-ring/80 bg-clip-text text-transparent">
           Trusted by top creators
-        </Title>
+        </h2>
         <div className="grid grid-cols-2 gap-3 md:gap-0 md:flex md:justify-center w-full px-0 md:px-0">
           <CreatorItem
             className="md:-translate-y-1/4 md:rotate-2"
@@ -56,7 +55,7 @@ const CreatorItem = ({
       {...props}
     >
       <div className="relative aspect-square w-12 sm:w-14 lg:w-16 xl:w-20 rounded-full overflow-hidden shrink-0">
-        <Image src={image} fill alt="avatar" />
+        <Image src={image} fill alt="avatar" sizes="70px" />
       </div>
       <div className="mr-auto">
         <h3 className="font-medium whitespace-nowrap text-xs md:text-sm">

@@ -37,19 +37,19 @@ const data: HeroData = {
   ],
   users: [
     {
-      name: 'Alejandro',
-      image: '/user-1.jpg',
+      name: 'Tariq',
+      image: '/user-tariq.jpg',
+      color: colors['indigo-500'],
+    },
+    {
+      name: 'Theo',
+      image: '/user-beats.jpg',
       color: colors['fuchsia-500'],
     },
     {
-      name: 'Maik',
-      image: '/creator-maik.jpg',
+      name: 'Lilly',
+      image: '/user-blonde-girl.jpg',
       color: colors['rose-500'],
-    },
-    {
-      name: 'Verena',
-      image: '/verena.jpg',
-      color: colors['indigo-500'],
     },
   ],
   comments: [
@@ -125,40 +125,41 @@ const HeroVisual = () => {
           <Image
             src={users[0].image}
             alt="Lancie User 1"
-            width={29}
-            height={29}
-            className="rounded-full z-20 -mr-2 ring-offset-background ring-offset-[1.5px] md:ring-offset-2 ring-amber-500 ring-[1px] md:ring-[1.5px] box-border w-[20px] h-[20px] md:w-[29px] md:h-[29px]"
+            width={28}
+            height={28}
+            className="rounded-full z-20 -mr-2 ring-offset-background ring-offset-[1.5px] md:ring-offset-2  ring-amber-500 ring-[1px] md:ring-[1.5px] box-border w-[20px] h-[20px] md:w-[28px] md:h-[28px]"
           />
           <Image
             src={users[1].image}
             alt="Lancie User 1"
-            width={29}
-            height={29}
-            className="rounded-full z-10 -mr-2 ring-offset-background ring-offset-[1.5px] md:ring-offset-2 ring-lime-500 ring-[1px] md:ring-[1.5px] box-border w-[20px] h-[20px] md:w-[29px] md:h-[29px]"
+            width={28}
+            height={28}
+            className="rounded-full z-10 -mr-2 ring-offset-background ring-offset-[1.5px] md:ring-offset-2 ring-cyan-500 ring-[1px] md:ring-[1.5px] box-border w-[20px] h-[20px] md:w-[28px] md:h-[28px]"
           />
           <Image
             src={users[2].image}
             alt="Lancie User 1"
-            width={29}
-            height={29}
-            className="rounded-full ring-offset-background ring-offset-[1.5px] md:ring-offset-2 ring-blue-500 ring-[1px] md:ring-[1.5px] box-border w-[20px] h-[20px] md:w-[29px] md:h-[29px]"
+            width={28}
+            height={28}
+            className="rounded-full ring-offset-background ring-offset-[1.5px] md:ring-offset-2 ring-violet-500 ring-[1px] md:ring-[1.5px] box-border w-[20px] h-[20px] md:w-[28px] md:h-[28px]"
           />
         </div>
       </div>
       <div className="aspect-[5/4] md:aspect-video relative">
         <div className="relative w-full h-full bg-subtle border-[1.5px] rounded-b-lg md:rounded-b-xl overflow-hidden">
-          <Image
-            src="/lancie_hero_animation_thumbnail.jpg"
-            alt="Screenshot of the Lancie video platform"
-            width={1600}
-            height={1600}
-            className="h-full w-full md:w-3/4 mx-auto"
-            objectFit="cover"
-            style={{
-              objectFit: 'cover',
-              objectPosition: 'bottom center',
-            }}
-          />
+          <div className="h-full w-full md:w-3/4 mx-auto relative">
+            <Image
+              src="/lancie_hero_animation_thumbnail.jpg"
+              alt="Screenshot of the Lancie video platform"
+              fill
+              objectFit="cover"
+              style={{
+                objectFit: 'cover',
+                objectPosition: 'bottom center',
+              }}
+              sizes="(max-width: 768px) 400px, 1600px"
+            />
+          </div>
           <div className="absolute w-full top-0 h-48 bg-gradient-to-t from-transparent to-subtle" />
           <div className="absolute w-full bottom-0 h-48 bg-gradient-to-b from-transparent to-subtle" />
         </div>
@@ -173,8 +174,8 @@ const HeroVisual = () => {
         </div>
         <div className="w-full md:w-[200px] lg:w-[240px] -mt-16 md:mt-0 relative md:absolute bottom-0 md:bottom-auto md:right-0 md:translate-x-1/2 flex flex-row md:flex-col gap-3 lg:gap-4 md:top-8 -left-[30px] md:left-auto">
           <Comment
-            image={users[0].image}
-            name={users[0].name}
+            image={users[1].image}
+            name={users[1].name}
             timeAgo={comments[0].timeAgo}
             emojis={comments[0].emojis}
             className="animate animate-fade-in-down animate-delay-1200"
@@ -182,8 +183,8 @@ const HeroVisual = () => {
             {comments[0].body}
           </Comment>
           <Comment
-            image={users[1].image}
-            name={users[1].name}
+            image={users[2].image}
+            name={users[2].name}
             timeAgo={comments[1].timeAgo}
             emojis={comments[1].emojis}
             className="animate animate-fade-in-down animate-delay-1600"
@@ -236,7 +237,7 @@ const Comment = ({
         className
       )}
     >
-      <div className="flex mb-1 items-center">
+      <div className="flex mb-0.5 items-center">
         <Image
           src={image}
           alt="Lancie User 1"

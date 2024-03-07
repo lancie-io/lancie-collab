@@ -35,7 +35,7 @@ const Flipper = ({ data, flip }: FlipperProps) => {
         <div
           className={cn(
             'hidden md:block col-span-7',
-            narrow && 'col-span-6 col-start-2',
+            narrow && 'col-span-5 col-start-2',
             flip && 'order-first'
           )}
         >

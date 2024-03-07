@@ -53,7 +53,8 @@ const TestimonialVideo = () => {
         config={{
           file: {
             attributes: {
-              poster: './testimonial-maik-thumbnail.jpg',
+              poster:
+                'https://res.cloudinary.com/dum2lqmke/image/fetch/q_60/f_auto/dpr_2/c_scale,w_600/https://res.cloudinary.com/du3mz9iny/image/upload/v1709769274/testimonial-maik-thumbnail_xwyusw.jpg',
             },
           },
         }}

@@ -1,9 +1,11 @@
-import { getAuthUser } from '@/lib/auth';
+'use client';
+
+import { useAuthUser } from '@/lib/auth';
 import AvatarDropdown from './AvatarDropdown';
 import SignInButton from './SignInButton';
 
-const SignInOrAvatar = async () => {
-  const user = await getAuthUser();
+const SignInOrAvatar = () => {
+  const user = useAuthUser();
   if (!user) {
     return <SignInButton />;
   }

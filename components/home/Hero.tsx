@@ -14,60 +14,27 @@ const Hero = () => {
             as="h1"
             className="animate animate-fade-in-down text-center tracking-[-0.04em] font-extrabold leading-[1.1] bg-white bg-gradient-to-b from-white to-ring/50 bg-clip-text text-transparent"
             style={{
-              fontSize: 'clamp(1.8rem, 6vw, 3.5rem)',
+              fontSize: 'clamp(2.5rem, 8vw, 3.5rem)',
             }}
           >
-            Video pre-production <br />
+            Video <br className="md:hidden" />
+            pre-production <br />
             made easy
-            {/* The pre-production <br className="md:hidden" />
-          tool
-          <br className="hidden md:inline" /> for the modern{' '}
-          <br className="md:hidden" />
-          video creator */}
           </Title>
-          <p className="text-muted-foreground md:text-lg animate animate-fade-in-down animate-delay-200 text-center">
+          <p className="text-muted-foreground md:text-lg animate animate-fade-in-down animate-delay-200 text-center mb-1 md:mb-2">
             <Balancer>
-              Create beautiful video concepts with clients and crew. <br />
+              Create beautiful video concepts with clients and crew.{' '}
+              <br className="hidden md:inline" />
               Lancie simplifies decision-making and brings visions to life.
             </Balancer>
           </p>
-          <CreatorAvatars />
           <HeroCTA />
+          <div className="pt-2 md:pt-2">
+            <CreatorAvatars />
+          </div>
         </div>
         <HeroVisual />
-        {/* <div className="relative w-full mt-8">
-          <ModuleButtonReplica
-            className="absolute top-0 right-0 -translate-y-[75%] rotate-12 opacity-80"
-            icon="Presentation"
-            label="Storyboard"
-          />
-          <ModuleButtonReplica
-            className="absolute top-0 left-0 -translate-y-[90%] translate-x-[15%] -rotate-12 opacity-80"
-            icon="Map"
-            label="Locations"
-          />
-          <div className="p-2 md:p-3 border rounded-3xl bg-muted relative w-full shadow-[0_0_40px_30px_rgba(22,23,24,0.9)]">
-            <div
-              className="aspect-video overflow-hidden relative w-full rounded-2xl"
-              style={{
-                background:
-                  'linear-gradient(#0000ff00, #0000ff00) padding-box, linear-gradient(-45deg, #7A7A7A75, #7A7A7A30, #7A7A7A75) border-box',
-                border: '2px solid transparent',
-              }}
-            >
-              <Image src="/tv-placeholder.jpg" alt="tv-placeholder" fill />
-            </div>
-          </div>
-        </div> */}
       </Container>
-      {/* <p className="text-lg text-center max-w-[800px]">
-        <Balancer>
-          Going from 0 to 1 in video production shouldn’t take forever.
-          Kickstart your next project with Lancie, the collaboration tool that
-          helps you align better, faster and more transparently with your
-          client.
-        </Balancer>
-      </p> */}
     </section>
   );
 };

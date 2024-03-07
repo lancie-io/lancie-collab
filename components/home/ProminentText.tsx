@@ -6,14 +6,12 @@ const ProminentText = () => {
   return (
     <section id="prominenttext" className="-my-8">
       <Container className="max-w-[1400px]">
-        <Title className="text-xl md:text-5xl text-center" mega>
+        <Title className="text-2xl sm:text-3xl md:text-5xl text-center" mega>
           <Balancer>
-            <span className="text-muted-foreground leading-[1.2]">
+            <span className="text-muted-foreground">
               Create, collaborate, and align your next shoot with ease.
             </span>{' '}
-            <span className="text-foreground leading-[1.2]">
-              All on your Lancie board.
-            </span>
+            <span className="text-foreground">All on your Lancie board.</span>
           </Balancer>
         </Title>
       </Container>
