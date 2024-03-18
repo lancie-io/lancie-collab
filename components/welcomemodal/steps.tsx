@@ -1,3 +1,10 @@
+import step3Img from '@/public/visual-building.png';
+import step5Img from '@/public/visual-collaboration.png';
+import step2Img from '@/public/visual-lancie.png';
+import step4Img from '@/public/visual-sharing.png';
+import step1Img from '@/public/visual-welcome.png';
+import Image from 'next/image';
+
 export const getStepsWithUserName = (name: string) => [
   {
     label: 'Welcome',
@@ -8,7 +15,14 @@ export const getStepsWithUserName = (name: string) => [
       </>
     ),
     content: 'A new way to build up next-level video projects.',
-    image: '/step-welcome.jpg',
+    image: (
+      <Image
+        className="absolute bottom-0 right-0 w-[90%]"
+        src={step1Img}
+        alt=""
+        sizes="500px"
+      />
+    ),
     id: 0,
   },
   {
@@ -21,7 +35,15 @@ export const getStepsWithUserName = (name: string) => [
       </>
     ),
     content: 'New video project. New board. Better process.',
-    image: '/step-build.jpg',
+    image: (
+      <Image
+        key={1}
+        className="absolute -bottom-4 right-0 w-[95%]"
+        src={step2Img}
+        alt=""
+        sizes="500px"
+      />
+    ),
     id: 1,
   },
   {
@@ -35,7 +57,9 @@ export const getStepsWithUserName = (name: string) => [
     ),
     content:
       'Lancie is designed upon the concept of modules. Drag them in and create concepts with ease.',
-    image: '/step-build.jpg',
+    image: (
+      <Image key={2} className="w-[110%]" src={step3Img} alt="" sizes="500px" />
+    ),
     id: 2,
   },
   {
@@ -49,7 +73,15 @@ export const getStepsWithUserName = (name: string) => [
     ),
     content:
       'Share public board links with clients. Keep edit access to your collaborators.',
-    image: '/step-publish.jpg',
+    image: (
+      <Image
+        key={3}
+        className="h-[90%] w-auto"
+        src={step4Img}
+        alt=""
+        sizes="500px"
+      />
+    ),
     id: 3,
   },
   {
@@ -62,7 +94,9 @@ export const getStepsWithUserName = (name: string) => [
       </>
     ),
     content: 'Invite your team and stakeholders into the project with ease.',
-    image: '/step-collaborate.jpg',
+    image: (
+      <Image key={4} className="w-[90%]" src={step5Img} alt="" sizes="500px" />
+    ),
     id: 4,
   },
 ];

@@ -4,7 +4,6 @@ import { setUserHasSeenWelcomeModal } from '@/lib/actions';
 import { useAuthUser } from '@/lib/auth';
 import { cn } from '@/lib/utils';
 import { motion } from 'framer-motion';
-import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import { Modal, ModalContent, ModalTrigger } from '../projects/Modal';
 import { Icons } from '../shared/Icons';
@@ -16,7 +15,7 @@ type Step = {
   label: string;
   title: any;
   content: string;
-  image: string;
+  image: React.ReactNode;
   id: number;
 };
 
@@ -63,11 +62,11 @@ const WelcomeModal = ({ children }: { children: React.ReactNode }) => {
   return (
     <Modal open={isOpen} onOpenChange={setIsOpen}>
       {children && <ModalTrigger>{children}</ModalTrigger>}
-      <ModalContent className="p-0 gap-0 max-w-2xl">
+      <ModalContent className="p-0 gap-0 max-w-[780px]">
         <div className="flex flex-col md:flex-row">
           <div className="md:shrink-0 md:bg-muted w-full md:w-[200px] ">
             <div className="pt-5 pb-4 md:p-6 md:pt-6 md:pb-6 md:border-b md:mb-4">
-              <Icons.logoText className="w-1/3 mx-auto md:w-3/4" />
+              <Icons.logoText className="w-1/3 mx-auto md:mx-0 md:w-3/4" />
             </div>
             <HorizontalBar
               steps={steps}
@@ -102,17 +101,17 @@ const WelcomeModal = ({ children }: { children: React.ReactNode }) => {
               })}
             </ul>
           </div>
-          <div className="grow bg-background px-12 md:px-12 py-8 md:py-16 space-y-8 md:space-y-16">
+          <div className="grow bg-background px-6 pt-12 pb-6 md:px-8  md:pt-16 md:pb-8 space-y-6 md:space-y-8">
             <div className="space-y-1 flex flex-col items-center text-center overflow-hidden">
               <Title mega className="text-xl md:text-2xl">
                 {steps[currentStepId].title}
               </Title>
-              <p className="text-muted-foreground h-12">
+              <p className="text-muted-foreground h-12 w-full">
                 {steps[currentStepId].content}
               </p>
             </div>
-            <div className="aspect-[3/2] relative overflow-hidden rounded-lg shadow-2xl border">
-              <Image src={steps[currentStepId].image} alt="step" fill />
+            <div className="aspect-[3/2] relative overflow-hidden rounded-lg shadow-2xl border grid place-items-center bg-[radial-gradient(50%_33%_at_50%_0%,rgba(255,77,20,0.05)_0%,rgba(255,77,20,0)_100%)]">
+              {steps[currentStepId].image}
             </div>
           </div>
         </div>
