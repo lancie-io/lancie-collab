@@ -56,10 +56,7 @@ const CreatorAvatar = ({
 }) => {
   return (
     <div
-      className={cn(
-        'rounded-full overflow-hidden animate animate-fade-in-left',
-        className
-      )}
+      className={cn('rounded-full overflow-hidden', className)}
       style={{
         animationDelay: `${300 * (idx + 1)}ms`,
       }}

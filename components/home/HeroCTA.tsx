@@ -10,7 +10,7 @@ const HeroCTA = () => {
       href={'/app'}
       className={cn(
         buttonVariants({ size: 'mega', variant: 'primary' }),
-        'animate animate-fade-in-down animate-delay-400'
+        'animate animate-fade-in-down animate-delay-600'
       )}
       onClick={() => trackEvent('CTA Clicked', { id: 'hero' })}
     >

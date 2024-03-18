@@ -121,28 +121,31 @@ const HeroVisual = () => {
           <div className="w-2 md:w-3 aspect-square bg-[#65C35A] rounded-full" />
         </div>
         <h2 className="ml-4 md:ml-6 font-medium text-xs md:text-sm">{title}</h2>
-        <div className="flex gap-1.5 ml-auto">
-          <Image
-            src={users[0].image}
-            alt="Lancie User 1"
-            width={28}
-            height={28}
-            className="rounded-full z-20 -mr-2 ring-offset-background ring-offset-[1.5px] md:ring-offset-2  ring-amber-500 ring-[1px] md:ring-[1.5px] box-border w-[20px] h-[20px] md:w-[28px] md:h-[28px]"
-          />
-          <Image
-            src={users[1].image}
-            alt="Lancie User 1"
-            width={28}
-            height={28}
-            className="rounded-full z-10 -mr-2 ring-offset-background ring-offset-[1.5px] md:ring-offset-2 ring-cyan-500 ring-[1px] md:ring-[1.5px] box-border w-[20px] h-[20px] md:w-[28px] md:h-[28px]"
-          />
-          <Image
-            src={users[2].image}
-            alt="Lancie User 1"
-            width={28}
-            height={28}
-            className="rounded-full ring-offset-background ring-offset-[1.5px] md:ring-offset-2 ring-violet-500 ring-[1px] md:ring-[1.5px] box-border w-[20px] h-[20px] md:w-[28px] md:h-[28px]"
-          />
+        <div className="relative flex gap-1.5 ml-auto">
+          <PulseCircle className="z-20 -mr-4 border-amber-500 pulsate-infinite-amber">
+            <Image
+              src={users[0].image}
+              alt="Lancie User 1"
+              fill
+              className="rounded-full border-2 border-background"
+            />
+          </PulseCircle>
+          <PulseCircle className="z-10 -mr-4 border-cyan-500 pulsate-infinite-cyan">
+            <Image
+              src={users[1].image}
+              alt="Lancie User 1"
+              fill
+              className="rounded-full border-2 border-background"
+            />
+          </PulseCircle>
+          <PulseCircle className=" -mr-2 border-violet-500 pulsate-infinite-violet">
+            <Image
+              src={users[2].image}
+              alt="Lancie User 1"
+              fill
+              className="rounded-full border-2 border-background"
+            />
+          </PulseCircle>
         </div>
       </div>
       <div className="aspect-[5/4] md:aspect-video relative">
@@ -187,7 +190,7 @@ const HeroVisual = () => {
             name={users[2].name}
             timeAgo={comments[1].timeAgo}
             emojis={comments[1].emojis}
-            className="animate animate-fade-in-down animate-delay-1600"
+            className="animate animate-fade-in-down animate-delay-1500"
           >
             {comments[1].body}
           </Comment>
@@ -199,6 +202,25 @@ const HeroVisual = () => {
 };
 
 export default HeroVisual;
+
+const PulseCircle = ({
+  children,
+  className,
+}: {
+  children: React.ReactNode;
+  className: string;
+}) => {
+  return (
+    <div
+      className={cn(
+        'relative rounded-full w-5 md:w-9 aspect-square border md:border-[1.5px]',
+        className
+      )}
+    >
+      {children}
+    </div>
+  );
+};
 
 const ModuleBtn = ({
   icon,

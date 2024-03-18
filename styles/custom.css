@@ -27,6 +27,24 @@
   }
 }
 
+@keyframes pulsateSmall {
+  0% {
+    top: 0px; /* Adjust position as needed */
+    left: 0px; /* Adjust position as needed */
+    right: 0px; /* Adjust position as needed */
+    bottom: 0px;
+    opacity: 1;
+  }
+  33%,
+  100% {
+    top: -10px; /* Adjust position as needed */
+    left: -10px; /* Adjust position as needed */
+    right: -10px; /* Adjust position as needed */
+    bottom: -10px; /* Adjust position as needed */
+    opacity: 0;
+  }
+}
+
 .pulsate::before {
   content: '';
   position: absolute;
@@ -37,6 +55,42 @@
   animation: pulsate 0.9s ease-out 1; /* Adjust animation duration as needed */
   animation-delay: 400ms;
   @apply bg-ring/10 rounded-xl border border-ring/50;
+}
+
+.pulsate-infinite-amber::before {
+  content: '';
+  position: absolute;
+  top: 0px; /* Adjust position as needed */
+  left: 0px; /* Adjust position as needed */
+  right: 0px; /* Adjust position as needed */
+  bottom: 0px; /* Adjust position as needed */
+  animation: pulsateSmall 6s ease-out infinite; /* Adjust animation duration as needed */
+  animation-delay: 0ms;
+  @apply rounded-full border border-amber-500;
+}
+
+.pulsate-infinite-cyan::before {
+  content: '';
+  position: absolute;
+  top: 0px; /* Adjust position as needed */
+  left: 0px; /* Adjust position as needed */
+  right: 0px; /* Adjust position as needed */
+  bottom: 0px; /* Adjust position as needed */
+  animation: pulsateSmall 6s ease-out infinite; /* Adjust animation duration as needed */
+  animation-delay: 2000ms;
+  @apply rounded-full border border-cyan-500;
+}
+
+.pulsate-infinite-violet::before {
+  content: '';
+  position: absolute;
+  top: 0px; /* Adjust position as needed */
+  left: 0px; /* Adjust position as needed */
+  right: 0px; /* Adjust position as needed */
+  bottom: 0px; /* Adjust position as needed */
+  animation: pulsateSmall 6s ease-out infinite; /* Adjust animation duration as needed */
+  animation-delay: 4000ms;
+  @apply rounded-full border border-violet-500;
 }
 
 .animated-click {

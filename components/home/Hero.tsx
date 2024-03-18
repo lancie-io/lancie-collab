@@ -21,7 +21,7 @@ const Hero = () => {
             pre-production <br />
             made easy
           </Title>
-          <p className="text-muted-foreground md:text-lg animate animate-fade-in-down animate-delay-200 text-center mb-1 md:mb-2">
+          <p className="text-muted-foreground md:text-lg animate animate-fade-in-down animate-delay-300 text-center mb-1 md:mb-2">
             <Balancer>
               Create beautiful video concepts with clients and crew.{' '}
               <br className="hidden md:inline" />
@@ -29,7 +29,7 @@ const Hero = () => {
             </Balancer>
           </p>
           <HeroCTA />
-          <div className="pt-2 md:pt-2">
+          <div className="pt-2 md:pt-2 animate animate-fade-in-down animate-delay-900">
             <CreatorAvatars />
           </div>
         </div>
