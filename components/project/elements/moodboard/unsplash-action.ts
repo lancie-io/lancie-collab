@@ -97,7 +97,7 @@ export async function fetchUnsplash(
   const fetchUrl = `${UNSPLASH_API_URL}/search/photos${queryString}`;
   const res = await fetch(fetchUrl, {
     headers: {
-      Authorization: `Client-ID ${process.env.UNSPLASH_ACCESS_KEY}`,
+      Authorization: `Client-ID ${process.env.NEXT_PUBLIC_UNSPLASH_ACCESS_KEY}`,
     },
   });
   return res.json();
