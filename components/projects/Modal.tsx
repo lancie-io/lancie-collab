@@ -43,19 +43,16 @@ interface ModalProps {
   children: React.ReactNode;
   open?: boolean;
   onOpenChange?: (open: boolean) => void;
-  isInterception?: boolean;
 }
 
 export const Modal = ({
   children,
   open: cOpen = false,
   onOpenChange: cOnOpenChange,
-  isInterception = false,
 }: ModalProps) => {
   const isDesktop = useMediaQuery('(min-width: 768px)');
   const [open, setOpen] = React.useState(cOpen);
   const hide = () => {
-    console.log('hide');
     setOpen(false);
   };
 
@@ -64,7 +61,6 @@ export const Modal = ({
   }, [cOpen]);
 
   const show = () => {
-    console.log('show');
     setOpen(true);
   };
   if (isDesktop) {

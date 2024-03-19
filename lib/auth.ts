@@ -4,6 +4,7 @@ import GoogleProvider from 'next-auth/providers/google';
 import { useSession } from 'next-auth/react';
 import { sendSignIn } from './make';
 import prisma from './prisma';
+import { sendMagicLinkEmail } from './sendgrid';
 
 export const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(prisma),
@@ -12,6 +13,7 @@ export const authOptions: NextAuthOptions = {
   },
   pages: {
     signIn: '/login',
+    verifyRequest: '/verify',
     error: '/error',
   },
   providers: [
@@ -19,6 +21,19 @@ export const authOptions: NextAuthOptions = {
       clientId: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID!,
       clientSecret: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_SECRET!,
     }),
+    {
+      id: 'email',
+      type: 'email',
+      name: 'Email',
+      from: 'contact@lancie.com',
+      server: {},
+      maxAge: 24 * 60 * 60,
+      options: {},
+      async sendVerificationRequest({ identifier: email, url }) {
+        console.log('emaildata', { identifier: email, url });
+        sendMagicLinkEmail(email, url);
+      },
+    },
   ],
   callbacks: {
     async signIn({ user, account, profile }) {
@@ -85,7 +100,7 @@ export const authOptions: NextAuthOptions = {
 
       return {
         id: dbUser.id,
-        name: dbUser.name,
+        name: dbUser.name || 'Fellow Creator',
         email: dbUser.email,
         image: dbUser.image,
         projects: dbUser.projects.map((project) => project.id),

@@ -1,5 +1,6 @@
 import { Icons } from './Icons';
 import LoginButton from './LoginButton';
+import LoginEmailForm from './LoginEmailForm';
 import Title from './Title';
 
 const LoginScreen = () => {
@@ -14,14 +15,13 @@ const LoginScreen = () => {
           Welcome
         </Title>
         <p className="text-muted-foreground -mt-2">Log in or sign up.</p>
-        <div className="space-y-3">
-          <LoginButton className="w-[200px]" provider="google">
+        <div className="space-y-2">
+          <LoginButton className="w-[240px]" provider="google">
             <Icons.google className="w-5 h-5" />
             Login with Google
           </LoginButton>
-          <LoginButton className="w-[200px]" variant="outline" provider="email">
-            Login with Email
-          </LoginButton>
+          <p className="text-muted-foreground text-sm text-center">or</p>
+          <LoginEmailForm />
         </div>
       </div>
     </div>
