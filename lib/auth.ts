@@ -77,7 +77,7 @@ export const authOptions: NextAuthOptions = {
       let dbUser;
       dbUser = await prisma.user.findFirst({
         where: {
-          email: token.email!,
+          email: token.email,
         },
         include: {
           projects: {

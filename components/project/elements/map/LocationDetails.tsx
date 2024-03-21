@@ -1,3 +1,4 @@
+import { useView } from '@/components/providers/ViewProvider';
 import Title from '@/components/shared/Title';
 import LiveEditor from '@/components/shared/editor/LiveEditor';
 import EmptyState from '../shared/EmptyState';
@@ -16,6 +17,8 @@ const LocationDetails = ({ element }: LocationDetailsProps) => {
   const locations: GoogleLocation[] = element.extraAttributes.locations;
   const location = locations[selectedLocationId];
 
+  const { isView } = useView();
+
   if (!location) {
     return (
       <EmptyState
@@ -26,6 +29,7 @@ const LocationDetails = ({ element }: LocationDetailsProps) => {
       />
     );
   }
+
   return (
     <div className="">
       <Title>{location.formatted.main}</Title>
@@ -55,6 +59,7 @@ const LocationDetails = ({ element }: LocationDetailsProps) => {
             key={location.id}
             id={location.id}
             placeholder="Take notes about this location..."
+            editable={!isView}
           />
         </div>
         <div className="aspect-[5/4] lg:aspect-square">

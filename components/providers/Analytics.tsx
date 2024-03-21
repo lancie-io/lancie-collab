@@ -11,7 +11,7 @@ const Analytics = () => {
 
   useEffect(() => {
     trackPage();
-  }, [pathname, searchParams]);
+  }, [pathname]);
 
   return null;
 };
@@ -31,5 +31,19 @@ export const trackEvent = (eventName: string, properties?: Object) => {
   const showTrackingEventToast = getLocalStorage('show-tracking-event-toast');
   if (showTrackingEventToast) {
     toast.success(`${eventName}`);
+  }
+};
+
+export const trackIdentify = (
+  id: string,
+  traits?: {
+    name?: string | null;
+    email?: string | null;
+  }
+) => {
+  analytics.identify(id, { ...traits });
+  const showTrackingEventToast = getLocalStorage('show-tracking-event-toast');
+  if (showTrackingEventToast) {
+    toast.success(`User Identified`);
   }
 };

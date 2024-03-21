@@ -1,3 +1,4 @@
+import { useView } from '@/components/providers/ViewProvider';
 import { Input } from '@/components/ui/input';
 import { cn, getPresenceColor } from '@/lib/utils';
 import { useEffect, useState } from 'react';
@@ -27,18 +28,22 @@ const NumberCell = <TData, TValue>({
     setCellValue?.(columnId, rowId, e.target.value);
     setValue(e.target.value);
   };
+  const { isView } = useView();
   return (
     <Input
       onSelect={() => selectCell?.(columnId, rowId)}
       onBlur={() => selectCell?.(null, null)}
       className={cn(
-        'h-full bg-transparent border-none relative focus-visible:z-10 text-right focus-visible:ring-0 focus-visible:shadow-inner-outline'
+        'h-full bg-transparent border-none relative focus-visible:z-10 text-right focus-visible:ring-0 focus-visible:shadow-inner-outline',
+        isView && '!cursor-default',
+        'disabled:opacity-100'
       )}
       style={{
         boxShadow: other?.globalConnectionId
           ? `inset 0 0 0 2px ${getPresenceColor(other.globalConnectionId)}`
           : undefined,
       }}
+      disabled={isView}
       value={value}
       onChange={onChange}
       type="number"

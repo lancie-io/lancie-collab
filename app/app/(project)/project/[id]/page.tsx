@@ -62,7 +62,10 @@ const ProjectPage = async ({ params }: { params: { id: string } }) => {
         <DndProvider>
           <ProjectProvider initProjectId={params.id}>
             <CommentProvider>
-              <ProjectPageCore projectId={params.id} />
+              <ProjectPageCore
+                projectId={params.id}
+                isAuthorized={isMemberOfProject}
+              />
             </CommentProvider>
             <DragOverlayWrapper />
           </ProjectProvider>

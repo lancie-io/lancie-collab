@@ -21,9 +21,13 @@ const LoginButton = ({ children, provider, ...props }: LoginButtonProps) => {
 
   const handleClick = () => {
     setLoading(true);
-    trackEvent('Login Button Clicked', { provider });
+    const newUrl = new URL(
+      callbackUrl || `${process.env.NEXT_PUBLIC_HOST_URL}/app`
+    );
+    newUrl.searchParams.set('login_success', 'true');
+    trackEvent('LoginButton Clicked', { provider });
     signIn(provider, {
-      callbackUrl: callbackUrl || '/app',
+      callbackUrl: newUrl.toString(),
     });
     return () => setLoading(false);
   };

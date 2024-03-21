@@ -8,7 +8,7 @@ const SignInButton = () => {
     <Link
       href="/login"
       className={buttonVariants({ variant: 'primary', size: 'sm' })}
-      onClick={() => trackEvent('Sign In Button Clicked')}
+      onClick={() => trackEvent('SignInButton Clicked')}
     >
       Sign In
     </Link>

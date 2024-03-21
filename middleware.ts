@@ -7,7 +7,7 @@ export async function middleware(req: NextRequest) {
   requestHeaders.set('x-url', req.url);
 
   // && !path.startsWith('/app/project')
-  if (path.startsWith('/app')) {
+  if (path.startsWith('/app') && !path.startsWith('/app/project')) {
     const token = await getToken({
       req,
       secret: process.env.NEXTAUTH_SECRET,
@@ -15,7 +15,11 @@ export async function middleware(req: NextRequest) {
     if (!token) {
       const newUrl = new URL(
         `/login${
-          path !== '/' ? `?callbackUrl=${encodeURIComponent(path)}` : ''
+          path !== '/'
+            ? `?callbackUrl=${
+                process.env.NEXT_PUBLIC_HOST_URL + encodeURIComponent(path)
+              }`
+            : ''
         }`,
         req.nextUrl.href
       );

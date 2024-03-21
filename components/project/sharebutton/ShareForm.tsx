@@ -46,7 +46,7 @@ const ShareForm = ({ projectId }: ShareFormProps) => {
       projectId,
     });
     if (res.success) {
-      toast.success(`Invitess sent to ${values.email}`);
+      toast.success(`Invite sent to ${values.email}`);
       form.reset();
     } else {
       toast.error(res.message);

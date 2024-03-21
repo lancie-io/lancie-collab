@@ -6,16 +6,25 @@ import ClientSideSetter from '@/components/project/ClientSideSetter';
 import BuilderSidebarRight from '@/components/project/elements/BuilderSidebarRight';
 import { cn } from '@/lib/utils';
 
-const ProjectPageCore = ({ projectId }: { projectId: string }) => {
+const ProjectPageCore = ({
+  projectId,
+  isAuthorized,
+}: {
+  projectId: string;
+  isAuthorized: boolean;
+}) => {
   return (
     <div className="grow flex flex-col" style={{ height: '100dvh' }}>
       <ClientSideSetter projectId={projectId} />
-      <BuilderHeader projectId={projectId} />
-      <MobileToolbar projectId={projectId} />
+      <BuilderHeader projectId={projectId} isAuthorized={isAuthorized} />
+      <MobileToolbar projectId={projectId} isAuthorized={isAuthorized} />
       <div className="grow flex overflow-scroll no-scrollbar">
         <BuilderSidebar className={cn('hidden md:block')} />
         <BuilderArea />
-        <BuilderSidebarRight className="hidden md:flex" />
+        <BuilderSidebarRight
+          isAuthorized={isAuthorized}
+          className="hidden md:flex"
+        />
       </div>
     </div>
   );

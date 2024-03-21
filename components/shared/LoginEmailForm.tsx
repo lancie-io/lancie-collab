@@ -5,7 +5,9 @@ import { signIn } from 'next-auth/react';
 import { useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { toast } from 'sonner';
 import { z } from 'zod';
+import { trackEvent } from '../providers/Analytics';
 import { Button } from '../ui/button';
 import {
   Form,
@@ -35,11 +37,16 @@ const LoginEmailForm = () => {
   const isSubmitting = form.formState.isSubmitting;
   async function onSubmit(values: z.infer<typeof formSchema>) {
     setIsLoading(true);
-    await signIn('email', {
+    const newUrl = new URL(
+      callbackUrl || `${process.env.NEXT_PUBLIC_HOST_URL}/app`
+    );
+    newUrl.searchParams.set('login_success', 'true');
+    trackEvent('LoginButton Clicked', { provider: 'email' });
+    toast.info(newUrl.toString());
+    signIn('email', {
       email: values.email,
-      callbackUrl: callbackUrl || '/app',
+      callbackUrl: newUrl.toString(),
     });
-    setIsLoading(false);
   }
 
   useEffect(() => {
@@ -53,12 +60,12 @@ const LoginEmailForm = () => {
   };
   return (
     <>
-      {!isOpen && (
+      {/* {!isOpen && (
         <Button className="w-[240px]" variant="outline" onClick={handleOpen}>
           Login with Email
         </Button>
-      )}
-      {isOpen && (
+      )} */}
+      {true && (
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(onSubmit)}

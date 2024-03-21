@@ -1,4 +1,6 @@
 import Upload from '@/components/fileupload/Upload';
+import { useView } from '@/components/providers/ViewProvider';
+import { cn } from '@/lib/utils';
 import { useEffect } from 'react';
 import ElementBar from '../shared/ElementBar';
 import { MoodboardCustomInstance } from './MoodboardBuilderElement';
@@ -17,7 +19,7 @@ const Moodboard = ({ element, isPreview }: MoodboardProps) => {
   useEffect(() => {
     console.log('Element Changed:', element);
   }, [element]);
-
+  const { isView } = useView();
   return (
     <Upload
       onUpload={addImage}
@@ -26,7 +28,9 @@ const Moodboard = ({ element, isPreview }: MoodboardProps) => {
         maxFiles: 20,
       }}
     >
-      <div className="aspect-[4/3] overflow-hidden flex flex-col">
+      <div
+        className={cn('overflow-hidden flex flex-col', !isView && 'aspect-4/3')}
+      >
         <ElementBar>
           <UnsplashButton element={element} />
           <UploadButton element={element} />

@@ -1,3 +1,4 @@
+import { useView } from '@/components/providers/ViewProvider';
 import { getPresenceColor } from '@/lib/utils';
 import { Presence, UserMeta } from '@/liveblocks.config';
 import { User } from '@liveblocks/client';
@@ -9,7 +10,7 @@ import Placeholder from '@tiptap/extension-placeholder';
 import { EditorContent, useEditor } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
 import { AnimatePresence } from 'framer-motion';
-import { FocusEvent, useState } from 'react';
+import { FocusEvent, useEffect, useState } from 'react';
 import Toolbar from './Toolbar';
 
 interface TipTapEditorProps {
@@ -27,6 +28,7 @@ export function TiptapEditor({
   editable = true,
   self,
 }: TipTapEditorProps) {
+  const { isView } = useView();
   const editor = useEditor({
     extensions: [
       StarterKit.configure({
@@ -72,6 +74,9 @@ export function TiptapEditor({
       editable: () => editable,
     },
   });
+  useEffect(() => {
+    editor?.setEditable(editable);
+  }, [editable]);
   const [isActive, setIsActive] = useState(false);
 
   const handleBlur = (e: FocusEvent<HTMLInputElement>) => {
@@ -90,7 +95,7 @@ export function TiptapEditor({
           id="parent"
         >
           <AnimatePresence>
-            {isActive && (
+            {isActive && !isView && (
               <div className="absolute -translate-y-[75%] left-1/2 -translate-x-1/2">
                 <Toolbar
                   className="bg-background shadow-2xl border rounded-md overflow-hidden"

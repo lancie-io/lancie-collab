@@ -1,13 +1,22 @@
 import { getAuthUser } from '@/lib/auth';
 import { redirect } from 'next/navigation';
 
-const AppPage = async () => {
+const AppPage = async ({
+  params,
+  searchParams,
+}: {
+  params: { slug: string };
+  searchParams?: string[][];
+}) => {
   const user = await getAuthUser();
+  console.log('SP:', searchParams);
   if (!user) {
     redirect('/');
   }
-  //   @ts-ignore
-  redirect(`/app/${user.id}`);
+
+  const newSP = new URLSearchParams(searchParams);
+  const spString = newSP && `?${newSP.toString()}`;
+  redirect(`/app/${user.id}${spString}`);
 };
 
 export default AppPage;

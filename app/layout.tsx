@@ -1,4 +1,5 @@
 import AnimatedCursorShowHandler from '@/components/AnimatedCursorShowHandler';
+import PathWatcher from '@/components/PathWatcher';
 import Analytics from '@/components/providers/Analytics';
 import AuthProvider from '@/components/providers/AuthProvider';
 import LoadingProvider from '@/components/providers/LoadingProvider';
@@ -47,6 +48,7 @@ export default function RootLayout({
                 </QueryProvider>
               </EdgeStoreProvider>
             </ToasterProvider>
+            <PathWatcher />
           </AuthProvider>
         </main>
       </body>

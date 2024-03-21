@@ -5,9 +5,14 @@ import { useComment } from '../CommentToggle';
 import { Conversation } from '../comments/Conversation';
 
 interface BuilderSidebarRightProps
-  extends React.HTMLAttributes<HTMLDivElement> {}
+  extends React.HTMLAttributes<HTMLDivElement> {
+  isAuthorized?: boolean;
+}
 
-const BuilderSidebarRight = ({ className }: BuilderSidebarRightProps) => {
+const BuilderSidebarRight = ({
+  className,
+  isAuthorized,
+}: BuilderSidebarRightProps) => {
   const { isView } = useView();
   const { isOpen } = useComment();
   if (isView && !isOpen) {
@@ -15,7 +20,7 @@ const BuilderSidebarRight = ({ className }: BuilderSidebarRightProps) => {
   }
   return (
     <div className={cn('h-full flex', className)}>
-      <Conversation />
+      <Conversation isAuthorized={isAuthorized} />
     </div>
   );
 };

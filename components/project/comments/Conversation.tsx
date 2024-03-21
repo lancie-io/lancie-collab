@@ -11,9 +11,15 @@ import {
 import { AnimatePresence, motion } from 'framer-motion';
 import React, { FormEvent, useCallback, useMemo } from 'react';
 
-interface ConversationProps extends React.HTMLAttributes<HTMLDivElement> {}
+interface ConversationProps extends React.HTMLAttributes<HTMLDivElement> {
+  isAuthorized?: boolean;
+}
 
-export function Conversation({ className, ...props }: ConversationProps) {
+export function Conversation({
+  className,
+  isAuthorized,
+  ...props
+}: ConversationProps) {
   const { threads } = useThreads();
   const filteredThreads = threads.filter((thread) => !thread.metadata.resolved);
   const sortedThreads = useMemo(() => {
@@ -65,7 +71,13 @@ export function Conversation({ className, ...props }: ConversationProps) {
       {...props}
     >
       <div className="space-y-3">
-        <Composer onComposerSubmit={handleSubmit} />
+        {!isAuthorized && (
+          <p className="text-sm text-muted-foreground">
+            {sortedThreads.length < 1 && <span>No comments yet. </span>}
+            <span>Sign in and get added to the project to leave comments.</span>
+          </p>
+        )}
+        {isAuthorized && <Composer onComposerSubmit={handleSubmit} />}
         <AnimatePresence>
           {sortedThreads.map((thread) => {
             return (
@@ -97,6 +109,8 @@ export function Conversation({ className, ...props }: ConversationProps) {
                   thread={thread}
                   key={thread.id}
                   onClick={() => handleThreadClick(thread.metadata.id)}
+                  showComposer={isAuthorized}
+                  showActions={isAuthorized}
                 />
               </motion.div>
             );

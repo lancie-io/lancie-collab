@@ -14,9 +14,15 @@ import ShareForm from './ShareForm';
 
 interface ShareButtonProps extends ButtonProps {
   projectId: string;
+  isAuthorized: boolean;
 }
 
-const ShareButton = ({ projectId, className, ...props }: ShareButtonProps) => {
+const ShareButton = ({
+  projectId,
+  className,
+  isAuthorized,
+  ...props
+}: ShareButtonProps) => {
   return (
     <Modal>
       <ModalTrigger>
@@ -38,7 +44,9 @@ const ShareButton = ({ projectId, className, ...props }: ShareButtonProps) => {
             <Tabs defaultValue="publish">
               <TabsList>
                 <TabsTrigger value="publish">Publish</TabsTrigger>
-                <TabsTrigger value="invite">Invite</TabsTrigger>
+                {isAuthorized && (
+                  <TabsTrigger value="invite">Invite</TabsTrigger>
+                )}
               </TabsList>
               <TabsContent value="publish">
                 <PublishArea />

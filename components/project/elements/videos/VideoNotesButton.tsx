@@ -1,3 +1,4 @@
+import { useView } from '@/components/providers/ViewProvider';
 import LiveEditor from '@/components/shared/editor/LiveEditor';
 import { Button } from '@/components/ui/button';
 import {
@@ -8,6 +9,7 @@ import {
 import { ClipboardPen } from 'lucide-react';
 
 const VideoNotesButton = ({ videoId }: { videoId: string }) => {
+  const { isView } = useView();
   return (
     <Popover>
       <PopoverTrigger>
@@ -21,6 +23,7 @@ const VideoNotesButton = ({ videoId }: { videoId: string }) => {
             <LiveEditor
               id={videoId}
               placeholder="Take notes about this video..."
+              editable={!isView}
             />
           </div>
         </div>

@@ -8,17 +8,17 @@ const liveblocks = new Liveblocks({
 export async function POST(request: Request) {
   // Get the current user from your database
   const user = await getAuthUser();
-  if (!user) {
-    return new Response('Unauthorized', { status: 401 });
-  }
+  // if (!user) {
+  //   return new Response('Unauthorized', { status: 401 });
+  // }
 
   // Start an auth session inside your endpoint
   const session = liveblocks.prepareSession(
-    user.id,
+    user?.id || 'anonymous',
     {
       userInfo: {
-        name: user.name as string | undefined,
-        avatar: user.image as string | undefined,
+        name: (user?.name || 'Anonymous') as string | undefined,
+        avatar: user?.image as string | undefined,
         color: '#ff0000',
       },
     } // Optional

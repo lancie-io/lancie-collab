@@ -15,7 +15,7 @@ const Footer = () => {
               href="/privacy"
               className="hover:text-foreground"
               onClick={() =>
-                trackEvent('Footer Link Clicked', { href: '/privacy' })
+                trackEvent('FooterLink Clicked', { href: '/privacy' })
               }
             >
               Privacy
@@ -27,7 +27,7 @@ const Footer = () => {
               href="/terms"
               className="hover:text-foreground"
               onClick={() =>
-                trackEvent('Footer Link Clicked', { href: '/privacy' })
+                trackEvent('FooterLink Clicked', { href: '/privacy' })
               }
             >
               Terms

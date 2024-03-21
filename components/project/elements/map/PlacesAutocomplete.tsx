@@ -1,3 +1,4 @@
+import { useView } from '@/components/providers/ViewProvider';
 import Title from '@/components/shared/Title';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -50,6 +51,7 @@ const PlacesAutocomplete = ({
 }: PlacesAutocompleteProps) => {
   const { id } = element;
   const { updateElement } = useLiveblocks();
+  const { isView } = useView();
 
   const locations: GoogleLocation[] = element.extraAttributes.locations;
   const {
@@ -108,7 +110,7 @@ const PlacesAutocomplete = ({
   };
   return (
     <div className="relative flex flex-col gap-3 grow overflow-hidden p-1">
-      {!isPreview && (
+      {!isView && (
         <Popover open={open} onOpenChange={setOpen}>
           <PopoverTrigger disabled className="w-full">
             <Input
@@ -181,6 +183,7 @@ interface LocationCardProps {
 const LocationCard = ({ location, element, idx }: LocationCardProps) => {
   const { updateElement } = useLiveblocks();
   const { selectedLocationId, setSelectedLocationId } = useLocation();
+  const { isView } = useView();
 
   function removeLocation(locationId: string) {
     updateElement(element.id, {
@@ -212,14 +215,16 @@ const LocationCard = ({ location, element, idx }: LocationCardProps) => {
       <p className="text-sm text-muted-foreground">
         {location.formatted.secondary}
       </p>
-      <Button
-        variant="ghost"
-        size="iconXS"
-        className="absolute top-2 right-2"
-        onClick={() => removeLocation(location.id)}
-      >
-        <Trash className="w-3 h-3" />
-      </Button>
+      {!isView && (
+        <Button
+          variant="ghost"
+          size="iconXS"
+          className="absolute top-2 right-2"
+          onClick={() => removeLocation(location.id)}
+        >
+          <Trash className="w-3 h-3" />
+        </Button>
+      )}
     </motion.div>
   );
 };

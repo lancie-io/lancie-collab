@@ -1,4 +1,5 @@
 'use client';
+import { useAuthUser } from '@/lib/auth';
 import {
   Dispatch,
   SetStateAction,
@@ -28,7 +29,7 @@ const ViewProvider = ({
 }) => {
   const [view, setView] = useState<View>(initialView);
   const [isView, setIsView] = useState(initialView === 'view');
-
+  const user = useAuthUser();
   useEffect(() => {
     setIsView(view === 'view');
   }, [view]);

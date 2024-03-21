@@ -15,9 +15,10 @@ import MobileModulesButton from './MobileModulesButton';
 
 interface MobileToolbarProps {
   projectId: string;
+  isAuthorized: boolean;
 }
 
-const MobileToolbar = ({ projectId }: MobileToolbarProps) => {
+const MobileToolbar = ({ projectId, isAuthorized }: MobileToolbarProps) => {
   return (
     <div className="h-12 w-full md:hidden border-b shrink-0">
       <Container className="h-full flex items-center gap-1.5">
@@ -32,12 +33,19 @@ const MobileToolbar = ({ projectId }: MobileToolbarProps) => {
             <DrawerHeader>
               <DrawerTitle className="">Comments</DrawerTitle>
             </DrawerHeader>
-            <Conversation className="max-h-[400px] px-0" />
+            <Conversation
+              isAuthorized={isAuthorized}
+              className="max-h-[400px] px-0"
+            />
           </DrawerContent>
         </Drawer>
 
         <AvatarStack className="ml-auto" />
-        <ShareButton projectId={projectId} size="s" />
+        <ShareButton
+          projectId={projectId}
+          size="s"
+          isAuthorized={isAuthorized}
+        />
       </Container>
     </div>
   );

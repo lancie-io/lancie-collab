@@ -1,4 +1,5 @@
 'use client';
+import { useAuthUser } from '@/lib/auth';
 import { cn } from '@/lib/utils';
 import { motion } from 'framer-motion';
 import { icons } from 'lucide-react';
@@ -9,6 +10,8 @@ const SwitchViewsTabs = () => {
   // const searchParams = useSearchParams();
   // const activeView = searchParams.get('mode') as View;
   const { view: activeView } = useView();
+  const user = useAuthUser();
+  if (!user) return null;
   return (
     <div className="inline-flex h-8 md:h-9 items-center justify-center rounded-full bg-muted p-1 text-muted-foreground">
       <ViewTab isActive={activeView !== 'view'} value="edit" icon="Pen" />

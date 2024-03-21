@@ -1,3 +1,4 @@
+import { useView } from '@/components/providers/ViewProvider';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -35,16 +36,26 @@ const DataTableHead = <TData, TValue>({
   const columnIndex = header.column.getIndex();
   const column = header.column.columnDef as ColumnDef<TData, TValue> & Column;
   const type = column.type;
+  const { isView } = useView();
+
+  const renderHeader = () => (
+    <TableHead className="p-0" key={header.id}>
+      <button className="w-full h-full text-left px-4 flex items-center">
+        <ColumnIcon type={type} className="mr-2 w-4 h-4" />
+        {header.isPlaceholder
+          ? null
+          : flexRender(header.column.columnDef.header, header.getContext())}
+      </button>
+    </TableHead>
+  );
+  if (isView) {
+    return renderHeader();
+  }
 
   return (
     <TableHead className="p-0" key={header.id}>
       <DropdownMenu open={open} onOpenChange={setOpen}>
-        <DropdownMenuTrigger className="w-full h-full text-left px-4 flex items-center">
-          <ColumnIcon type={type} className="mr-2 w-4 h-4" />
-          {header.isPlaceholder
-            ? null
-            : flexRender(header.column.columnDef.header, header.getContext())}
-        </DropdownMenuTrigger>
+        <DropdownMenuTrigger asChild>{renderHeader()}</DropdownMenuTrigger>
         <DropdownMenuContent className="w-[180px]" id="popover-content">
           <div className="px-2 py-1.5">
             <ControlledInput

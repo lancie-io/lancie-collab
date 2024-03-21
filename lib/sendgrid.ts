@@ -58,7 +58,10 @@ export const sendInviteEmail = (email: string, sendGridProjectData: any) => {
 const sendEmailWithSendGrid = (msg: object) => {
   client
     .send(msg)
-    .then(() => console.log('Mail with the following data:', msg))
+    .then(() =>
+      // @ts-ignore
+      console.log('Mail with the following data:', msg)
+    )
     .catch((error: any) => {
       console.error(error);
     });

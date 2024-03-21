@@ -30,13 +30,15 @@ const Editor = ({ placeholder, editable = true, self }: EditorProps) => {
   if (!doc || !provider) return null;
 
   return (
-    <TiptapEditor
-      placeholder={placeholder}
-      editable={editable}
-      doc={doc}
-      provider={provider}
-      self={self}
-    />
+    <>
+      <TiptapEditor
+        placeholder={placeholder}
+        editable={editable}
+        doc={doc}
+        provider={provider}
+        self={self}
+      />
+    </>
   );
 };
 

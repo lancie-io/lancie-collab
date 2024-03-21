@@ -1,8 +1,6 @@
 import { createContext, useContext, useState } from 'react';
-import ElementBar from '../shared/ElementBar';
 import { SettingsCustomInstance } from './SummaryBuilderElement';
 import SummaryPlayground from './SummaryPlayground';
-import SummarySettings from './SummarySettings';
 
 interface SummaryProps {
   element: SettingsCustomInstance;
@@ -12,9 +10,9 @@ const Summary = ({ element }: SummaryProps) => {
   return (
     <SettingsProvider initialValue={element.extraAttributes.settings}>
       <div>
-        <ElementBar>
+        {/* <ElementBar>
           <SummarySettings />
-        </ElementBar>
+        </ElementBar> */}
         <SummaryPlayground element={element} />
       </div>
     </SettingsProvider>

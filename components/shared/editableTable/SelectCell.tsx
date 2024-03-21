@@ -2,6 +2,7 @@ import { WrapperCellProps } from './WrapperCell';
 
 import { Check } from 'lucide-react';
 
+import { useView } from '@/components/providers/ViewProvider';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import {
@@ -87,10 +88,26 @@ const SelectCell = <TData, TValue>({
     }
   }, [open]);
 
+  const { isView } = useView();
+  // if (isView) {
+  //   return (
+  //     <Badge
+  //       variant="none"
+  //       style={{
+  //         backgroundColor: hasValue && `${hasValue?.color}70`,
+  //         border: !hasValue ? '1px solid #27282A' : undefined,
+  //       }}
+  //     >
+  //       {value ? hasValue?.label : 'Select'}
+  //     </Badge>
+  //   );
+  // }
+
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
         <Button
+          disabled={isView}
           onFocus={() => {
             console.log('focused');
             selectCell?.(columnId, rowId);
@@ -105,7 +122,8 @@ const SelectCell = <TData, TValue>({
           role="combobox"
           className={cn(
             'p-4 w-full text-left h-full justify-start focus-visible:ring-0 focus-visible:shadow-inner-outline focus:shadow-inner-outline',
-            open && 'shadow-inner-outline'
+            open && 'shadow-inner-outline',
+            'disabled:opacity-100'
           )}
           style={{
             boxShadow: other?.globalConnectionId

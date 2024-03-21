@@ -1,3 +1,4 @@
+import { useView } from '@/components/providers/ViewProvider';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { Trash } from 'lucide-react';
@@ -16,7 +17,7 @@ export interface MoodboardImageProps {
 const MoodboardImage = forwardRef<HTMLDivElement, MoodboardImageProps>(
   ({ image, element, isDragging, style, withOpacity, ...props }, ref) => {
     const { removeImage } = useMoodboard(element);
-
+    const { isView } = useView();
     return (
       <div
         className={cn(
@@ -30,7 +31,7 @@ const MoodboardImage = forwardRef<HTMLDivElement, MoodboardImageProps>(
         {...props}
       >
         <img src={image!.url} />
-        {!isDragging && (
+        {!isDragging && !isView && (
           <Button
             onClick={() => removeImage(image!.id)}
             variant="ghost"
@@ -40,7 +41,7 @@ const MoodboardImage = forwardRef<HTMLDivElement, MoodboardImageProps>(
             <Trash className="w-4 h-4" />
           </Button>
         )}
-        {image.user && (
+        {/* {image.user && (
           <span className="absolute left-2 bottom-1 opacity-0 group-hover:opacity-100 text-sm">
             Photo by{' '}
             <a
@@ -58,7 +59,7 @@ const MoodboardImage = forwardRef<HTMLDivElement, MoodboardImageProps>(
               Unsplash
             </a>
           </span>
-        )}
+        )} */}
       </div>
     );
   }

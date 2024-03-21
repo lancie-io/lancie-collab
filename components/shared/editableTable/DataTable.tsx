@@ -6,6 +6,7 @@ import {
   useReactTable,
 } from '@tanstack/react-table';
 
+import { useView } from '@/components/providers/ViewProvider';
 import { Skeleton } from '@/components/ui/skeleton';
 import {
   Table,
@@ -49,6 +50,7 @@ export type TableMetaType<TData, TValue> = {
 };
 
 export function DataTable<TData, TValue>(props: DataTableProps<TData, TValue>) {
+  const { isView } = useView();
   const dataTable = useDataTable();
   const {
     users,
@@ -121,9 +123,11 @@ export function DataTable<TData, TValue>(props: DataTableProps<TData, TValue>) {
                   />
                 );
               })}
-              <TableHead onClick={() => insertColumn?.(columns.length)}>
-                <Plus className="w-4 h-4" />
-              </TableHead>
+              {!isView && (
+                <TableHead onClick={() => insertColumn?.(columns.length)}>
+                  <Plus className="w-4 h-4" />
+                </TableHead>
+              )}
             </TableRow>
           ))}
         </TableHeader>
@@ -163,12 +167,14 @@ export function DataTable<TData, TValue>(props: DataTableProps<TData, TValue>) {
                     </TableCell>
                   );
                 })}
-                <TableCell>
-                  <Trash
-                    className="w-3.5 h-3.5 text-muted-foreground hover:text-foreground cursor-pointer"
-                    onClick={() => deleteRow?.(row.index)}
-                  />
-                </TableCell>
+                {!isView && (
+                  <TableCell>
+                    <Trash
+                      className="w-3.5 h-3.5 text-muted-foreground hover:text-foreground cursor-pointer"
+                      onClick={() => deleteRow?.(row.index)}
+                    />
+                  </TableCell>
+                )}
               </TableRow>
             ))
           ) : (
@@ -177,19 +183,21 @@ export function DataTable<TData, TValue>(props: DataTableProps<TData, TValue>) {
             />
           )}
         </TableBody>
-        <TableFooter>
-          <TableRow>
-            <TableHead colSpan={table.getCenterLeafColumns().length + 1}>
-              <div
-                onClick={() => insertRow?.(rows.length)}
-                className="text-sm cursor-pointer text-muted-foreground hover:text-foreground flex gap-1.5 items-center"
-              >
-                <Plus className="w-3 h-3" />
-                Add
-              </div>
-            </TableHead>
-          </TableRow>
-        </TableFooter>
+        {!isView && (
+          <TableFooter>
+            <TableRow>
+              <TableHead colSpan={table.getCenterLeafColumns().length + 1}>
+                <div
+                  onClick={() => insertRow?.(rows.length)}
+                  className="text-sm cursor-pointer text-muted-foreground hover:text-foreground flex gap-1.5 items-center"
+                >
+                  <Plus className="w-3 h-3" />
+                  Add
+                </div>
+              </TableHead>
+            </TableRow>
+          </TableFooter>
+        )}
       </Table>
     </div>
   );

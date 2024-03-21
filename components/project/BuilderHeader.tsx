@@ -7,8 +7,9 @@ import ShareButton from './sharebutton/ShareButton';
 
 interface BuilderHeaderProps {
   projectId: string;
+  isAuthorized: boolean;
 }
-const BuilderHeader = ({ projectId }: BuilderHeaderProps) => {
+const BuilderHeader = ({ projectId, isAuthorized }: BuilderHeaderProps) => {
   return (
     <div className="border-b h-12 md:h-16 flex justify-between items-center px-3 shrink-0 bg-background z-40 relative">
       <HomeLink />
@@ -17,9 +18,14 @@ const BuilderHeader = ({ projectId }: BuilderHeaderProps) => {
       </div>
       <div className="flex items-center gap-3">
         <CommentToggle />
-        <SwitchViewsTabs />
+        {isAuthorized && <SwitchViewsTabs />}
+
         <AvatarStack className="hidden md:flex" />
-        <ShareButton className="hidden md:inline-flex" projectId={projectId} />
+        <ShareButton
+          className="hidden md:inline-flex"
+          projectId={projectId}
+          isAuthorized={isAuthorized}
+        />
       </div>
     </div>
   );

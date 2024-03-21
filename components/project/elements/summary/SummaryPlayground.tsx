@@ -2,9 +2,13 @@
 
 import Upload from '@/components/fileupload/Upload';
 import { useProjectId } from '@/components/providers/ProjectProvider';
+import { useView } from '@/components/providers/ViewProvider';
+import OptimizedImage from '@/components/shared/OptimizedImage';
+import Title from '@/components/shared/Title';
 import { UploadedFile } from '@/components/shared/upload/UploadProvider';
-import { updateProject } from '@/lib/actions';
-import { useQueryClient } from '@tanstack/react-query';
+import { getProjectCover, getProjectTitle, updateProject } from '@/lib/actions';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
+import { format } from 'date-fns';
 import { toast } from 'sonner';
 import { z } from 'zod';
 import { useSettings } from './Summary';
@@ -42,8 +46,24 @@ const SummaryPlayground = ({
     queryClient.invalidateQueries({ queryKey: ['cover'] });
   }
 
-  const { settings } = useSettings();
+  const { data: title, status } = useQuery({
+    queryKey: ['title', projectId],
+    queryFn: async () => {
+      return await getProjectTitle(projectId);
+    },
+  });
 
+  const { data: url, status: coverStatus } = useQuery({
+    queryKey: ['cover', projectId],
+    queryFn: async () => {
+      return await getProjectCover(projectId);
+    },
+  });
+
+  const { settings } = useSettings();
+  const { isView } = useView();
+  const productionDate = element.extraAttributes.production;
+  const publishingDate = element.extraAttributes.publishing;
   return (
     <Upload
       options={{
@@ -52,13 +72,48 @@ const SummaryPlayground = ({
       onUpload={uploadCoverImage}
     >
       <div className="flex flex-col lg:flex-row w-full p-3 md:p-6 gap-3 md:gap-6">
-        {settings.cover && (
+        {isView && url && (
+          <div className="aspect-video grow relative overflow-hidden rounded-md border">
+            <OptimizedImage fill src={url} />
+          </div>
+        )}
+        {settings.cover && !isView && (
           <div className="grow">
             <SummaryCoverUpload />
           </div>
         )}
         <div className="shrink-0 w-full lg:w-1/2">
-          <TitleForm element={element} />
+          {isView && (
+            <div className="space-y-4">
+              <Title className="text-3xl  ">{title}</Title>
+              <p>{element.extraAttributes.description}</p>
+              {(productionDate || publishingDate) && (
+                <div className="flex gap-24">
+                  {productionDate && (
+                    <div>
+                      <p className="text-xs text-muted-foreground font-medium uppercase tracking-wide">
+                        Production Date
+                      </p>
+                      <p className="text-xl font-semibold">
+                        {format(new Date(productionDate), 'MMM do, yyyy')}
+                      </p>
+                    </div>
+                  )}
+                  {publishingDate && (
+                    <div>
+                      <p className="text-xs text-muted-foreground font-medium uppercase tracking-wide">
+                        Publishing Date
+                      </p>
+                      <p className="text-xl font-semibold">
+                        {format(new Date(publishingDate), 'MMM do, yyyy')}
+                      </p>
+                    </div>
+                  )}
+                </div>
+              )}
+            </div>
+          )}
+          {!isView && <TitleForm element={element} />}
         </div>
       </div>
     </Upload>

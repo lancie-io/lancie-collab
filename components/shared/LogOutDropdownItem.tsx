@@ -5,7 +5,9 @@ import { DropdownMenuItem } from '../ui/dropdown-menu';
 
 const LogOutDropdownItem = () => {
   return (
-    <DropdownMenuItem onClick={() => signOut({ callbackUrl: '/' })}>
+    <DropdownMenuItem
+      onClick={() => signOut({ callbackUrl: '/?logout_success=true' })}
+    >
       <LogOut className="mr-2 h-4 w-4" />
       <span>Log out</span>
     </DropdownMenuItem>

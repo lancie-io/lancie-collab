@@ -1,9 +1,11 @@
+import { useView } from '@/components/providers/ViewProvider';
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 import { FC } from 'react';
 import MoodboardImage, { MoodboardImageProps } from './MoodboardImage';
 
 const SortableMoodboardImage: FC<MoodboardImageProps> = (props) => {
+  const { isView } = useView();
   const {
     isDragging,
     attributes,
@@ -14,6 +16,7 @@ const SortableMoodboardImage: FC<MoodboardImageProps> = (props) => {
   } = useSortable({
     id: props.image.id,
     data: { image: props.image },
+    disabled: isView,
   });
 
   const style = {

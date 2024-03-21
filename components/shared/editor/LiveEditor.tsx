@@ -22,7 +22,9 @@ const LiveEditor = ({
     <RoomProvider id={`${projectId}-editor-${id}`} initialPresence={{}}>
       <ClientSideSuspense fallback={<LoadingEditor />}>
         {() => (
-          <Editor editable={editable} placeholder={placeholder} self={self} />
+          <>
+            <Editor editable={editable} placeholder={placeholder} self={self} />
+          </>
         )}
       </ClientSideSuspense>
     </RoomProvider>
