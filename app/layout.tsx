@@ -18,7 +18,7 @@ import '../styles/liveblocks.css';
 import '../styles/prose.css';
 
 export const metadata: Metadata = {
-  title: 'Lancie - Supercharge your video pre-production',
+  title: 'Lancie - Video pre-production made easy',
   description:
     'Collaborative video pre-production tool for creators and teams. Create stunning visuals and drive real results.',
 };

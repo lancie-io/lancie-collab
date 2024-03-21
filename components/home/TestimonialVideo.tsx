@@ -15,9 +15,9 @@ const TestimonialVideo = () => {
   const handlePlaying = () => {
     setPlaying((playing) => {
       if (playing) {
-        trackEvent('Testimonial Video Stopped', { progress });
+        trackEvent('TestimonialVideo Stopped', { progress });
       } else {
-        trackEvent('Testimonial Video Started');
+        trackEvent('TestimonialVideo Started');
       }
       return !playing;
     });
@@ -26,7 +26,7 @@ const TestimonialVideo = () => {
     if (!isInView) {
       if (playing) {
         setPlaying(false);
-        trackEvent('Testimonial Video Stopped', { progress });
+        trackEvent('TestimonialVideo Stopped', { progress });
       }
     }
   }, [isInView]);
@@ -39,7 +39,9 @@ const TestimonialVideo = () => {
       <ReactPlayer
         url={'/maik_testimonial.mp4'}
         playing={playing}
-        onProgress={(state) => setProgress(Number(state.played.toFixed(4)))}
+        onProgress={(state) =>
+          setProgress(Number(state.played.toFixed(4)) * 100)
+        }
         style={{
           position: 'absolute',
           width: '100%',
