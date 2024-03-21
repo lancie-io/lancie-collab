@@ -2,7 +2,7 @@
 export async function triggerUnsplashDownloadLink(downloadLocation: string) {
   const res = await fetch(downloadLocation, {
     headers: {
-      Authorization: `Client-ID ${process.env.UNSPLASH_ACCESS_KEY}`,
+      Authorization: `Client-ID ${process.env.NEXT_PUBLIC_UNSPLASH_ACCESS_KEY}`,
     },
   });
   if (res.ok) {

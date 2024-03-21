@@ -29,7 +29,10 @@ const Moodboard = ({ element, isPreview }: MoodboardProps) => {
       }}
     >
       <div
-        className={cn('overflow-hidden flex flex-col', !isView && 'aspect-4/3')}
+        className={cn(
+          'overflow-hidden flex flex-col',
+          !isView && 'aspect-[4/3]'
+        )}
       >
         <ElementBar>
           <UnsplashButton element={element} />

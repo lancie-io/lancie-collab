@@ -35,7 +35,7 @@ const AvatarDropdown = ({ showName = false, inApp }: AvatarDropdownProps) => {
     return (
       <Link href={`/app/${user?.id}`}>
         <LayoutGrid className="mr-2 h-4 w-4" />
-        App
+        Projects
       </Link>
     );
   }
