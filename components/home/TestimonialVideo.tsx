@@ -30,6 +30,22 @@ const TestimonialVideo = () => {
       }
     }
   }, [isInView]);
+  useEffect(() => {
+    const cleanup = () => {
+      // do your cleanup
+      if (playing) {
+        setPlaying(false);
+        trackEvent('TestimonialVideo Stopped', { progress });
+      }
+    };
+
+    window.addEventListener('beforeunload', cleanup);
+
+    return () => {
+      window.removeEventListener('beforeunload', cleanup);
+    };
+  });
+
   return (
     <div
       ref={ref}
@@ -40,7 +56,7 @@ const TestimonialVideo = () => {
         url={'/maik_testimonial.mp4'}
         playing={playing}
         onProgress={(state) =>
-          setProgress(Number(state.played.toFixed(4)) * 100)
+          setProgress(Number((state.played * 100).toFixed(2)))
         }
         style={{
           position: 'absolute',
