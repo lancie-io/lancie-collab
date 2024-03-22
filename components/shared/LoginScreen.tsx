@@ -9,8 +9,7 @@ const LoginScreen = () => {
       <div className="relative aspect-[4/2] md:aspect-auto md:h-full w-full overflow-hidden bg-gradient-to-t from-brand-600 to-brand-400 flex flex-col items-center justify-center">
         <Icons.logoText className="w-1/2 md:w-1/2" />
       </div>
-      <div className="flex flex-col items-center gap-6 p-6 py-20 md:p-12 order-first">
-        <Icons.logoRaw className="w-12 md:w-16" />
+      <div className="flex flex-col items-center gap-6 py-12 px-6 md:px-12 md:py-20 order-first">
         <Title className="text-3xl md:text-2xl lg:text-3xl xl:text-4xl">
           Welcome
         </Title>
