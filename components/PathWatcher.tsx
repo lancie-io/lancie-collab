@@ -36,6 +36,7 @@ const PathWatcher = () => {
     const logoutSuccess = searchParams.get('logout_success');
     if (loginSuccess === 'true' || logoutSuccess === 'true') {
       if (user) {
+        console.log('TRIGGER');
         trackIdentify(user.email, {
           name: user.name,
           email: user.email,
