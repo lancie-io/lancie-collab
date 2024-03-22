@@ -1,10 +1,9 @@
 'use client';
 
 import { createProject } from '@/lib/actions';
-import { sendProjectCreated } from '@/lib/make';
+import { useAuthUser } from '@/lib/auth';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Loader2 } from 'lucide-react';
-import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
@@ -27,7 +26,7 @@ const formSchema = z.object({
 });
 
 const ProjectCreateForm = () => {
-  const session = useSession();
+  const user = useAuthUser();
   const { hide } = useModal();
   const router = useRouter();
   const form = useForm<z.infer<typeof formSchema>>({
@@ -38,20 +37,21 @@ const ProjectCreateForm = () => {
   });
   const isSubmitting = form.formState.isSubmitting;
   async function onSubmit(values: z.infer<typeof formSchema>) {
+    if (!user) {
+      toast.error('You need to be logged in to create a project');
+      return;
+    }
+
     const res = await createProject(values);
-    const makeProjectData = {
-      name: values.name,
-      email: session?.data?.user?.email,
-      amount: session?.data?.user?.projects?.length,
-    };
+
     if (res.success) {
       toast.success(res.message);
-      sendProjectCreated(makeProjectData);
-      router.refresh();
       trackEvent('Project Created', {
         name: values.name,
-        email: session?.data?.user?.email,
+        email: user.email,
+        amount: user.projects.length + 1,
       });
+      router.refresh();
       hide();
     } else {
       toast.error(res.message);
