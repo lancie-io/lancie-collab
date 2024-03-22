@@ -10,7 +10,7 @@ import { EdgeStoreProvider } from '@/lib/edgestore';
 import { inter } from '@/lib/fonts';
 import '@liveblocks/react-comments/styles.css';
 import '@liveblocks/react-comments/styles/dark/attributes.css';
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import '../styles/animate.css';
 import '../styles/custom.css';
 import '../styles/globals.css';
@@ -21,6 +21,15 @@ export const metadata: Metadata = {
   title: 'Lancie - Video pre-production made easy',
   description:
     'Collaborative video pre-production tool for creators and teams. Create stunning visuals and drive real results.',
+};
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
+  // Also supported by less commonly used
+  // interactiveWidget: 'resizes-visual',
 };
 
 export default function RootLayout({
