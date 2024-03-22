@@ -1,13 +1,14 @@
 'use client';
 
+import { useAuthUser } from '@/lib/auth';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Prisma } from '@prisma/client';
-import { useSession } from 'next-auth/react';
+import { Loader2 } from 'lucide-react';
 import { usePathname } from 'next/navigation';
-import { browserName, isMobile, osName } from 'react-device-detect';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 import { z } from 'zod';
+import { trackAsyncEvent } from '../providers/Analytics';
 import { Button } from '../ui/button';
 import {
   Form,
@@ -30,7 +31,7 @@ interface FeedbackFormProps {
 }
 
 const FeedbackForm = ({ closePopover }: FeedbackFormProps) => {
-  const session = useSession();
+  const user = useAuthUser();
   const pathname = usePathname();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -38,36 +39,26 @@ const FeedbackForm = ({ closePopover }: FeedbackFormProps) => {
       message: '',
     },
   });
+  const isSubmitting = form.formState.isSubmitting;
   async function onSubmit(values: z.infer<typeof formSchema>) {
+    if (!user) {
+      toast.error('Please login to submit feedback.');
+      return;
+    }
     const newFeedback: Prisma.FeedbackCreateInput = {
       message: values.message,
-      email: session?.data?.user?.email,
+      email: user.email,
       path: pathname,
-      type: 'header',
+      type: 'sidebar',
     };
     const res = await createFeedback(newFeedback);
     if (res.success) {
-      toast.success('Feedback submitted.');
+      await trackAsyncEvent('Feedback Submitted', {
+        text: values.message,
+        email: user.email,
+      });
       form.reset();
-      await fetch(
-        'https://hook.eu2.make.com/gfnes4f6ofny8cwuxmebm1wyx4p86p1u',
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            ...res.data,
-            browser: browserName,
-            os: osName,
-            platform: isMobile ? 'mobile' : 'desktop',
-            resolution: {
-              width: window.innerWidth,
-              height: window.innerHeight,
-            },
-          }),
-        }
-      );
+      toast.success('Feedback submitted.');
       closePopover();
     } else {
       toast.error('Error submitting feedback.');
@@ -88,8 +79,14 @@ const FeedbackForm = ({ closePopover }: FeedbackFormProps) => {
             </FormItem>
           )}
         />
-        <Button className="w-full" type="submit">
-          Send
+        <Button className="w-full" type="submit" disabled={isSubmitting}>
+          {isSubmitting && (
+            <>
+              <Loader2 className="w-4 h-4" />
+              Sending...
+            </>
+          )}
+          {!isSubmitting && 'Send'}
         </Button>
       </form>
     </Form>

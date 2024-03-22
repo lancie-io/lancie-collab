@@ -77,7 +77,12 @@ const ShareForm = ({ projectId }: ShareFormProps) => {
               </div>
               <FormControl className="flex">
                 <div className="flex gap-2">
-                  <Input className="" placeholder="Enter email..." {...field} />
+                  <Input
+                    className=""
+                    placeholder="Enter email..."
+                    {...field}
+                    disabled={isSubmitting}
+                  />
                   <Button
                     className="grow-0"
                     variant="primary"

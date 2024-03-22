@@ -42,6 +42,24 @@ export const trackEvent = (eventName: string, properties?: Object) => {
   }
 };
 
+export const trackAsyncEvent = async (
+  eventName: string,
+  properties?: Object
+) => {
+  const res = await analytics.track(
+    eventName,
+    { ...properties },
+    {
+      context: getWindowProps(),
+    }
+  );
+  const showTrackingEventToast = getLocalStorage('show-tracking-event-toast');
+  if (showTrackingEventToast) {
+    toast.success(`${eventName}`);
+  }
+  return res;
+};
+
 export const trackIdentify = (
   id: string,
   traits?: {
