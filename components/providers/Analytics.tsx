@@ -19,7 +19,9 @@ const Analytics = () => {
 export default Analytics;
 
 export const trackPage = () => {
-  analytics.page();
+  analytics.page(undefined, undefined, undefined, {
+    context: getWindowProps(),
+  });
   const showTrackingEventToast = getLocalStorage('show-tracking-event-toast');
   if (showTrackingEventToast) {
     toast.success(`Page Viewed`);
@@ -27,7 +29,13 @@ export const trackPage = () => {
 };
 
 export const trackEvent = (eventName: string, properties?: Object) => {
-  analytics.track(eventName, { ...properties });
+  analytics.track(
+    eventName,
+    { ...properties },
+    {
+      context: getWindowProps(),
+    }
+  );
   const showTrackingEventToast = getLocalStorage('show-tracking-event-toast');
   if (showTrackingEventToast) {
     toast.success(`${eventName}`);
@@ -41,9 +49,24 @@ export const trackIdentify = (
     email?: string | null;
   }
 ) => {
-  analytics.identify(id, { ...traits });
+  analytics.identify(
+    id,
+    { ...traits },
+    {
+      context: getWindowProps(),
+    }
+  );
   const showTrackingEventToast = getLocalStorage('show-tracking-event-toast');
   if (showTrackingEventToast) {
     toast.success(`User Identified`);
   }
+};
+
+const getWindowProps = () => {
+  return {
+    screen: {
+      width: window?.innerWidth,
+      height: window?.innerHeight,
+    },
+  };
 };
