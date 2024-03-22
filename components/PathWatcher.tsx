@@ -40,11 +40,11 @@ const PathWatcher = () => {
           name: user.name,
           email: user.email,
         });
-        trackEvent('Logged In');
+        trackEvent('Signed In');
         toast.success(`Logged in as ${user.email}`);
       }
       if (logoutSuccess === 'true') {
-        trackEvent('Logged Out');
+        trackEvent('Signed Out');
         toast.info('Logged out');
       }
       let url = new URL(`${process.env.NEXT_PUBLIC_HOST_URL}${pathname}`);
