@@ -1,4 +1,5 @@
 'use client';
+import { trackEvent } from '@/components/providers/Analytics';
 import { Button } from '@/components/ui/button';
 import {
   Form,
@@ -10,6 +11,7 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { createInvite } from '@/lib/actions';
+import { useAuthUser } from '@/lib/auth';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Loader2 } from 'lucide-react';
 import { useRouter } from 'next/navigation';
@@ -32,6 +34,7 @@ interface ShareFormProps {
 }
 
 const ShareForm = ({ projectId }: ShareFormProps) => {
+  const user = useAuthUser();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -47,6 +50,11 @@ const ShareForm = ({ projectId }: ShareFormProps) => {
     });
     if (res.success) {
       toast.success(`Invite sent to ${values.email}`);
+      trackEvent('Collaborator Invited', {
+        fromEmail: user?.email,
+        toEmail: values.email,
+        projectId,
+      });
       form.reset();
     } else {
       toast.error(res.message);
