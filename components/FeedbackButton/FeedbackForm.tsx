@@ -8,7 +8,7 @@ import { usePathname } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 import { z } from 'zod';
-import { trackAsyncEvent } from '../providers/Analytics';
+import { trackEvent } from '../providers/Analytics';
 import { Button } from '../ui/button';
 import {
   Form,
@@ -53,7 +53,7 @@ const FeedbackForm = ({ closePopover }: FeedbackFormProps) => {
     };
     const res = await createFeedback(newFeedback);
     if (res.success) {
-      await trackAsyncEvent('Feedback Submitted', {
+      trackEvent('Feedback Submitted', {
         text: values.message,
         email: user.email,
       });
@@ -82,7 +82,7 @@ const FeedbackForm = ({ closePopover }: FeedbackFormProps) => {
         <Button className="w-full" type="submit" disabled={isSubmitting}>
           {isSubmitting && (
             <>
-              <Loader2 className="w-4 h-4" />
+              <Loader2 className="w-4 h-4 animate-spin" />
               Sending...
             </>
           )}
