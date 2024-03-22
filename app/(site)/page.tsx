@@ -10,7 +10,7 @@ import { flippers } from '@/lib/flippercontent';
 
 export default function Home() {
   return (
-    <div className="py-12 md:py-20 flex flex-col gap-28 md:gap-56 overflow-hidden bg-[radial-gradient(50%_10%_at_50%_0%,rgba(255,77,20,0.1)_0%,rgba(255,77,20,0)_100%)]">
+    <div className="py-12 md:py-20 flex flex-col gap-28 md:gap-48 overflow-hidden bg-[radial-gradient(50%_10%_at_50%_0%,rgba(255,77,20,0.1)_0%,rgba(255,77,20,0)_100%)]">
       <Hero />
       <ProminentText />
       <SocialTeaser />
