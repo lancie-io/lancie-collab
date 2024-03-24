@@ -5,6 +5,7 @@ import AuthProvider from '@/components/providers/AuthProvider';
 import LoadingProvider from '@/components/providers/LoadingProvider';
 import QueryProvider from '@/components/providers/QueryProvider';
 import ToasterProvider from '@/components/providers/ToasterProvider';
+import ErrorBoundary from '@/components/shared/ErrorBoundary';
 import { ModalProvider } from '@/components/shared/modal';
 import { EdgeStoreProvider } from '@/lib/edgestore';
 import { inter } from '@/lib/fonts';
@@ -43,22 +44,24 @@ export default function RootLayout({
     <html lang="en" className="dark no-scrollbar">
       <body className={`${inter.className}`}>
         <main className="flex min-h-screen flex-col">
-          <AuthProvider>
-            <ToasterProvider>
-              <EdgeStoreProvider>
-                <QueryProvider>
-                  <ModalProvider>
-                    <LoadingProvider>
-                      {children}
-                      {modal}
-                      <AnimatedCursorShowHandler />
-                    </LoadingProvider>
-                  </ModalProvider>
-                </QueryProvider>
-              </EdgeStoreProvider>
-            </ToasterProvider>
-            <PathWatcher />
-          </AuthProvider>
+          <ErrorBoundary type="App Error">
+            <AuthProvider>
+              <ToasterProvider>
+                <EdgeStoreProvider>
+                  <QueryProvider>
+                    <ModalProvider>
+                      <LoadingProvider>
+                        {children}
+                        {modal}
+                        <AnimatedCursorShowHandler />
+                      </LoadingProvider>
+                    </ModalProvider>
+                  </QueryProvider>
+                </EdgeStoreProvider>
+              </ToasterProvider>
+              <PathWatcher />
+            </AuthProvider>
+          </ErrorBoundary>
         </main>
       </body>
       <Analytics />

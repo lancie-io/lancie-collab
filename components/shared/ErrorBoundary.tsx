@@ -1,9 +1,12 @@
+'use client';
 import { AlertCircle } from 'lucide-react';
 import React, { ReactNode } from 'react';
+import { trackEvent } from '../providers/Analytics';
 import { Alert, AlertDescription, AlertTitle } from '../ui/alert';
 
 interface ErrorBoundaryProps {
   info?: string;
+  type?: string;
   children: ReactNode;
 }
 
@@ -30,7 +33,11 @@ class ErrorBoundary extends React.Component<
 
   componentDidCatch(error: any, errorInfo: any) {
     // You can use your own error logging service here
-    console.log({ error, errorInfo });
+    trackEvent('Error Occurred', {
+      type: this.props.type,
+      message: error.message,
+      info: this.props.info,
+    });
   }
 
   render() {
@@ -40,13 +47,11 @@ class ErrorBoundary extends React.Component<
       return (
         <Alert variant="destructive" className="w-full bg-red-500/20">
           <AlertCircle className="h-4 w-4" />
-          <AlertTitle>Error in module: {this.state.hasError}</AlertTitle>
+          <AlertTitle>Error</AlertTitle>
           <AlertDescription>
             An error occurred. The Lancie developer team has been notified. We
             are working on it.
-            <pre>Error: {JSON.stringify(this.state.error, null, 2)}</pre>
           </AlertDescription>
-          {/* <pre>{JSON.stringify(this.props.children, null, 2)}</pre> */}
         </Alert>
       );
     }

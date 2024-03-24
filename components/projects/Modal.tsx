@@ -121,7 +121,7 @@ export const ModalHeader = ({ children, ...props }: ModalHeaderProps) => {
     return <DialogHeader {...props}>{children}</DialogHeader>;
   }
 
-  return <DrawerHeader>{children}</DrawerHeader>;
+  return <DrawerHeader {...props}>{children}</DrawerHeader>;
 };
 
 interface ModalTitleProps {
