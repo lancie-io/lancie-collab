@@ -1,9 +1,11 @@
+import { useProjectId } from '@/components/providers/ProjectProvider';
 import { Button } from '@/components/ui/button';
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from '@/components/ui/popover';
+import { useAuthUser } from '@/lib/auth';
 import { useCreateThread, useThreads } from '@/liveblocks.config';
 import {
   Composer,
@@ -11,7 +13,7 @@ import {
   Thread,
 } from '@liveblocks/react-comments';
 import { MessageSquare, MessageSquarePlus } from 'lucide-react';
-import { FormEvent, useCallback } from 'react';
+import { FormEvent, useCallback, useEffect, useState } from 'react';
 import { BuilderElementInstance } from '../../BuilderElements';
 
 interface CommentButtonProps {
@@ -39,6 +41,16 @@ const CommentButton = ({ element }: CommentButtonProps) => {
     },
     []
   );
+  const user = useAuthUser();
+  const projectId = useProjectId();
+  const [isAuthorized, setIsAuthorized] = useState(false);
+  useEffect(() => {
+    let iA = false;
+    if (user) {
+      iA = user.memberProjects.some((pId) => pId === projectId);
+    }
+    setIsAuthorized(iA);
+  }, [user, projectId]);
   return (
     <Popover>
       <PopoverTrigger>
@@ -54,12 +66,28 @@ const CommentButton = ({ element }: CommentButtonProps) => {
         </Button>
       </PopoverTrigger>
       <PopoverContent className="p-0" id="popover-content">
-        {filteredThreads.length < 1 && (
+        {!isAuthorized && (
+          <div className="p-3">
+            <p className="text-sm text-muted-foreground">
+              {filteredThreads.length < 1 && <span>No comments yet. </span>}
+              <span>
+                Sign in and get added to the project to leave comments.
+              </span>
+            </p>
+          </div>
+        )}
+        {filteredThreads.length < 1 && isAuthorized && (
           <Composer onComposerSubmit={handleSubmit} className="border-none" />
         )}
         {filteredThreads.map((thread) => {
           return (
-            <Thread thread={thread} key={thread.id} className="border-none" />
+            <Thread
+              thread={thread}
+              key={thread.id}
+              className="border-none"
+              showComposer={isAuthorized}
+              showActions={isAuthorized}
+            />
           );
         })}
       </PopoverContent>
