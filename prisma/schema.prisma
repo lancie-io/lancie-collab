@@ -50,7 +50,7 @@ model Project {
   description   String?
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt @default(now())
-  user          User      @relation("Owner", fields: [userId], references: [id])
+  user          User      @relation("Owner", fields: [userId], references: [id], onDelete: Cascade)
   userId        String
   content       Json?
   comments      Comment[]
