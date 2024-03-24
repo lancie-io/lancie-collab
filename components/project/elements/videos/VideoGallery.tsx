@@ -1,4 +1,5 @@
 'use client';
+import { useView } from '@/components/providers/ViewProvider';
 import EmptyState from '../shared/EmptyState';
 import VideoGalleryToolbar from './VideoGalleryToolbar';
 import VideoItem from './VideoItem';
@@ -8,10 +9,11 @@ import { TVideoItem } from './types';
 const VideoGallery = ({ element }: { element: VideosCustomInstance }) => {
   const hasVideos = element.extraAttributes.videos.length > 0;
   const videos = element.extraAttributes.videos;
+  const { isView } = useView();
   return (
     <div>
       <VideoGalleryToolbar element={element} />
-      {!hasVideos && (
+      {!hasVideos && !isView && (
         <EmptyState
           icon="Film"
           title="Add Videos"

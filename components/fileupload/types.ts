@@ -41,5 +41,5 @@ export type UploadContextType = {
 
 export type UploadedFile = {
   name: string | null;
-  url: string | null;
+  url: string;
 };

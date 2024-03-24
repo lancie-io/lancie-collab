@@ -124,7 +124,10 @@ export function DataTable<TData, TValue>(props: DataTableProps<TData, TValue>) {
                 );
               })}
               {!isView && (
-                <TableHead onClick={() => insertColumn?.(columns.length)}>
+                <TableHead
+                  onClick={() => insertColumn?.(columns.length)}
+                  className=""
+                >
                   <Plus className="w-4 h-4" />
                 </TableHead>
               )}

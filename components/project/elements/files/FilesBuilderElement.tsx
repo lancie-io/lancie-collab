@@ -50,6 +50,10 @@ export const FilesBuilderElement: BuilderElement = {
 
 export type FilesElement = BuilderElementInstance<FilesAttributes>;
 
+export type FilesManagerCustomInstance = BuilderElementInstance & {
+  extraAttributes: typeof extraAttributes;
+};
+
 function BuilderComponent({
   elementInstance: element,
 }: {

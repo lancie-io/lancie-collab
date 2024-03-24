@@ -4,6 +4,28 @@ import { getAuthUser } from '@/lib/auth';
 import prisma from '@/lib/prisma';
 import { Prisma } from '@prisma/client';
 
+export async function renameFile(fileId: string, newName: string) {
+  try {
+    const file = await prisma.file.update({
+      where: {
+        id: fileId,
+      },
+      data: {
+        name: newName,
+      },
+    });
+    return {
+      success: true,
+      data: file,
+    };
+  } catch (error) {
+    return {
+      success: false,
+      data: null,
+    };
+  }
+}
+
 export async function getFiles({ projectId }: { projectId?: string }) {
   if (!projectId) {
     return null;
@@ -17,7 +39,7 @@ export async function getFiles({ projectId }: { projectId?: string }) {
         createdAt: 'desc',
       },
     });
-    return { data: files };
+    return { files };
   } catch (error) {
     return { error: error };
   }
@@ -40,6 +62,7 @@ export async function addFile(
         name: file.name,
         url: file.url,
         size: file.size,
+        type: file.type,
         project: {
           connect: {
             id: projectId,

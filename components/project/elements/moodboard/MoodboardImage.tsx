@@ -1,6 +1,7 @@
 import { useView } from '@/components/providers/ViewProvider';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
+import { motion } from 'framer-motion';
 import { Trash } from 'lucide-react';
 import { CSSProperties, forwardRef } from 'react';
 import { MoodboardCustomInstance, TImage } from './MoodboardBuilderElement';
@@ -11,23 +12,27 @@ export interface MoodboardImageProps {
   element: MoodboardCustomInstance;
   isDragging?: boolean;
   withOpacity?: boolean;
+  layoutId?: string;
   style?: CSSProperties;
 }
 
 const MoodboardImage = forwardRef<HTMLDivElement, MoodboardImageProps>(
-  ({ image, element, isDragging, style, withOpacity, ...props }, ref) => {
+  (
+    { image, element, isDragging, style, withOpacity, layoutId, ...props },
+    ref
+  ) => {
     const { removeImage } = useMoodboard(element);
     const { isView } = useView();
     return (
-      <div
+      <motion.div
         className={cn(
           'relative border rounded-md overflow-hidden w-full bg-accent group cursor-grab',
-          withOpacity && 'opacity-10',
           isDragging && 'cursor-grabbing'
         )}
         key={image!.id}
         ref={ref}
         style={style}
+        layoutId={layoutId}
         {...props}
       >
         <img src={image!.url} />
@@ -60,7 +65,7 @@ const MoodboardImage = forwardRef<HTMLDivElement, MoodboardImageProps>(
             </a>
           </span>
         )} */}
-      </div>
+      </motion.div>
     );
   }
 );

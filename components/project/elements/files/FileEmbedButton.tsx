@@ -15,7 +15,8 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 import { z } from 'zod';
-import { addFile, getFiles } from './actions';
+import { getFiles } from './actions';
+import useFiles from './useFiles';
 
 const formSchema = z.object({
   url: z.string().url(),
@@ -24,6 +25,7 @@ const formSchema = z.object({
 const FileEmbedButton = () => {
   const [open, setOpen] = useState(false);
   const projectId = useProjectId();
+  const { addFile } = useFiles();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -42,16 +44,24 @@ const FileEmbedButton = () => {
   const broadcast = useBroadcastEvent();
 
   async function onSubmit(data: z.infer<typeof formSchema>) {
-    const res = await addFile(data, projectId);
+    if (!projectId) {
+      toast.error('Project not found');
+      return;
+    }
+    const res = await addFile({
+      url: data.url,
+      type: 'url',
+    });
     if (res.success) {
+      toast.success('File added');
       form.reset();
-      refetch();
-      broadcast({
-        type: 'refetch',
-        data: {
-          key: ['files', projectId],
-        },
-      });
+      // refetch();
+      // broadcast({
+      //   type: 'refetch',
+      //   data: {
+      //     key: ['files', projectId],
+      //   },
+      // });
       setOpen(false);
     } else {
       toast.error('Failed to add file');
@@ -86,7 +96,12 @@ const FileEmbedButton = () => {
                 </FormItem>
               )}
             />
-            <Button size="sm" type="submit" disabled={isSubmitting}>
+            <Button
+              size="sm"
+              type="submit"
+              disabled={isSubmitting}
+              className="!w-14"
+            >
               {isSubmitting && <Loader2 className="w-4 h-4 animate-spin" />}
               {!isSubmitting && 'Add'}
             </Button>

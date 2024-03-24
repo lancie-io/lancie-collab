@@ -39,17 +39,19 @@ const DataTableHead = <TData, TValue>({
   const { isView } = useView();
 
   const renderHeader = () => (
-    <TableHead className="p-0" key={header.id}>
-      <button className="w-full h-full text-left px-4 flex items-center">
-        <ColumnIcon type={type} className="mr-2 w-4 h-4" />
-        {header.isPlaceholder
-          ? null
-          : flexRender(header.column.columnDef.header, header.getContext())}
-      </button>
-    </TableHead>
+    <button className="w-full h-full text-left px-4 flex items-center">
+      <ColumnIcon type={type} className="mr-2 w-4 h-4" />
+      {header.isPlaceholder
+        ? null
+        : flexRender(header.column.columnDef.header, header.getContext())}
+    </button>
   );
   if (isView) {
-    return renderHeader();
+    return (
+      <TableHead className="p-0" key={header.id}>
+        {renderHeader()}
+      </TableHead>
+    );
   }
 
   return (

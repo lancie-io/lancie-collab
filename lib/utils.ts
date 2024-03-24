@@ -70,15 +70,11 @@ export interface MetaDataData {
   title: string;
   description: string;
   slug?: string;
-  imageUrl?: string;
+  imageUrl: string;
 }
 
 export const createMetaDataObject = (data: MetaDataData): Metadata => {
-  const {
-    title,
-    description,
-    imageUrl = 'https://res.cloudinary.com/dum2lqmke/image/upload/v1692958978/og-image_tssqjm.jpg',
-  } = data;
+  const { title, description, imageUrl } = data;
 
   return {
     title: `${title}`,

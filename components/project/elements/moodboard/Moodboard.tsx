@@ -38,19 +38,7 @@ const Moodboard = ({ element, isPreview }: MoodboardProps) => {
           <UnsplashButton element={element} />
           <UploadButton element={element} />
         </ElementBar>
-
         <PhotosGrid element={element} />
-
-        {/* <div className="grow overflow-scroll flex flex-col no-scrollbar">
-        {images?.length == 0 && (
-          <EmptyState
-            className="w-full h-full "
-            icon="Image"
-            title="Add Images"
-            description="Define mood and visual style of your project."
-          />
-        )}
-      </div> */}
       </div>
     </Upload>
   );

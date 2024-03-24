@@ -22,6 +22,7 @@ const SortableMoodboardImage: FC<MoodboardImageProps> = (props) => {
   const style = {
     transform: CSS.Translate.toString(transform),
     transition: transition || undefined,
+    opacity: isDragging ? 0.1 : 1,
   };
 
   return (
@@ -29,6 +30,7 @@ const SortableMoodboardImage: FC<MoodboardImageProps> = (props) => {
       ref={setNodeRef}
       style={style}
       withOpacity={isDragging}
+      layoutId={props.image.id}
       {...props}
       {...attributes}
       {...listeners}

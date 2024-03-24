@@ -21,6 +21,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { getProjectTitle } from '@/lib/actions';
 import { useLiveblocks } from '@/lib/liveblocks';
 import { cn } from '@/lib/utils';
+import { useBroadcastEvent } from '@/liveblocks.config';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useQuery } from '@tanstack/react-query';
 import { format } from 'date-fns';
@@ -60,15 +61,7 @@ const TitleForm = ({ element }: { element: SettingsCustomInstance }) => {
         new Date(element.extraAttributes.publishing),
     },
   });
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    debouncedUpdate(values);
-  }
-
-  useEffect(() => {
-    const subscription = form.watch(() => form.handleSubmit(onSubmit)());
-    return () => subscription.unsubscribe();
-  }, [form.handleSubmit, form.watch]);
-  const debouncedUpdate = debounce(updateSummary, 1000);
+  const broadcast = useBroadcastEvent();
   function updateSummary(values: z.infer<typeof formSchema>) {
     updateElement(element.id, {
       ...element,
@@ -80,6 +73,16 @@ const TitleForm = ({ element }: { element: SettingsCustomInstance }) => {
       },
     });
   }
+  function onSubmit(values: z.infer<typeof formSchema>) {
+    // debouncedUpdate(values);
+    updateSummary(values);
+  }
+
+  useEffect(() => {
+    const subscription = form.watch(() => form.handleSubmit(onSubmit)());
+    return () => subscription.unsubscribe();
+  }, [form.handleSubmit, form.watch]);
+  const debouncedUpdate = debounce(updateSummary, 1000);
 
   return (
     <Form {...form}>

@@ -22,7 +22,7 @@ import { Input } from '../ui/input';
 import { useModal } from './Modal';
 
 const formSchema = z.object({
-  name: z.string(),
+  name: z.string().trim().min(1, 'Name is required'),
 });
 
 const ProjectCreateForm = () => {

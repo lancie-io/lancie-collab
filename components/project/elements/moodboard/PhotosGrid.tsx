@@ -8,6 +8,7 @@ import { MoodboardCustomInstance, TImage } from './MoodboardBuilderElement';
 import MoodboardImage from './MoodboardImage';
 import { useMoodboard } from './useMoodboard';
 
+import { useView } from '@/components/providers/ViewProvider';
 import {
   DndContext,
   DragEndEvent,
@@ -24,6 +25,7 @@ import { SortableContext, rectSortingStrategy } from '@dnd-kit/sortable';
 import SortableMoodboardImage from './SortableMoodboardImage';
 
 const PhotosGrid = ({ element }: { element: MoodboardCustomInstance }) => {
+  const { isView } = useView();
   const { removeImage, moveImage } = useMoodboard(element);
   const hasImages = element.extraAttributes.images.length > 0;
   const { uploadingItems } = useUpload();
@@ -82,7 +84,7 @@ const PhotosGrid = ({ element }: { element: MoodboardCustomInstance }) => {
     setActiveImage(null);
   }, [element]);
 
-  if (!hasImages && !uploadingItems.length) {
+  if (!hasImages && !uploadingItems.length && !isView) {
     return (
       <div className="p-3 h-full">
         <UploadTrigger />

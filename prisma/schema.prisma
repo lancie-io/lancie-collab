@@ -125,7 +125,7 @@ model File {
   updatedAt DateTime @updatedAt @default(now())
   name      String?
   label     String?
-  emoji     String?   @default("File")
+  emoji     String?  
   url       String
   size      Int?
   user      User?     @relation(fields: [userId], references: [id])
@@ -133,6 +133,7 @@ model File {
   project   Project?  @relation(fields: [projectId], references: [id])
   projectId String?
   moduleId  String?
+  type      String
 }
 
 

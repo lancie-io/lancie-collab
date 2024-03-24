@@ -1,3 +1,4 @@
+import { useView } from '@/components/providers/ViewProvider';
 import LucideIcon from '@/components/shared/LucideIcon';
 import { Progress } from '@/components/upload/MultiFileDropzone';
 import { cn } from '@/lib/utils';
@@ -12,9 +13,17 @@ interface FileItemProps {
   element: FilesElement;
 }
 
+function getLucideEmoji({ type }: { type: string }): keyof typeof icons {
+  if (type === 'url') {
+    return 'Link';
+  }
+  return 'File';
+}
+
 const FileItem = ({ file }: FileItemProps) => {
-  const { name, label, url, emoji = 'FileText', id } = file;
-  const emojiKey = (emoji as keyof typeof icons) || 'FileText';
+  const { name, label, url, emoji, id, type } = file;
+  const emojiKey = getLucideEmoji({ type });
+  const { isView } = useView();
   return (
     <div className="transition duration-150 relative rounded-md aspect-[5/4] flex flex-col items-center justify-center gap-2 border bg-muted w-[160px] px-3 group cursor-pointer hover:bg-accent hover:border-ring/50">
       <LucideIcon name={emojiKey} className="w-8 h-8" />
@@ -26,10 +35,12 @@ const FileItem = ({ file }: FileItemProps) => {
         href={file.url}
         target="_blank"
       />
-      <FileEditButton
-        file={file}
-        className="absolute top-1 right-1 md:opacity-0 md:group-hover:opacity-100"
-      />
+      {!isView && (
+        <FileEditButton
+          file={file}
+          className="absolute top-1 right-1 md:opacity-0 md:group-hover:opacity-100"
+        />
+      )}
     </div>
   );
 };

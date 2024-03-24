@@ -29,9 +29,11 @@ export async function generateMetadata({
     return;
   }
   const newMetadata: MetaDataData = {
-    title: project.name!,
-    description: project.description!,
-    imageUrl: project.cover!,
+    title: project.name || 'A Lancie project',
+    description: project.description || 'This project was build with Lancie',
+    imageUrl:
+      project.cover! ||
+      'https://lancie-collab.s3.eu-central-1.amazonaws.com/publicFiles/_public/f0d35af2-fe54-428c-8df5-83e01a98896e.jpg',
   };
   const metadata = createMetaDataObject(newMetadata);
   return metadata;

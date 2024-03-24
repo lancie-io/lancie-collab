@@ -87,7 +87,7 @@ const VideoItem = ({ video, element }: VideoItemProps) => {
         />
       )}
       {videoUnsupported && (
-        <div className="relative aspect-video w-full overflow-hidden flex flex-col items-center gap-4">
+        <div className="relative aspect-video w-full overflow-hidden flex flex-col items-center justify-center gap-4">
           {renderIcon()}
           <Link
             href={video.url}

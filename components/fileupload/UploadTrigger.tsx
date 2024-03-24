@@ -99,11 +99,16 @@ const UploadTrigger = React.forwardRef<HTMLInputElement, InputProps>(
                 name: addedFileState.file.name,
                 url: res.url,
               };
-              void onUpload?.(uploadedFile);
+              console.log('uploaded file', uploadedFile);
+              console.log('uploaded to edgestore');
+              onUpload?.(uploadedFile);
+
+              console.log('uploaded to db');
               const newFileStates = fileStates.filter(
                 (fileState) => fileState.key !== addedFileState.key
               );
               setFileStates(newFileStates);
+              console.log('uploaded filestate');
             } catch (err) {
               updateFileProgress(addedFileState.key, 'ERROR');
             }
