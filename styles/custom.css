@@ -100,3 +100,12 @@
 .no-cursor * {
   cursor: none !important;
 }
+
+* {
+  ::-webkit-scrollbar {
+    display: none;
+
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}
