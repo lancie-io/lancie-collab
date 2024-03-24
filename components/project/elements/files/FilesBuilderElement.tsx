@@ -55,11 +55,12 @@ export type FilesManagerCustomInstance = BuilderElementInstance & {
 };
 
 function BuilderComponent({
-  elementInstance: element,
+  elementInstance,
 }: {
-  elementInstance: FilesElement;
+  elementInstance: BuilderElementInstance;
 }) {
   const { updateElement } = useLiveblocks();
+  const element = elementInstance as FilesManagerCustomInstance;
   function addFile(file: UploadedFile) {
     const newFile: File = {
       icon: 'FileText',
