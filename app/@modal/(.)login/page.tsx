@@ -16,7 +16,7 @@ const LoginModal = () => {
 
   return (
     <Modal open={open} onOpenChange={setOpen}>
-      <ModalContent className="p-0 md:max-w-2xl lg:max-w-3xl xl:max-w-4xl">
+      <ModalContent className="p-0 md:max-w-2xl lg:max-w-3xl xl:max-w-4xl z-50">
         <LoginScreen />
       </ModalContent>
     </Modal>
