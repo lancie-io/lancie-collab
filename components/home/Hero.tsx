@@ -2,8 +2,8 @@ import Balancer from 'react-wrap-balancer';
 import Container from '../shared/Container';
 import Title from '../shared/Title';
 import CreatorAvatars from './CreatorAvatars';
+import HeroCTA from './HeroCTA';
 import HeroVisual from './HeroVisual';
-import MegaCTA from './MegaCTA';
 
 const Hero = () => {
   return (
@@ -28,10 +28,7 @@ const Hero = () => {
               Lancie simplifies decision-making and brings visions to life.
             </Balancer>
           </p>
-          <MegaCTA
-            id="get-started"
-            className="animate animate-fade-in-down animate-delay-600"
-          />
+          <HeroCTA />
           <div className="pt-2 md:pt-2 animate animate-fade-in-down animate-delay-900">
             <CreatorAvatars />
           </div>
