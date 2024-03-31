@@ -12,6 +12,7 @@ import { inter } from '@/lib/fonts';
 import '@liveblocks/react-comments/styles.css';
 import '@liveblocks/react-comments/styles/dark/attributes.css';
 import type { Metadata, Viewport } from 'next';
+import '../styles/animate-hero.css';
 import '../styles/animate.css';
 import '../styles/custom.css';
 import '../styles/globals.css';

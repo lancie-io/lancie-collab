@@ -1,0 +1,18 @@
+@keyframes scrolldown {
+  from {
+    transform: translate3d(0%, 0%, 0);
+  }
+  to {
+    transform: translate3d(0%, -10%, 0);
+  }
+}
+
+.animate-hero {
+  animation-duration: 1s;
+  animation-timing-function: ease-in-out;
+  animation-fill-mode: both;
+}
+
+.animate-hero-scrolldown1 {
+  animation-name: scrolldown;
+}

@@ -1,8 +1,9 @@
 import { cn } from '@/lib/utils';
 import colors from '@/resolveConfig';
-import { MousePointer2, icons } from 'lucide-react';
+import { icons } from 'lucide-react';
 import Image from 'next/image';
 import LucideIcon from '../shared/LucideIcon';
+import AnimatingBoard from './AnimatingBoard';
 
 type HeroData = {
   title: string;
@@ -151,7 +152,8 @@ const HeroVisual = () => {
       <div className="aspect-[5/4] md:aspect-video relative">
         <div className="relative w-full h-full bg-subtle border-[1.5px] rounded-b-lg md:rounded-b-xl overflow-hidden">
           <div className="h-full w-full md:w-3/4 mx-auto relative">
-            <Image
+            <AnimatingBoard />
+            {/* <Image
               src="/lancie_hero_animation_thumbnail.jpg"
               alt="Screenshot of the Lancie video platform"
               fill
@@ -161,7 +163,7 @@ const HeroVisual = () => {
                 objectPosition: 'bottom center',
               }}
               sizes="(max-width: 768px) 400px, 1600px"
-            />
+            /> */}
           </div>
           <div className="absolute w-full top-0 h-48 bg-gradient-to-t from-transparent to-subtle" />
           <div className="absolute w-full bottom-0 h-48 bg-gradient-to-b from-transparent to-subtle" />
@@ -195,7 +197,7 @@ const HeroVisual = () => {
             {comments[1].body}
           </Comment>
         </div>
-        <MousePointer2 className="absolute top-[40%] md:top-[55%] left-[55%] fill-foreground stroke-foreground w-10 md:w-12 h-10 md:h-12" />
+        {/* <MousePointer2 className="absolute top-[40%] md:top-[55%] left-[55%] fill-foreground stroke-foreground w-10 md:w-12 h-10 md:h-12" /> */}
       </div>
     </div>
   );
