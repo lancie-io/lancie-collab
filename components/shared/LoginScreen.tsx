@@ -1,11 +1,14 @@
+import { cn } from '@/lib/utils';
 import { Icons } from './Icons';
 import LoginButton from './LoginButton';
 import LoginEmailForm from './LoginEmailForm';
 import Title from './Title';
 
-const LoginScreen = () => {
+const LoginScreen = ({ className }: { className?: string }) => {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 items-center">
+    <div
+      className={cn('grid grid-cols-1 md:grid-cols-2 items-center', className)}
+    >
       <div className="relative aspect-[4/2] md:aspect-auto md:h-full w-full overflow-hidden bg-gradient-to-t from-brand-600 to-brand-400 flex flex-col items-center justify-center">
         <Icons.logoText className="w-1/2 md:w-1/2" />
       </div>

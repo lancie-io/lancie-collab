@@ -1,17 +1,35 @@
 'use client';
-import Link from 'next/link';
-import { trackEvent } from '../providers/Analytics';
-import { buttonVariants } from '../ui/button';
+import { Modal, ModalContent, ModalTrigger } from '../projects/Modal';
+import { Button, ButtonProps } from '../ui/button';
+import LoginScreen from './LoginScreen';
 
-const SignInButton = () => {
+interface SignInButtonProps extends ButtonProps {
+  children: React.ReactNode;
+}
+
+const SignInButton = ({
+  children,
+  variant,
+  size,
+  className,
+  ...props
+}: SignInButtonProps) => {
   return (
-    <Link
-      href="/login"
-      className={buttonVariants({ variant: 'primary', size: 'sm' })}
-      onClick={() => trackEvent('SignInButton Clicked')}
-    >
-      Sign In
-    </Link>
+    <Modal>
+      <ModalTrigger>
+        <Button
+          variant={variant || 'primary'}
+          size={size || 'sm'}
+          className={className}
+          {...props}
+        >
+          {children}
+        </Button>
+      </ModalTrigger>
+      <ModalContent className="p-0 z-50 md:max-w-[700px]">
+        <LoginScreen />
+      </ModalContent>
+    </Modal>
   );
 };
 
