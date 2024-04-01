@@ -7,13 +7,6 @@ import ProminentText from '@/components/home/ProminentText';
 import SocialTeaser from '@/components/home/SocialTeaser';
 import Testimonial from '@/components/home/Testimonial';
 import { flippers } from '@/lib/flippercontent';
-import { Metadata } from 'next';
-
-export const metadata: Metadata = {
-  title: 'Lancie - Video pre-production made easy',
-  description:
-    'Collaborative video pre-production tool for creators and teams. Create stunning visuals and drive real results.',
-};
 
 export default function Home() {
   return (
