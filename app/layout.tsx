@@ -11,7 +11,7 @@ import { EdgeStoreProvider } from '@/lib/edgestore';
 import { inter } from '@/lib/fonts';
 import '@liveblocks/react-comments/styles.css';
 import '@liveblocks/react-comments/styles/dark/attributes.css';
-import Head from 'next/head';
+import { Metadata } from 'next';
 import '../styles/animate.css';
 import '../styles/custom.css';
 import '../styles/globals.css';
@@ -27,6 +27,15 @@ import '../styles/prose.css';
 //   // interactiveWidget: 'resizes-visual',
 // };
 
+export const metadata: Metadata = {
+  title: 'Lancie - Video pre-production made easy',
+  openGraph: {
+    title: 'Lancie - Video pre-production made easy',
+    description:
+      'Collaborative video pre-production tool for creators and teams. Create stunning visuals and drive real results.',
+  },
+};
+
 export default function Layout({
   children,
   modal,
@@ -36,13 +45,6 @@ export default function Layout({
 }) {
   return (
     <html lang="en" className="dark no-scrollbar">
-      <Head>
-        <title>Lancie - Video pre-production made easy</title>
-        <meta
-          name="Description"
-          content="Collaborative video pre-production tool for creators and teams. Create stunning visuals and drive real results."
-        />
-      </Head>
       <body className={`${inter.className}`}>
         <main className="flex min-h-screen flex-col">
           <ErrorBoundary type="App Error">
