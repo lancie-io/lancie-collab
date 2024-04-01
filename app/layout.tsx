@@ -12,6 +12,7 @@ import { inter } from '@/lib/fonts';
 import '@liveblocks/react-comments/styles.css';
 import '@liveblocks/react-comments/styles/dark/attributes.css';
 import type { Metadata } from 'next';
+import Head from 'next/head';
 import '../styles/animate.css';
 import '../styles/custom.css';
 import '../styles/globals.css';
@@ -42,6 +43,16 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className="dark no-scrollbar">
+      <Head>
+        <meta
+          property="twitter:title"
+          content="Lancie - Video pre-production made easy"
+        />
+        <meta
+          property="twitter:description"
+          content="Collaborative video pre-production tool for creators and production teams. Create stunning visuals and drive real results."
+        />
+      </Head>
       <body className={`${inter.className}`}>
         <main className="flex min-h-screen flex-col">
           <ErrorBoundary type="App Error">
