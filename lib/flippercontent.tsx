@@ -30,7 +30,7 @@ export const flippers: FlipperData[] = [
       </>
     ),
     description:
-      "Don't start from scratch. Pre-built modules help you structure creative thoughts quickly.",
+      'Pre-built modules, tailored for video productions, help you structure creative thoughts quickly.',
     visual: (
       <Image
         src={visualBuilding}

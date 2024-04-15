@@ -114,13 +114,13 @@ const HeroVisual = () => {
           />
         </div>
       </div>
-      <div className="relative h-10 md:h-14 bg-background rounded-t-lg md:rounded-t-xl overflow-hidden flex items-center px-3 md:px-4 border-t-[1.5px] border-r-[1.5px] border-l-[1.5px] shadow-[0_0_40px_30px_rgba(22,23,24,0.9)]">
-        <div className="flex gap-1 md:gap-1.5">
-          <div className="w-2 md:w-3 aspect-square bg-[#EA635A] rounded-full" />
-          <div className="w-2 md:w-3 aspect-square bg-[#F4BE59] rounded-full" />
-          <div className="w-2 md:w-3 aspect-square bg-[#65C35A] rounded-full" />
+      <div className="relative h-8 md:h-12 bg-background rounded-t-lg md:rounded-t-xl overflow-hidden flex items-center px-3 md:px-4 border-t-[1.5px] border-r-[1.5px] border-l-[1.5px] shadow-[0_0_40px_30px_rgba(22,23,24,0.9)]">
+        <div className="flex gap-1 md:gap-1.5 opacity-50">
+          <div className="w-2 md:w-2.5 aspect-square bg-[#EA635A] rounded-full" />
+          <div className="w-2 md:w-2.5 aspect-square bg-[#F4BE59] rounded-full" />
+          <div className="w-2 md:w-2.5 aspect-square bg-[#65C35A] rounded-full" />
         </div>
-        <h2 className="ml-4 md:ml-6 font-medium text-xs md:text-sm">{title}</h2>
+        {/* <h2 className="ml-4 md:ml-6 font-medium text-xs md:text-sm">{title}</h2> */}
         <div className="relative flex gap-1.5 ml-auto">
           <PulseCircle className="z-20 -mr-4 border-amber-500 pulsate-infinite-amber">
             <Image
@@ -213,7 +213,7 @@ const PulseCircle = ({
   return (
     <div
       className={cn(
-        'relative rounded-full w-5 md:w-9 aspect-square border md:border-[1.5px]',
+        'relative rounded-full w-4 md:w-8 aspect-square border md:border-[1.5px]',
         className
       )}
     >

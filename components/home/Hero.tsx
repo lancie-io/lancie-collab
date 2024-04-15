@@ -17,9 +17,8 @@ const Hero = () => {
               fontSize: 'clamp(2.5rem, 8vw, 3.5rem)',
             }}
           >
-            Video <br className="md:hidden" />
-            pre-production <br />
-            made easy
+            Build better video <br />
+            concepts faster
           </Title>
           <p className="text-muted-foreground md:text-lg animate animate-fade-in-down animate-delay-300 text-center mb-1 md:mb-2">
             <Balancer>
