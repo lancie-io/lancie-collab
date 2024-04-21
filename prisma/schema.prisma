@@ -37,7 +37,7 @@ model Invite {
   id            String    @id @default(cuid())
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt @default(now())
-  fromUser      User      @relation("fromUser", fields: [fromUserId], references: [id])
+  fromUser      User      @relation("fromUser", fields: [fromUserId], references: [id], onDelete: Cascade)
   fromUserId    String
   toEmail       String?    
   project       Project   @relation("project", fields: [projectId], references: [id], onDelete: Cascade)
@@ -133,7 +133,7 @@ model File {
   project   Project?  @relation(fields: [projectId], references: [id])
   projectId String?
   moduleId  String?
-  type      String
+  type      String?
 }
 
 
