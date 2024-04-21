@@ -74,8 +74,7 @@ export const authOptions: NextAuthOptions = {
     },
 
     async jwt({ token, user }: any) {
-      console.log('JWT executed', user);
-      console.log('JWT executed token', token);
+      console.log('USER: ', user);
       let dbUser;
       dbUser = await prisma.user.findFirst({
         where: {
@@ -94,15 +93,11 @@ export const authOptions: NextAuthOptions = {
           },
         },
       });
-      console.log('DBUSER BEFORE TOKEN', user);
 
+      console.log('TOKEN: ', token);
       if (!dbUser) {
-        console.log('USER', user);
-        console.log('DBUSER', dbUser);
-        token.id = user!.id;
         return token;
       }
-      console.log('DB USER CREATED', dbUser);
 
       return {
         id: dbUser.id,
