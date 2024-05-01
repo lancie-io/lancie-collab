@@ -13,7 +13,11 @@ interface FileItemProps {
   element: FilesElement;
 }
 
-function getLucideEmoji({ type }: { type: string }): keyof typeof icons {
+function getLucideEmoji({
+  type,
+}: {
+  type?: string | null;
+}): keyof typeof icons {
   if (type === 'url') {
     return 'Link';
   }
